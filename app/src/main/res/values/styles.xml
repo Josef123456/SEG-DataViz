@@ -1,8 +1,16 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme">
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Buttons">
+        <item name="android:textColor">#CC6600</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/custom_drawables</item>
     </style>
 
 </resources>

@@ -7,5 +7,7 @@
     <string name="investing">Investor</string>
     <string name="student">Student</string>
     <string name="other">Other</string>
+    <string name="title_activity_interest">InterestActivity</string>
+    <string name="interests">Interests</string>
 
 </resources>
