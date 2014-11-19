@@ -1,5 +1,6 @@
 package com.team1_k.project.seg.dataviz.data;
 
+import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -8,8 +9,9 @@ import android.provider.BaseColumns;
  */
 public class DataVizContract {
 
-    public static final String CONTRACT_AUTHORITY = "com.team1_k.project.seg.dataviz." +
+    public static final String CONTENT_AUTHORITY = "com.team1_k.project.seg.dataviz." +
             "contentprovider" ;
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://"+ CONTENT_AUTHORITY);
 
     public static final String PATH_COUNTRY = "country" ;
     public static final String PATH_METRIC = "metric" ;
@@ -19,26 +21,34 @@ public class DataVizContract {
     public static final class CountryEntry implements BaseColumns {
 
         public static final String CONTENT_TYPE =
-                "vnd.android.cursor.dir/" + CONTRACT_AUTHORITY + "/" + PATH_COUNTRY;
+                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY;
         public static final String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/" + CONTRACT_AUTHORITY + "/" + PATH_COUNTRY;
-
+                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY;
 
         public static final String TABLE_NAME = "country" ;
         public static final String COLUMN_NAME = "name" ;
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_COUNTRY).build();
+
+        public static Uri buildCountryUri(long _ID){
+            return ContentUris.withAppendedId(CONTENT_URI, _ID) ;
+        }
 
         public static final String[] COLUMNS = {
                 _ID,
                 COLUMN_NAME
         };
+
+        public static final int COL_ID = 0 ;
+        public static final int COL_NAME = 1 ;
     }
 
     public static final class MetricEntry implements BaseColumns {
 
         public static final String CONTENT_TYPE =
-                "vnd.android.cursor.dir/" + CONTRACT_AUTHORITY + "/" + PATH_METRIC;
+                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_METRIC;
         public static final String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/" + CONTRACT_AUTHORITY + "/" + PATH_METRIC;
+                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_METRIC;
 
 
         public static final String TABLE_NAME = "metric" ;
@@ -51,9 +61,9 @@ public class DataVizContract {
 
 
         public static final String CONTENT_TYPE =
-                "vnd.android.cursor.dir/" + CONTRACT_AUTHORITY + "/" + PATH_DATA_POINT;
+                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_DATA_POINT;
         public static final String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/" + CONTRACT_AUTHORITY + "/" + PATH_DATA_POINT;
+                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_DATA_POINT;
 
 
         public static final String TABLE_NAME = "data_point" ;
