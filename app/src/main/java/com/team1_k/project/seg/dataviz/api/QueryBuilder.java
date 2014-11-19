@@ -31,7 +31,7 @@ public class QueryBuilder {
      * @param metric
      * @param startYear
      * @param finalYear
-     * @return
+     * @return JSON String
      */
     public static String forParams ( Country country, Metric metric, int startYear, int finalYear) {
 
@@ -45,6 +45,8 @@ public class QueryBuilder {
      * @return JSON String
      */
     public static String getMetrics () {
+
+        return "" ;
     }
 
 }

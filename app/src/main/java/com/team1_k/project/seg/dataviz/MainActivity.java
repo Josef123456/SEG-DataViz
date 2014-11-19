@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btn1= (Button) findViewById(R.id.button_Investor);
+        btn1= (Button) findViewById(R.id.button_investor);
         btn1.setBackgroundColor(Color.WHITE);
         btn1.setTextColor(Color.BLACK);
 

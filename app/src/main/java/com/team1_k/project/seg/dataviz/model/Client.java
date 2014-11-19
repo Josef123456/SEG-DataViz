@@ -5,7 +5,15 @@ package com.team1_k.project.seg.dataviz.model;
  */
 public class Client {
 
-    Type type;
+    private Type type;
+
+    Client(Type type) {
+        this.type = type ;
+    }
+
+    public Type getType() {
+        return type;
+    }
 
     public enum Type {
         INVESTOR(new String[]{"GDP", "UNEMPLOYMENT"}), STUDENT(new String[]{"MINWAGE"});
@@ -14,6 +22,10 @@ public class Client {
 
         Type(String[] interests) {
             this.interests = interests ;
+        }
+
+        String[] getInterests() {
+            return interests ;
         }
     }
 }
