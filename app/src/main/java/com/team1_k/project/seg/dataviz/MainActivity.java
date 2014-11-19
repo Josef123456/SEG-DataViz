@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.team1_k.project.seg.dataviz.data.DataVizDbHelper;
+
 
 public class MainActivity extends Activity {
 

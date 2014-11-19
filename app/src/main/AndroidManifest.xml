@@ -3,16 +3,15 @@
     package="com.team1_k.project.seg.dataviz" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <activity
-            android:name=".MainActivity"
+            android:name="com.team1_k.project.seg.dataviz.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,15 +20,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".InterestActivity"
+            android:name="com.team1_k.project.seg.dataviz.InterestActivity"
             android:label="@string/title_activity_interest"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="com.team1_k.project.seg.dataviz.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.team1_k.project.seg.dataviz.MainActivity" />
         </activity>
 
-
+        <provider
+            android:name="com.team1_k.project.seg.dataviz.data.DataVizContentProvider"
+            android:authorities="com.team1_k.project.seg.dataviz.contentprovider"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
     </application>
 
 </manifest>

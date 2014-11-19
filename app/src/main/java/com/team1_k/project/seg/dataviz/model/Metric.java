@@ -9,9 +9,9 @@ import java.util.HashMap;
 public class Metric {
 
     /**
-     * String id - the id with which we grab the metric from the API, eg: AG.CON.FERT.ZS
+     * The id with which we grab the metric from the API, eg: AG.CON.FERT.ZS
      */
-    private String id;
+    private String api_id;
 
     /**
      * The human readable version of the id, eg: Fertilizer consumption (kilograms per
@@ -31,7 +31,7 @@ public class Metric {
 
 
     public Metric(String id, String name, String description) {
-        this.id = id;
+        this.api_id = id;
         this.name = name;
         this.description = description;
     }
