@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="gdp">Gross Domestic Product</string>
-    <string name="unemployment_rate">Unemployment Rate</string>
-    <string name="poverty_rate">Poverty Rate</string>
-    <string name="gnp">Gross National Product</string>
-</resources>

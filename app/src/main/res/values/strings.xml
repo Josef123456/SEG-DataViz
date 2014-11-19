@@ -9,5 +9,8 @@
     <string name="other">Other</string>
     <string name="title_activity_interest">InterestActivity</string>
     <string name="interests">Interests</string>
+    <string name="title_activity_main_view">MainView</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_news">NewsActivity</string>
 
 </resources>
