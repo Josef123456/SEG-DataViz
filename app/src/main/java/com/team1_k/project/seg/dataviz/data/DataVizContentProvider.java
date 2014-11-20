@@ -8,7 +8,10 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.provider.ContactsContract;
+import android.util.Log;
 
 import java.sql.SQLException;
 
@@ -17,8 +20,33 @@ public class DataVizContentProvider extends ContentProvider {
     private DataVizDbHelper dbHelper ;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher() ;
+
     private static final int COUNTRY= 100 ;
     private static final int COUNTRY_ID = 101 ;
+    private static final int COUNTRY_WITH_METRICS = 102 ;
+
+    private static final int METRIC = 200 ;
+    private static final int METRIC_ID = 201 ;
+    private static final int ALL_METRIC_DATA = 202 ;
+
+    private static final int DATA_POINT = 300 ;
+    private static final int DATA_POINT_ID = 301 ;
+
+    private static final SQLiteQueryBuilder countryWithMetricsQueryBuilder;
+
+    static {
+        countryWithMetricsQueryBuilder = new SQLiteQueryBuilder();
+        countryWithMetricsQueryBuilder.setTables(
+                CountryEntry.TABLE_NAME +
+                " INNER JOIN " + DataPointEntry.TABLE_NAME + " ON " +
+                CountryEntry.TABLE_NAME + "." + CountryEntry._ID + " = "+
+                DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_COUNTRY_ID
+                +
+                " LEFT JOIN " + MetricEntry.TABLE_NAME + " ON " +
+                MetricEntry.TABLE_NAME + "." + MetricEntry._ID + " = "+
+                DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_METRIC_ID
+        );
+    }
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH) ;
@@ -26,6 +54,15 @@ public class DataVizContentProvider extends ContentProvider {
 
         matcher.addURI( AUTHORITY, DataVizContract.PATH_COUNTRY, COUNTRY );
         matcher.addURI( AUTHORITY, DataVizContract.PATH_COUNTRY + "/#", COUNTRY_ID );
+        matcher.addURI( AUTHORITY, DataVizContract.PATH_COUNTRY + "/metrics/#",
+                COUNTRY_WITH_METRICS);
+
+        matcher.addURI( AUTHORITY, DataVizContract.PATH_METRIC, METRIC ) ;
+        matcher.addURI( AUTHORITY, DataVizContract.PATH_METRIC + "/#", METRIC_ID ) ;
+
+        matcher.addURI( AUTHORITY, DataVizContract.PATH_DATA_POINT, DATA_POINT ) ;
+        matcher.addURI( AUTHORITY, DataVizContract.PATH_DATA_POINT + "/#", DATA_POINT_ID ) ;
+
         return matcher;
     }
 
@@ -41,6 +78,14 @@ public class DataVizContentProvider extends ContentProvider {
         switch(match) {
             case COUNTRY: return CountryEntry.CONTENT_TYPE ;
             case COUNTRY_ID: return CountryEntry.CONTENT_ITEM_TYPE ;
+            case COUNTRY_WITH_METRICS: return CountryEntry.CONTENT_TYPE ;
+
+            case METRIC: return MetricEntry.CONTENT_TYPE ;
+            case METRIC_ID: return MetricEntry.CONTENT_ITEM_TYPE ;
+
+            case DATA_POINT: return DataPointEntry.CONTENT_TYPE ;
+            case DATA_POINT_ID: return DataPointEntry.CONTENT_ITEM_TYPE ;
+
         }
         //TODO: better this.
         return null;
@@ -66,6 +111,24 @@ public class DataVizContentProvider extends ContentProvider {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 }
                 break;
+            }
+            case METRIC: {
+                long _id = db.insert(MetricEntry.TABLE_NAME, null, values);
+                if ( _id > 0 ) {
+                    returnUri = MetricEntry.buildMetricUri(_id);
+                } else {
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            }
+            case DATA_POINT: {
+                long _id = db.insert(DataPointEntry.TABLE_NAME, null, values);
+                if ( _id > 0 ) {
+                    returnUri = DataPointEntry.buildDataPointUri(_id);
+                } else {
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                }
+                break ;
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -104,6 +167,30 @@ public class DataVizContentProvider extends ContentProvider {
                         sortOrder
                 );
                 break ;
+            }
+            case COUNTRY_WITH_METRICS: {
+                returnCursor = countryWithMetricsQueryBuilder.query(
+                        db,
+                        projection,
+                        CountryEntry.TABLE_NAME + "." + CountryEntry._ID + " = ?",
+                        new String[] { String.valueOf(ContentUris.parseId(uri)) },
+                        null,
+                        null,
+                        sortOrder
+                );
+                break ;
+            }
+            case METRIC: {
+                returnCursor = db.query(
+                        MetricEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

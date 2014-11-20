@@ -34,13 +34,16 @@ public class DataVizContract {
             return ContentUris.withAppendedId(CONTENT_URI, _ID) ;
         }
 
+        public static Uri buildCountryWithMetricUri(long _ID){
+            return CONTENT_URI.buildUpon().
+                    appendEncodedPath("metrics").
+                    appendEncodedPath(String.valueOf(_ID)).build();
+        }
+
         public static final String[] COLUMNS = {
                 _ID,
                 COLUMN_NAME
         };
-
-        public static final int COL_ID = 0 ;
-        public static final int COL_NAME = 1 ;
     }
 
     public static final class MetricEntry implements BaseColumns {
@@ -55,6 +58,29 @@ public class DataVizContract {
         public static final String COLUMN_NAME = "name" ;
         public static final String COLUMN_DESCRIPTION = "description" ;
         public static final String COLUMN_API_ID = "api_id" ;
+
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_METRIC).build();
+
+        public static Uri buildMetricUri(long _ID) {
+            return ContentUris.withAppendedId(CONTENT_URI, _ID);
+        }
+
+        public static final String[] COLUMNS = {
+                _ID,
+                COLUMN_NAME,
+                COLUMN_DESCRIPTION,
+                COLUMN_API_ID
+        } ;
+
+        public static final String[] COLUMNS_FOR_METRIC_QUERY = {
+                CountryEntry.TABLE_NAME+ "." + CountryEntry.COLUMN_NAME,
+                MetricEntry.TABLE_NAME + "." + _ID,
+                MetricEntry.TABLE_NAME + "." + COLUMN_NAME,
+                MetricEntry.TABLE_NAME + "." + COLUMN_DESCRIPTION,
+                MetricEntry.TABLE_NAME + "." + COLUMN_API_ID
+        } ;
+
     }
 
     public static final class DataPointEntry implements BaseColumns {
@@ -64,6 +90,13 @@ public class DataVizContract {
                 "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_DATA_POINT;
         public static final String CONTENT_ITEM_TYPE =
                 "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_DATA_POINT;
+
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_DATA_POINT).build() ;
+
+        public static Uri buildDataPointUri(long _ID) {
+            return ContentUris.withAppendedId(CONTENT_URI, _ID);
+        }
 
 
         public static final String TABLE_NAME = "data_point" ;
