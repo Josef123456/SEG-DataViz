@@ -28,7 +28,7 @@
         </provider>
 
         <activity
-            android:name=".MainView"
+            android:name=".MainViewActivity"
             android:label="@string/title_activity_main_view"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -38,11 +38,12 @@
         <activity
             android:name=".NewsActivity"
             android:label="@string/title_activity_news"
-            android:parentActivityName=".MainView" >
+            android:parentActivityName=".MainViewActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.team1_k.project.seg.dataviz.MainView" />
         </activity>
+        <service android:name=".data_news.RssService" />
     </application>
 
 </manifest>

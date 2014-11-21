@@ -1,13 +1,10 @@
 package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-
-import com.team1_k.project.seg.dataviz.data.DataVizDbHelper;
 
 
 public class MainActivity extends Activity {
@@ -17,9 +14,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btn1= (Button) findViewById(R.id.button_investor);
-        btn1.setBackgroundColor(Color.WHITE);
-        btn1.setTextColor(Color.BLACK);
+
 
     }
 
