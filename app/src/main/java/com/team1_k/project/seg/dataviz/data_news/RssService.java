@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class RssService extends IntentService {
 
-    private static final String RSS_LINK = "http://www.bloomberg.com/feed/podcast/etf-report.xml";
+    private static final String RSS_LINK = "http://feeds.reuters.com/reuters/businessNews";
     public static final String ITEMS = "items";
     public static final String RECEIVER = "receiver";
 

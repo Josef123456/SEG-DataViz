@@ -1,9 +1,11 @@
 package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainViewActivity extends Activity {
@@ -12,6 +14,7 @@ public class MainViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view);
+
     }
 
 
@@ -33,4 +36,12 @@ public class MainViewActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+    public void startNewsActivity(View view) {
+        // FOR CHOOSING YOUR STARTING AND END LOCATION POINTS
+        Intent intent = new Intent(this, NewsActivity.class);
+        //String message = "test string";
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
 }

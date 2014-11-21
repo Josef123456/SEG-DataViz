@@ -19,6 +19,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/News"
+                android:onClick="startNewsActivity"
                 android:id="@+id/news_feed_button" android:layout_weight="0.2"/>
         <Button
                 android:layout_width="0dp"

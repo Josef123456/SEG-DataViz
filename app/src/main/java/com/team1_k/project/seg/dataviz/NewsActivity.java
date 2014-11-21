@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.view.*;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.*;
 import com.team1_k.project.seg.dataviz.data_news.RssAdapter;
 import com.team1_k.project.seg.dataviz.data_news.RssItem;
 import com.team1_k.project.seg.dataviz.data_news.RssService;
@@ -57,7 +54,7 @@ public class NewsActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-   public static class RssFragment extends Fragment implements AdapterView.OnItemClickListener {
+   public class RssFragment extends Fragment implements AdapterView.OnItemClickListener {
 
         private ProgressBar progressBar;
         private ListView listView;
@@ -104,6 +101,7 @@ public class NewsActivity extends Activity {
                 if (items != null) {
                     RssAdapter adapter = new RssAdapter(getActivity(), items);
                     listView.setAdapter(adapter);
+
                 } else {
                     Toast.makeText(getActivity(), "An error occured while downloading the rss feed.",
                             Toast.LENGTH_LONG).show();
@@ -121,5 +119,9 @@ public class NewsActivity extends Activity {
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         }
+    }
+
+    static class ViewHolder {
+        TextView itemTitle;
     }
 }

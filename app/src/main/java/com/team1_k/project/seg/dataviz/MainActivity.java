@@ -16,9 +16,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        Intent trial = new Intent(this, NewsActivity.class);
-        startActivity(trial);
 
+        Intent mainViewActivity = new Intent(this, MainViewActivity.class);
+        startActivity(mainViewActivity);
 
     }
 

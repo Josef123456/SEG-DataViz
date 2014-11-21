@@ -34,6 +34,7 @@ public class BloombergParser {
         String link = null;
         List<RssItem> items = new ArrayList<RssItem>();
         while (parser.next() != XmlPullParser.END_DOCUMENT) {
+            System.out.println(parser.getEventType());
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -50,6 +51,8 @@ public class BloombergParser {
                 link = null;
             }
         }
+
+        items.remove(0);
         return items;
     }
 
