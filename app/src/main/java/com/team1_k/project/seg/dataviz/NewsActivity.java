@@ -29,6 +29,12 @@ public class NewsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
+
+        Intent x = new Intent();
+        RssFragment trial = new RssFragment();
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, trial).commit();
+
     }
 
 
@@ -66,7 +72,7 @@ public class NewsActivity extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             if (view == null) {
-                view = inflater.inflate(R.layout.activity_news, container, false);
+                view = inflater.inflate(R.layout.fragment_news, container, false);
                 progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
                 listView = (ListView) view.findViewById(R.id.listView);
                 listView.setOnItemClickListener(this);
