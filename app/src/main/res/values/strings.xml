@@ -12,5 +12,6 @@
     <string name="title_activity_main_view">MainView</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_news">NewsActivity</string>
+    <string name="title_activity_metric_selection">MetricSelectionActivity</string>
 
 </resources>

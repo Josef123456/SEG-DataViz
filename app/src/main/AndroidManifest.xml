@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.team1_k.project.seg.dataviz.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,29 +21,35 @@
         </activity>
 
         <provider
-            android:name=".data.DataVizContentProvider"
+            android:name="com.team1_k.project.seg.dataviz.data.DataVizContentProvider"
             android:authorities="com.team1_k.project.seg.dataviz.contentprovider"
             android:enabled="true"
             android:exported="true" >
         </provider>
 
         <activity
-            android:name=".MainViewActivity"
+            android:name="com.team1_k.project.seg.dataviz.MainViewActivity"
             android:label="@string/title_activity_main_view"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="com.team1_k.project.seg.dataviz.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.team1_k.project.seg.dataviz.MainActivity" />
         </activity>
         <activity
-            android:name=".NewsActivity"
+            android:name="com.team1_k.project.seg.dataviz.NewsActivity"
             android:label="@string/title_activity_news"
-            android:parentActivityName=".MainViewActivity" >
+            android:parentActivityName="com.team1_k.project.seg.dataviz.MainViewActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.team1_k.project.seg.dataviz.MainView" />
         </activity>
-        <service android:name=".data_news.RssService" />
+
+        <service android:name="com.team1_k.project.seg.dataviz.data_news.RssService" />
+
+        <activity
+            android:name="com.team1_k.project.seg.dataviz.MetricSelectionActivity"
+            android:label="@string/title_activity_metric_selection" >
+        </activity>
     </application>
 
 </manifest>
