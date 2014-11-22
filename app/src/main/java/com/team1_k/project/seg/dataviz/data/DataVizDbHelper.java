@@ -34,7 +34,7 @@ public class DataVizDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_METRIC_TABLE = "CREATE TABLE " + MetricEntry.TABLE_NAME + " " +
                 "( " +
                 MetricEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                MetricEntry.COLUMN_API_ID + " TEXT NOT NULL," +
+                MetricEntry.COLUMN_API_ID + " TEXT NOT NULL UNIQUE," +
                 MetricEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL," +
                 MetricEntry.COLUMN_NAME + " TEXT NOT NULL"
                 + ")";

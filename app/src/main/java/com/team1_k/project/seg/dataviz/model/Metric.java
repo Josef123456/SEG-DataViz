@@ -1,6 +1,10 @@
 package com.team1_k.project.seg.dataviz.model;
 
-import java.util.ArrayList;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 /**
@@ -8,31 +12,50 @@ import java.util.HashMap;
  */
 public class Metric {
 
+    private static String LOG_TAG = "model.metric" ;
+
     /**
      * The id with which we grab the metric from the API, eg: AG.CON.FERT.ZS
      */
-    private String api_id;
+    private String mApiId;
 
     /**
      * The human readable version of the id, eg: Fertilizer consumption (kilograms per
      * hectare of arable land)
      */
-    private String name;
+    private String mName;
 
     /**
      * The description of this metric, eg: "Fertilizer consumption measures the quantity of ...
      */
-    private String description;
+    private String mDescription;
 
     /**
      * dataPoints - first integer represents year, second the value for that year for this metric
      */
-    private HashMap<Integer,Integer> dataPoints;
+    private HashMap<Integer,Integer> mDataPoints;
 
-
-    public Metric(String id, String name, String description) {
-        this.api_id = id;
-        this.name = name;
-        this.description = description;
+    public Metric(JSONObject metric) {
+        try {
+            this.mName = metric.getString("name");
+            this.mDescription = metric.getString("sourceNote");
+            this.mApiId = metric.getString("id");
+        } catch ( JSONException e ) {
+            e.printStackTrace();
+            Log.e(LOG_TAG, e.toString());
+        }
     }
+
+    public String getApiId() {
+        return mApiId;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
 }

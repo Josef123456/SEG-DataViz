@@ -10,14 +10,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.provider.ContactsContract;
-import android.util.Log;
-
-import java.sql.SQLException;
 
 public class DataVizContentProvider extends ContentProvider {
 
-    private DataVizDbHelper dbHelper ;
+    private DataVizDbHelper mDbHelper;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher() ;
 
@@ -68,7 +64,7 @@ public class DataVizContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        dbHelper = new DataVizDbHelper(getContext());
+        mDbHelper = new DataVizDbHelper(getContext());
         return false ;
     }
 
@@ -99,7 +95,7 @@ public class DataVizContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        final SQLiteDatabase db = dbHelper.getWritableDatabase() ;
+        final SQLiteDatabase db = mDbHelper.getWritableDatabase() ;
         Uri returnUri ;
         final int match = sUriMatcher.match(uri);
         switch(match) {
@@ -140,7 +136,7 @@ public class DataVizContentProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        final SQLiteDatabase db = dbHelper.getReadableDatabase();
+        final SQLiteDatabase db = mDbHelper.getReadableDatabase();
         final int match = sUriMatcher.match(uri);
         Cursor returnCursor ;
         switch (match) {
@@ -204,5 +200,14 @@ public class DataVizContentProvider extends ContentProvider {
                       String[] selectionArgs) {
         // TODO: Implement this to handle requests to update one or more rows.
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+
+    @Override
+    public int bulkInsert(Uri uri, ContentValues[] values) {
+
+        final SQLiteDatabase db =
+
+        return super.bulkInsert(uri, values);
     }
 }

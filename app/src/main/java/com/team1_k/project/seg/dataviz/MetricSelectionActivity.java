@@ -48,12 +48,10 @@ public class MetricSelectionActivity extends Activity
                 R.layout.metric_list_view_layout,
                 null,
                 new String[]{
-                        MetricEntry.COLUMN_NAME,
-                        MetricEntry.COLUMN_DESCRIPTION
+                        MetricEntry.COLUMN_NAME//,MetricEntry.COLUMN_DESCRIPTION
                 },
                 new int[]{
-                        R.id.mainText,
-                        R.id.descriptionText
+                        R.id.mainText//,R.id.descriptionText
                 },
                 0
         );
