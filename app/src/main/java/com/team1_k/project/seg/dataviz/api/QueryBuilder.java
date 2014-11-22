@@ -62,31 +62,6 @@ public class QueryBuilder {
 
     }
 
-    private long addMetric(String name, String description, String api_id){
-
-        Log.d(LOG_TAG, "inserting " + api_id );
-
-        Cursor cursor = mContext.getContentResolver().query(
-                MetricEntry.CONTENT_URI,
-                new String[] { MetricEntry._ID },
-                MetricEntry.COLUMN_NAME + " = ? ",
-                new String[] { name },
-                null
-        );
-
-        if ( cursor.moveToFirst() ){
-            int metricIdIndex = cursor.getColumnIndex(MetricEntry._ID);
-            long _id = cursor.getLong(metricIdIndex);
-            Log.d(LOG_TAG, "found metric with " + api_id + " in DB at " + String.valueOf(_id) ) ;
-            return _id ;
-        } else {
-
-
-            Uri insert_uri = mContext.getContentResolver().insert(MetricEntry.CONTENT_URI, metricValues);
-            return ContentUris.parseId(insert_uri);
-        }
-    }
-
     private ContentValues createMetricContentValues(Metric metric) {
         ContentValues metricValues = new ContentValues();
         metricValues.put(MetricEntry.COLUMN_NAME, metric.getName());
@@ -102,9 +77,8 @@ public class QueryBuilder {
         for (int i = 0 ; i < metrics_length; ++ i ){
             JSONObject metric = metrics.getJSONObject(i);
             bulkContentValues[i] = createMetricContentValues(new Metric(metric));
-            Log.i( LOG_TAG, "Metric with ID: " +  _id ) ;
         }
-        
+        mContext.getContentResolver().bulkInsert(MetricEntry.CONTENT_URI, bulkContentValues);
     }
 
     private void asyncMetricRequestWithPage(int page)
@@ -117,7 +91,7 @@ public class QueryBuilder {
             public void onCompleted(Exception e, AsyncHttpResponse response, String result) {
                 if (e != null) {
                     e.printStackTrace();
-                    Log.e("json", e.toString());
+                    Log.e(LOG_TAG, e.toString());
                     return;
                 }
                 try {
@@ -125,7 +99,7 @@ public class QueryBuilder {
                     JSONObject page_info = array.getJSONObject(0);
                     JSONArray metrics = array.getJSONArray(1);
                     parseMetrics(metrics);
-                } catch ( Exception ex ) {
+                } catch ( JSONException ex ) {
                     Log.e(LOG_TAG, ex.toString());
                     return;
                 }
