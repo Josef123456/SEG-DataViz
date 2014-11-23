@@ -66,7 +66,11 @@ public class QueryBuilder {
 
     public void getCountries () {
         CountryQuery helper = new CountryQuery(mContext);
+        //TODO: pass all of this onto the country query so that it parse page information
 
+        for ( int i = 1 ; i < 2 ; ++ i ) {
+            helper.asyncCountryRequestWithPage(i);
+        }
     }
 
     /**
@@ -78,8 +82,9 @@ public class QueryBuilder {
         MetricQuery helper = new MetricQuery(mContext);
         //TODO: pass all of this onto the metric query so that it parse page information
 
-        for (int i = 1; i<25; ++ i)
+        for (int i = 1; i<25; ++ i) {
             helper.asyncMetricRequestWithPage(i);
+        }
     }
 
 }

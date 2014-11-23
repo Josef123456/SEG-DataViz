@@ -48,7 +48,7 @@ public class Country {
             this.mLatitude = country.getDouble("latitude");
             this.mLongitude = country.getDouble("longitude");
             this.mCapitalCity = country.getString("capitalCity");
-
+            Log.i ( LOG_TAG, "city with name " + mName);
         } catch ( JSONException exception ) {
             Log.e(LOG_TAG, exception.toString());
             exception.printStackTrace();
