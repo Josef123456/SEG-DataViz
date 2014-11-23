@@ -7,7 +7,7 @@ import android.util.Log;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.koushikdutta.async.http.AsyncHttpResponse;
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
-import com.team1_k.project.seg.dataviz.data.DataVizContract;
+import com.team1_k.project.seg.dataviz.data.DataVizContract.CountryEntry;
 import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.Metric;
 
@@ -25,7 +25,11 @@ public class CountryQuery {
     private ContentValues createCountryContentValues(Country country){
         ContentValues countryValues = new ContentValues() ;
 
-        countryValues.put(DataVizContract.CountryEntry.COLUMN_NAME, country.getName());
+        countryValues.put(CountryEntry.COLUMN_NAME, country.getName());
+        countryValues.put(CountryEntry.COLUMN_API_ID, country.getApiId());
+        countryValues.put(CountryEntry.COLUMN_CAPITAL_CITY, country.getCapitalCity());
+        countryValues.put(CountryEntry.COLUMN_LONGITUDE, country.getLongitude());
+        countryValues.put(CountryEntry.COLUMN_LATITUDE, country.getLatitude());
         Log.i(LOG_TAG, "country with" + country.getName());
         return countryValues ;
     }
@@ -41,7 +45,7 @@ public class CountryQuery {
             bulkContentValues[i] = createCountryContentValues(new Country(country));
         }
         mContext.getContentResolver()
-                .bulkInsert(DataVizContract.CountryEntry.CONTENT_URI, bulkContentValues);
+                .bulkInsert(CountryEntry.CONTENT_URI, bulkContentValues);
     }
 
     public void asyncCountryRequestWithPage(int page) {

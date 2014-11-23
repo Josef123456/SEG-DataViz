@@ -45,8 +45,20 @@ public class Country {
 
             this.mName = country.getString("name");
             this.mApiId = country.getString("id");
-            this.mLatitude = country.getDouble("latitude");
-            this.mLongitude = country.getDouble("longitude");
+            try {
+                this.mLatitude = Double.parseDouble(country.getString("latitude"));
+            } catch ( JSONException exc) {
+                this.mLatitude = 0.0 ;
+            } catch ( NumberFormatException exc ) {
+                this.mLatitude = 0.0 ;
+            }
+            try {
+                this.mLongitude = Double.parseDouble(country.getString("longitude"));
+            } catch ( JSONException exc ) {
+                this.mLongitude = 0.0 ;
+            } catch ( NumberFormatException exc ) {
+                this.mLongitude = 0.0 ;
+            }
             this.mCapitalCity = country.getString("capitalCity");
             Log.i ( LOG_TAG, "city with name " + mName);
         } catch ( JSONException exception ) {

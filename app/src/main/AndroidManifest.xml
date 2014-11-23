@@ -51,8 +51,12 @@
             android:label="@string/title_activity_metric_selection" >
         </activity>
         <activity
-            android:name=".CountrySelectionActivity"
+            android:name="com.team1_k.project.seg.dataviz.CountrySelectionActivity"
             android:label="@string/title_activity_country_selection" >
+        </activity>
+        <activity
+            android:name="com.team1_k.project.seg.dataviz.CountryDetailActivity"
+            android:label="@string/title_activity_country_detail" >
         </activity>
     </application>
 

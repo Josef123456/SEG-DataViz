@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -16,6 +19,7 @@ import android.widget.SimpleCursorAdapter;
 import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.CountryEntry;
+import com.team1_k.project.seg.dataviz.data.DataVizDbHelper;
 
 public class CountrySelectionActivity extends Activity implements
         LoaderManager.LoaderCallbacks<Cursor>{
@@ -36,7 +40,10 @@ public class CountrySelectionActivity extends Activity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DataVizDbHelper dbHelper = new DataVizDbHelper(getApplicationContext());
         super.onCreate(savedInstanceState);
+
+        getLoaderManager().initLoader(COUNTRY_LOADER, null, this);
         setContentView(R.layout.activity_country_selection);
         QueryBuilder queryBuilder = new QueryBuilder(getApplicationContext());
         queryBuilder.getCountries();
@@ -54,13 +61,20 @@ public class CountrySelectionActivity extends Activity implements
         );
         ListView listView = (ListView) findViewById(R.id.country_list_view);
         listView.setAdapter(mCountryAdapter);
-
+        listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), CountryDetailActivity.class)
+                        .putExtra(CountryDetailActivity.TAG_COUNTRY_ID, "GBR");
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     public Loader onCreateLoader(int i, Bundle bundle) {
 
-        String sortOrder = CountryEntry.TABLE_NAME + "." + CountryEntry._ID + " ASC";
+        String sortOrder = CountryEntry.TABLE_NAME + "." + CountryEntry.COLUMN_NAME + " ASC";
 
         return new CursorLoader(
                 getApplicationContext(),

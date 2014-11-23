@@ -68,7 +68,7 @@ public class QueryBuilder {
         CountryQuery helper = new CountryQuery(mContext);
         //TODO: pass all of this onto the country query so that it parse page information
 
-        for ( int i = 1 ; i < 2 ; ++ i ) {
+        for ( int i = 1 ; i < 6 ; ++ i ) {
             helper.asyncCountryRequestWithPage(i);
         }
     }

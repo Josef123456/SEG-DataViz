@@ -14,5 +14,6 @@
     <string name="title_activity_news">NewsActivity</string>
     <string name="title_activity_metric_selection">MetricSelectionActivity</string>
     <string name="title_activity_country_selection">CountrySelectionActivity</string>
+    <string name="title_activity_country_detail">CountryDetailActivity</string>
 
 </resources>
