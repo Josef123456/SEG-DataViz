@@ -7,7 +7,7 @@ public class Client {
 
     private Type type;
 
-    Client(Type type) {
+    public Client(Type type) {
         this.type = type ;
     }
 
@@ -16,7 +16,7 @@ public class Client {
     }
 
     public enum Type {
-        INVESTOR(new String[]{"GDP", "UNEMPLOYMENT"}), STUDENT(new String[]{"MINWAGE"});
+        INVESTOR(new String[]{"NY.GDP.MKTP.CD", "SL.UEM.TOTL.ZS"}), STUDENT(new String[]{"MINWAGE"});
 
         String[] interests;
 
@@ -24,7 +24,7 @@ public class Client {
             this.interests = interests ;
         }
 
-        String[] getInterests() {
+        public String[] getInterests() {
             return interests ;
         }
     }

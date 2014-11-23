@@ -43,10 +43,8 @@ public class QueryBuilder {
      * @param metric
      * @return JSON String
      */
-    public String forParams ( Country country, Metric metric) {
-
+    public String fetchDataForCountryAndMetric ( Country country, Metric metric) {
         return "" ;
-
     }
 
     /**
@@ -58,10 +56,16 @@ public class QueryBuilder {
      * @param finalYear
      * @return JSON String
      */
-    public String forParams ( Country country, Metric metric, int startYear, int finalYear) {
-
+    public String fetchDataForCountryAndMetric ( Country country, Metric metric, int startYear, int finalYear) {
         return "" ;
+    }
 
+    public Metric get_metric_with_api_id(String api_id){
+        return new Metric(new JSONObject());
+    }
+
+    public Country get_country_with_api_id(String api_id){
+        return new Country(new JSONObject());
     }
 
     public void getCountries () {
