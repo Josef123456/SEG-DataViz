@@ -50,6 +50,10 @@
             android:name="com.team1_k.project.seg.dataviz.MetricSelectionActivity"
             android:label="@string/title_activity_metric_selection" >
         </activity>
+        <activity
+            android:name=".CountrySelectionActivity"
+            android:label="@string/title_activity_country_selection" >
+        </activity>
     </application>
 
 </manifest>

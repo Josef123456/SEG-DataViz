@@ -27,6 +27,11 @@ public class DataVizContract {
 
         public static final String TABLE_NAME = "country" ;
         public static final String COLUMN_NAME = "name" ;
+        public static final String COLUMN_API_ID = "api_id" ;
+        public static final String COLUMN_LONGITUDE = "longitude" ;
+        public static final String COLUMN_LATITUDE = "latitude" ;
+        public static final String COLUMN_CAPITAL_CITY = "capital_city" ;
+
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
                 .appendPath(PATH_COUNTRY).build();
 

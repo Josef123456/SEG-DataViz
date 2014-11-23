@@ -228,6 +228,24 @@ public class DataVizContentProvider extends ContentProvider {
                 getContext().getContentResolver().notifyChange(uri,null);
                 return returnCount;
             }
+            case COUNTRY: {
+                db.beginTransaction();
+                int returnCount = 0 ;
+                try {
+                    for ( ContentValues value: values ) {
+                        long _id = db.insert(CountryEntry.TABLE_NAME, null, value);
+                        if (_id != -1) {
+                            ++returnCount;
+                        }
+                    }
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+                getContext().getContentResolver().notifyChange(uri, null);
+                return returnCount;
+            }
+
             default:
                 return super.bulkInsert(uri,values);
 

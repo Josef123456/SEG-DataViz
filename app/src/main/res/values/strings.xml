@@ -13,5 +13,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_news">NewsActivity</string>
     <string name="title_activity_metric_selection">MetricSelectionActivity</string>
+    <string name="title_activity_country_selection">CountrySelectionActivity</string>
 
 </resources>

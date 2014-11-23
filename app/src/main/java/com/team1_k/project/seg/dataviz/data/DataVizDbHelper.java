@@ -15,7 +15,7 @@ import com.team1_k.project.seg.dataviz.data.DataVizContract.DataPointEntry ;
  */
 public class DataVizDbHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1 ;
+    private static final int DATABASE_VERSION = 3 ;
     public static final String DATABASE_NAME = "dataviz.db" ;
 
     public DataVizDbHelper(Context context) {
@@ -27,7 +27,11 @@ public class DataVizDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_COUNTRY_TABLE = "CREATE TABLE " + CountryEntry.TABLE_NAME + " " +
                 "( "+
                 CountryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                CountryEntry.COLUMN_NAME + " TEXT NOT NULL"
+                CountryEntry.COLUMN_NAME + " TEXT NOT NULL," +
+                CountryEntry.COLUMN_API_ID + " TEXT NOT NULL UNIQUE," +
+                CountryEntry.COLUMN_CAPITAL_CITY + " TEXT NOT NULL," +
+                CountryEntry.COLUMN_LATITUDE + " REAL NOT NULL," +
+                CountryEntry.COLUMN_LONGITUDE + " REAL NOT NULL"
                 + ")" ;
         sqLiteDatabase.execSQL(SQL_CREATE_COUNTRY_TABLE);
 
@@ -58,8 +62,8 @@ public class DataVizDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
-        sqLiteDatabase.execSQL( "DROP IF EXISTS " + CountryEntry.TABLE_NAME );
-        sqLiteDatabase.execSQL( "DROP IF EXISTS " + MetricEntry.TABLE_NAME );
-        sqLiteDatabase.execSQL( "DROP IF EXISTS " + DataPointEntry.TABLE_NAME );
+        sqLiteDatabase.execSQL( "DROP TABLE IF EXISTS " + CountryEntry.TABLE_NAME );
+        sqLiteDatabase.execSQL( "DROP TABLE IF EXISTS " + MetricEntry.TABLE_NAME );
+        sqLiteDatabase.execSQL( "DROP TABLE IF EXISTS " + DataPointEntry.TABLE_NAME );
     }
 }
