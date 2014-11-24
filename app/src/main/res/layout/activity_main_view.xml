@@ -1,93 +1,120 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.team1_k.project.seg.dataviz.MainViewActivity"
+    android:orientation="vertical"
     android:background="@drawable/background">
 
-    <LinearLayout
-            android:id="@+id/linear1"
-            android:layout_alignParentTop="true"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="0.4">
-        <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/News"
-                android:dr
+            android:layout_weight="1"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_News"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/news_button"
+                android:layout_marginRight="10dp"
                 android:textSize="40dp"
-                android:onClick="startNewsActivity"
-                android:id="@+id/news_feed_button" android:layout_weight="0.2"/>
-        <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button2" android:layout_weight="0.2"/>
-    </LinearLayout>
-    <LinearLayout
-            android:id="@+id/linear2"
-            android:layout_below="@id/linear1"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
+                android:onClick="startNewsActivity" />
+
+            <Button
+                android:id="@+id/button_Markets"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:textSize="40dp"
+                android:text="@string/market_button" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="0.3">
-        <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button3" android:layout_weight="0.15"/>
-        <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button4" android:layout_weight="0.15"/>
+            android:layout_weight="1"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_Countries"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:textSize="40dp"
+                android:text="@string/countries_button"
+                android:onClick="startCountriesActivity" />
+
+            <Button
+                android:id="@+id/button_More"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:textSize="40dp"
+                android:text="@string/more_button" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            >
-        <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:id="@+id/Investor"
-                android:background="@drawable/news"
-                android:layout_weight="0.8"
-                android:layout_margin="10dp"
-                android:onClick="NewInvestorActivity" />
-        <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:id="@+id/Student"
-                android:background="@drawable/market"
-                android:layout_weight="0.8"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
 
-                android:layout_margin="10dp" />
-        <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:id="@+id/Others"
-                android:background="@drawable/world"
-                android:layout_weight="0.8"
+        >
 
-                android:layout_margin="10dp" />
         <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:id="@+id/admin"
-                android:background="@drawable/more"
-                android:layout_weight="0.8"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:id="@+id/Investor"
+            android:layout_weight="0.8"
+            android:background="@drawable/news"
+            android:layout_margin="10dp"
+            android:onClick="startNewsActivity" />
 
-                android:layout_margin="10dp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:id="@+id/Student"
+            android:layout_weight="0.8"
+            android:background="@drawable/market"
+            android:layout_margin="10dp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:id="@+id/Others"
+            android:layout_weight="0.8"
+            android:background="@drawable/world"
+            android:layout_margin="10dp"
+            android:onClick="startCountriesActivity" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:id="@+id/admin"
+            android:layout_weight="0.8"
+            android:background="@drawable/more"
+            android:layout_margin="10dp" />
     </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>

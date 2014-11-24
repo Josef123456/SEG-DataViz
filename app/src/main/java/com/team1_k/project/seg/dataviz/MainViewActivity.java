@@ -38,10 +38,14 @@ public class MainViewActivity extends Activity {
     }
     public void startNewsActivity(View view) {
         // FOR CHOOSING YOUR STARTING AND END LOCATION POINTS
-        Intent intent = new Intent(this, NewsActivity.class);
+        Intent intentNews = new Intent(this, NewsActivity.class);
         //String message = "test string";
         //intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+        startActivity(intentNews);
+    }
+    public void startCountriesActivity(View view){
+        Intent intentCountries = new Intent(this,CountrySelectionActivity.class);
+        startActivity(intentCountries);
     }
 
 }
