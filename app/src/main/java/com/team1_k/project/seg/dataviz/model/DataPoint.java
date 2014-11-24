@@ -12,20 +12,26 @@ public class DataPoint {
 
     private static final String LOG_TAG = "model.dataPoint" ;
 
-    private double mValue ;
-    private int mYear ;
+    private double mValue = 0 ;
+    private int mYear = 0 ;
 
     public DataPoint(JSONObject dataPoint) {
+        Log.i(LOG_TAG, dataPoint.toString());
         try {
             this.mValue = Double.valueOf(dataPoint.getString("value"));
             this.mYear = Integer.valueOf(dataPoint.getString("date"));
-        } catch ( JSONException e ) {
+        } catch ( JSONException e) {
             Log.e(LOG_TAG, e.toString());
             e.printStackTrace();
         } catch ( NumberFormatException e ) {
             Log.e(LOG_TAG, e.toString());
             e.printStackTrace();
         }
+        Log.i(LOG_TAG, this.toString());
+    }
+
+    public String toString() {
+        return String.valueOf(mYear) + " - " + String.valueOf(mValue);
     }
 
     public double getValue() {

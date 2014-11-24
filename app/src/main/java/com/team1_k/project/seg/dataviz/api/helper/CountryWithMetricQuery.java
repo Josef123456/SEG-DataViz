@@ -61,15 +61,19 @@ public class CountryWithMetricQuery {
         dataPointContentValues.put(DataPointEntry.COLUMN_METRIC_ID, mMetric.getDatabaseId());
         dataPointContentValues.put(DataPointEntry.COLUMN_COUNTRY_ID, mCountry.getDatabaseId());
         Log.i(LOG_TAG, "data point for year " + dataPoint.getYear()
-                + " for country " + mCountry.getName() + " & metric " + mMetric.getApiId() ) ;
+                + " with value " + dataPoint.getValue()
+                + " for country " + mCountry.getName() + " & metric " + mMetric.getApiId()
+        ) ;
         return dataPointContentValues;
     }
 
     public void asyncRequestWithCountryIdAndMetricId(String countryId, String metricId) {
 
-        String url = QueryBuilder.API_BASE_URL + "/countries/" + countryId
-                + "/indicators" + metricId + "?date=2000:2014" + "&" +
+        String url = QueryBuilder.API_BASE_URL + "countries/" + countryId
+                + "/indicators/" + metricId + "?date=2000:2014" + "&" +
                 QueryBuilder.JSON_FORMAT;
+
+        Log.i(LOG_TAG,url);
 
         AsyncHttpClient.getDefaultInstance().getString(url, new AsyncHttpClient.StringCallback() {
             @Override
@@ -79,6 +83,7 @@ public class CountryWithMetricQuery {
                     Log.e(LOG_TAG, e.toString());
                     return ;
                 }
+                Log.i(LOG_TAG, result);
                 try {
                     JSONArray array = new JSONArray(result);
                     JSONObject page_info = array.getJSONObject(0);

@@ -28,9 +28,9 @@ public class DataVizContentProviderTest extends AndroidTestCase {
         DataVizDbHelper dbHelper = new DataVizDbHelper(getContext());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-//        db.delete(CountryEntry.TABLE_NAME,null,null);
-//        db.delete(MetricEntry.TABLE_NAME,null,null);
-//        db.delete(DataPointEntry.TABLE_NAME,null,null);
+        db.delete(CountryEntry.TABLE_NAME,null,null);
+        db.delete(MetricEntry.TABLE_NAME,null,null);
+        db.delete(DataPointEntry.TABLE_NAME,null,null);
     }
 
     static void validateCursor(Cursor cursor, ContentValues expectedValues) {
@@ -76,7 +76,7 @@ public class DataVizContentProviderTest extends AndroidTestCase {
 
         countryValues = new ContentValues() ;
         countryValues.put(CountryEntry.COLUMN_NAME, "ffdes");
-        countryValues.put(CountryEntry.COLUMN_API_ID,"AKR");
+        countryValues.put(CountryEntry.COLUMN_API_ID,"AKFFER");
         countryValues.put(CountryEntry.COLUMN_CAPITAL_CITY,"test city");
         countryValues.put(CountryEntry.COLUMN_LATITUDE, 23.5);
         countryValues.put(CountryEntry.COLUMN_LONGITUDE, 44.14);

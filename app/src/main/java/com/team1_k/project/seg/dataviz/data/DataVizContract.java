@@ -4,6 +4,8 @@ import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import com.team1_k.project.seg.dataviz.model.DataPoint;
+
 /**
  * Created by alexstoick on 11/19/14.
  */
@@ -100,7 +102,9 @@ public class DataVizContract {
                 MetricEntry.TABLE_NAME + "." + _ID,
                 MetricEntry.TABLE_NAME + "." + COLUMN_NAME,
                 MetricEntry.TABLE_NAME + "." + COLUMN_DESCRIPTION,
-                MetricEntry.TABLE_NAME + "." + COLUMN_API_ID
+                MetricEntry.TABLE_NAME + "." + COLUMN_API_ID,
+                DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_YEAR,
+                DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_VALUE
         } ;
 
     }

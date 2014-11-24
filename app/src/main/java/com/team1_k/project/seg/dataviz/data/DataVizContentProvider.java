@@ -245,6 +245,21 @@ public class DataVizContentProvider extends ContentProvider {
                 getContext().getContentResolver().notifyChange(uri, null);
                 return returnCount;
             }
+            case DATA_POINT: {
+                db.beginTransaction();
+                int returnCount = 0 ;
+                try {
+                    for ( ContentValues value: values ) {
+                        long _id = db.insert(DataPointEntry.TABLE_NAME, null, value);
+                        if (_id!= -1) {
+                            ++ returnCount ;
+                        }
+                    }
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
 
             default:
                 return super.bulkInsert(uri,values);

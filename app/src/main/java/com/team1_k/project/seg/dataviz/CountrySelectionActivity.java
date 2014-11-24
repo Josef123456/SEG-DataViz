@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,8 @@ public class CountrySelectionActivity extends Activity implements
         LoaderManager.LoaderCallbacks<Cursor>{
 
     private CursorAdapter mCountryAdapter ;
+
+    private static final String LOG_TAG = "ui.country" ;
 
     private static final int COUNTRY_LOADER = 0 ;
 
@@ -89,11 +92,13 @@ public class CountrySelectionActivity extends Activity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        Log.d(LOG_TAG, "finished loading");
         mCountryAdapter.swapCursor(cursor);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        Log.d(LOG_TAG, "reset loader");
         mCountryAdapter.swapCursor(null);
     }
 }

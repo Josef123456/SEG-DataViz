@@ -9,13 +9,14 @@ import android.provider.ContactsContract;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.CountryEntry;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.MetricEntry ;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.DataPointEntry ;
+import com.team1_k.project.seg.dataviz.model.DataPoint;
 
 /**
  * Created by alexstoick on 11/19/14.
  */
 public class DataVizDbHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 5 ;
+    private static final int DATABASE_VERSION = 6 ;
     public static final String DATABASE_NAME = "dataviz.db" ;
 
     public DataVizDbHelper(Context context) {
@@ -54,7 +55,10 @@ public class DataVizDbHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + DataPointEntry.COLUMN_COUNTRY_ID + ") REFERENCES " +
                 CountryEntry.TABLE_NAME + " (" + CountryEntry._ID + ")," +
                 "FOREIGN KEY (" + DataPointEntry.COLUMN_METRIC_ID+ ") REFERENCES " +
-                MetricEntry.TABLE_NAME + " (" + MetricEntry._ID + ")"
+                MetricEntry.TABLE_NAME + " (" + MetricEntry._ID + ")" +
+                "UNIQUE(" + DataPointEntry.COLUMN_METRIC_ID + ", " +
+                    DataPointEntry.COLUMN_COUNTRY_ID + " ," +
+                    DataPointEntry.COLUMN_YEAR + ") ON CONFLICT REPLACE"
                 + ")";
         sqLiteDatabase.execSQL(SQL_CREATE_DATA_POINT_TABLE);
 
