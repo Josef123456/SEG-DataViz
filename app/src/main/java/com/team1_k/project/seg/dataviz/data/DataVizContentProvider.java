@@ -192,6 +192,7 @@ public class DataVizContentProvider extends ContentProvider {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
             }
         }
+        returnCursor.setNotificationUri(getContext().getContentResolver(), uri);
         return returnCursor;
     }
 
