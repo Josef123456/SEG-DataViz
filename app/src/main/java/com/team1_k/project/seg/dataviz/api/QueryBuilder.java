@@ -10,6 +10,7 @@ import android.util.Log;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.koushikdutta.async.http.AsyncHttpResponse;
 import com.team1_k.project.seg.dataviz.api.helper.CountryQuery;
+import com.team1_k.project.seg.dataviz.api.helper.CountryWithMetricQuery;
 import com.team1_k.project.seg.dataviz.api.helper.MetricQuery;
 import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.Metric;
@@ -43,8 +44,8 @@ public class QueryBuilder {
      * @param metric
      * @return JSON String
      */
-    public String fetchDataForCountryAndMetric ( Country country, Metric metric) {
-        return "" ;
+    public void fetchDataForCountryAndMetric ( Country country, Metric metric) {
+        new CountryWithMetricQuery(mContext).fetchDataForCountryAndMetric(country, metric);
     }
 
     /**
@@ -62,10 +63,6 @@ public class QueryBuilder {
 
     public Metric get_metric_with_api_id(String api_id){
         return new Metric(new JSONObject());
-    }
-
-    public Country get_country_with_api_id(String api_id){
-        return new Country(new JSONObject());
     }
 
     public void getCountries () {

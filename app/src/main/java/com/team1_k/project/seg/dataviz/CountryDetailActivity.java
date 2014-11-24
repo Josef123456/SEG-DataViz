@@ -8,6 +8,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,6 +21,7 @@ import com.team1_k.project.seg.dataviz.model.Metric;
 
 public class CountryDetailActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final String LOG_TAG = "ui.country.detail" ;
 
     protected static final String TAG_COUNTRY_ID = "COUNTRY_ID" ;
     private static final String[] DATA_POINT_COLUMNS = {
@@ -55,14 +57,24 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
         String[] metric_api_ids = mClient.getType().getInterests() ;
         int length = metric_api_ids.length ;
         mMetrics = new Metric[length];
-        for( int i = 0 ; i < length ; ++ i ) {
-            mMetrics[i] = mQueryBuilder.get_metric_with_api_id(metric_api_ids[i]);
+        try {
+            for (int i = 0; i < length; ++i) {
+                mMetrics[i] = Metric.getMetricWithApiId(getApplicationContext(), metric_api_ids[i]);
+            }
+        } catch ( Exception e ) {
+            Log.e( LOG_TAG , e.toString());
+            e.printStackTrace();
         }
     }
 
     private void fetchCountry() {
         String country_api_id = mIntent.getStringExtra(TAG_COUNTRY_ID);
-        mCountry = mQueryBuilder.get_country_with_api_id(country_api_id);
+        try {
+            mCountry = Country.getCountryWithApiId(getApplicationContext(), country_api_id);
+        } catch ( Exception e ) {
+            Log.e(LOG_TAG, e.toString() );
+            e.printStackTrace();
+        }
     }
 
 

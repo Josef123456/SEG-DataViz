@@ -47,8 +47,19 @@ public class DataVizContract {
 
         public static final String[] COLUMNS = {
                 _ID,
-                COLUMN_NAME
+                COLUMN_NAME,
+                COLUMN_API_ID,
+                COLUMN_CAPITAL_CITY,
+                COLUMN_LATITUDE,
+                COLUMN_LONGITUDE
         };
+
+        public static final int INDEX_COLUMN_ID = 0 ;
+        public static final int INDEX_COLUMN_NAME = 1 ;
+        public static final int INDEX_COLUMN_API_ID = 2 ;
+        public static final int INDEX_COLUMN_CAPITAL_CITY = 3;
+        public static final int INDEX_COLUMN_LATITUDE = 4 ;
+        public static final int INDEX_COLUMN_LONGITUDE = 5 ;
     }
 
     public static final class MetricEntry implements BaseColumns {
@@ -77,6 +88,12 @@ public class DataVizContract {
                 COLUMN_DESCRIPTION,
                 COLUMN_API_ID
         } ;
+
+        public static final int INDEX_COLUMN_ID = 0 ;
+        public static final int INDEX_COLUMN_NAME = 1 ;
+        public static final int INDEX_COLUMN_DESCRIPTION = 2 ;
+        public static final int INDEX_COLUMN_API_ID = 3 ;
+
 
         public static final String[] COLUMNS_FOR_METRIC_QUERY = {
                 CountryEntry.TABLE_NAME+ "." + CountryEntry.COLUMN_NAME,

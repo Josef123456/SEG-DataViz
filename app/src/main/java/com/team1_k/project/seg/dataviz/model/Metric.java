@@ -1,6 +1,10 @@
 package com.team1_k.project.seg.dataviz.model;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
+
+import com.team1_k.project.seg.dataviz.data.DataVizContract.MetricEntry;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +34,8 @@ public class Metric {
      */
     private String mDescription;
 
+    private long mDatabaseId;
+
     /**
      * dataPoints - first integer represents year, second the value for that year for this metric
      */
@@ -56,6 +62,36 @@ public class Metric {
 
     public String getDescription() {
         return mDescription;
+    }
+
+    public long getDatabaseId() {
+        return mDatabaseId;
+    }
+
+    private Metric(String mApiId, String mName,
+                   String mDescription, long mDatabaseId) {
+        this.mApiId = mApiId;
+        this.mName = mName;
+        this.mDescription = mDescription;
+        this.mDatabaseId = mDatabaseId;
+    }
+
+    public static Metric getMetricWithApiId(Context context, String apiId) throws Exception{
+
+        Cursor cursor = context.getContentResolver().query(
+                MetricEntry.CONTENT_URI,
+                MetricEntry.COLUMNS,
+                MetricEntry.COLUMN_API_ID + " = ?",
+                new String[] { apiId },
+                null
+        );
+        if ( cursor.moveToFirst() ) {
+            String name = cursor.getString(MetricEntry.INDEX_COLUMN_NAME);
+            String description = cursor.getString(MetricEntry.INDEX_COLUMN_DESCRIPTION);
+            long databaseId = cursor.getLong(MetricEntry.INDEX_COLUMN_ID);
+            return new Metric(apiId, name, description, databaseId);
+        }
+        throw new Exception("Can't find metric with api_id " + apiId ) ;
     }
 
 }
