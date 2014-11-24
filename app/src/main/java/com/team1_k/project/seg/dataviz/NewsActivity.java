@@ -27,13 +27,11 @@ public class NewsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-        Intent intent=getIntent();
 
         Intent x = new Intent();
         RssFragment trial = new RssFragment();
         getFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, trial).commit();
-
 
     }
 
