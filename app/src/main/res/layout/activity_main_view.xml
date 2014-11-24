@@ -45,4 +45,47 @@
                 android:text="New Button"
                 android:id="@+id/button4" android:layout_weight="0.15"/>
     </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:layout_below="@id/linear2"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            >
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:id="@+id/Investor"
+                android:background="@drawable/news"
+                android:layout_weight="0.8"
+                android:layout_margin="10dp"
+                android:onClick="NewInvestorActivity" />
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:id="@+id/Student"
+                android:background="@drawable/market"
+                android:layout_weight="0.8"
+
+                android:layout_margin="10dp" />
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:id="@+id/Others"
+                android:background="@drawable/world"
+                android:layout_weight="0.8"
+
+                android:layout_margin="10dp" />
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:id="@+id/admin"
+                android:background="@drawable/more"
+                android:layout_weight="0.8"
+
+                android:layout_margin="10dp" />
+    </LinearLayout>
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.team1_k.project.seg.dataviz;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -54,6 +55,7 @@ public class NewsActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+   @SuppressLint("ValidFragment")
    public class RssFragment extends Fragment implements AdapterView.OnItemClickListener {
 
         private ProgressBar progressBar;

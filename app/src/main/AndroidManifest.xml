@@ -30,10 +30,7 @@
         <activity
             android:name="com.team1_k.project.seg.dataviz.MainViewActivity"
             android:label="@string/title_activity_main_view"
-            android:parentActivityName="com.team1_k.project.seg.dataviz.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.team1_k.project.seg.dataviz.MainActivity" />
+             >
         </activity>
         <activity
             android:name="com.team1_k.project.seg.dataviz.NewsActivity"
