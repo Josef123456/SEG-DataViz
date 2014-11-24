@@ -2,15 +2,20 @@ package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
@@ -18,6 +23,8 @@ import com.team1_k.project.seg.dataviz.data.DataVizContract.DataPointEntry;
 import com.team1_k.project.seg.dataviz.model.Client;
 import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.Metric;
+
+import java.text.DecimalFormat;
 
 
 public class CountryDetailActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -58,20 +65,7 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
             mQueryBuilder.fetchDataForCountryAndMetric(mCountry, metric);
         }
 
-        mDataPointAdapter = new SimpleCursorAdapter(
-                getApplicationContext(),
-                R.layout.country_detail_data_point_view_layout,
-                null,
-                new String[] {
-                        DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_YEAR,
-                        DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_VALUE
-                },
-                new int[] {
-                        R.id.dataPointYear,
-                        R.id.dataPointValue
-                },
-                0
-        );
+        mDataPointAdapter = new DataPointAdapter(getApplicationContext(), null, 0);
 
         ListView listView = (ListView) findViewById(R.id.countryDataPointListView);
         listView.setAdapter(mDataPointAdapter);
@@ -122,6 +116,9 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+
+
+
         mDataPointAdapter.swapCursor(cursor);
     }
 
@@ -130,5 +127,50 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
         mDataPointAdapter.swapCursor(null);
     }
 
+
+    public static class DataPointAdapter extends CursorAdapter {
+
+        private Context mContext;
+
+        static class ViewHolder {
+            TextView mYearTextView;
+            TextView mValueTextView;
+
+            public ViewHolder(View view) {
+                this.mYearTextView = (TextView) view.findViewById(R.id.dataPointYear);
+                this.mValueTextView = (TextView) view.findViewById(R.id.dataPointValue);
+            }
+        }
+
+        public DataPointAdapter(Context context, Cursor c, int flags) {
+            super(context, c, flags);
+            mContext = context;
+        }
+
+        @Override
+        public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
+            View view = LayoutInflater.from(context)
+                    .inflate(R.layout.list_row_country_detail_data_point,
+                            viewGroup, false);
+            ViewHolder viewHolder = new ViewHolder(view);
+
+            view.setTag(viewHolder);
+            return view;
+        }
+
+        @Override
+        public void bindView(View view, Context context, Cursor cursor) {
+            ViewHolder viewHolder = (ViewHolder) view.getTag();
+            Double year = cursor.getDouble(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_YEAR
+            );
+            Double value = cursor.getDouble(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_VALUE
+            );
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            viewHolder.mValueTextView.setText(decimalFormat.format(value));
+            viewHolder.mYearTextView.setText(decimalFormat.format(year));
+        }
+    }
 
 }

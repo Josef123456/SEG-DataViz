@@ -1,24 +1,16 @@
 package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.MetricEntry;
-
-import java.util.ArrayList;
 
 
 public class MetricSelectionActivity extends Activity
@@ -45,7 +37,7 @@ public class MetricSelectionActivity extends Activity
 
         mMetricAdapter = new SimpleCursorAdapter(
                 getApplicationContext(),
-                R.layout.metric_list_view_layout,
+                R.layout.list_row_metric,
                 null,
                 new String[]{
                         MetricEntry.COLUMN_NAME//,MetricEntry.COLUMN_DESCRIPTION

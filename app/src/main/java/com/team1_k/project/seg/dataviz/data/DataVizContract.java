@@ -112,6 +112,9 @@ public class DataVizContract {
                 DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_VALUE
         } ;
 
+        public static final int INDEX_METRIC_QUERY_COLUMN_METRIC_ID = 1 ;
+        public static final int INDEX_METRIC_QUERY_COLUMN_YEAR = 5;
+        public static final int INDEX_METRIC_QUERY_COLUMN_VALUE = 6 ;
     }
 
     public static final class DataPointEntry implements BaseColumns {
