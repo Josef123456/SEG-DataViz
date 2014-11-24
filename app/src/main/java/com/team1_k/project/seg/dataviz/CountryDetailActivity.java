@@ -7,10 +7,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -18,7 +15,6 @@ import android.widget.SimpleCursorAdapter;
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.DataPointEntry;
-import com.team1_k.project.seg.dataviz.data.DataVizContract.CountryEntry;
 import com.team1_k.project.seg.dataviz.model.Client;
 import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.Metric;
@@ -98,7 +94,7 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
     private void fetchCountry() {
         String country_api_id = mIntent.getStringExtra(TAG_COUNTRY_ID);
         try {
-            mCountry = Country.getCountryWithApiId(getApplicationContext(), "GBR");
+            mCountry = Country.getCountryWithApiId(getApplicationContext(), country_api_id);
         } catch ( Exception e ) {
             Log.e(LOG_TAG, e.toString() );
             e.printStackTrace();
@@ -116,7 +112,7 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
         String sortOrder = DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_YEAR + " DESC";
         return new CursorLoader(
                 getApplicationContext(),
-                DataVizContract.CountryEntry.buildCountryWithMetricUri(mCountry.getDatabaseId()),
+                DataVizContract.CountryEntry.buildCountryWithMetricUriWithId(mCountry.getDatabaseId()),
                 DataVizContract.MetricEntry.COLUMNS_FOR_METRIC_QUERY,
                 null,
                 null,

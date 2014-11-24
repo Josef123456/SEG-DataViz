@@ -260,6 +260,10 @@ public class DataVizContentProvider extends ContentProvider {
                 } finally {
                     db.endTransaction();
                 }
+                getContext().getContentResolver().notifyChange(uri, null);
+                getContext().getContentResolver()
+                        .notifyChange(CountryEntry.buildCountryWithMetricUri(), null);
+                return returnCount;
             }
 
             default:

@@ -41,10 +41,15 @@ public class DataVizContract {
             return ContentUris.withAppendedId(CONTENT_URI, _ID) ;
         }
 
-        public static Uri buildCountryWithMetricUri(long _ID){
+        public static Uri buildCountryWithMetricUriWithId(long _ID){
             return CONTENT_URI.buildUpon().
                     appendEncodedPath("metrics").
                     appendEncodedPath(String.valueOf(_ID)).build();
+        }
+
+        public static Uri buildCountryWithMetricUri() {
+            return CONTENT_URI.buildUpon().
+                    appendEncodedPath("metrics").build();
         }
 
         public static final String[] COLUMNS = {

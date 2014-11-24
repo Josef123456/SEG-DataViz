@@ -1,9 +1,7 @@
 package com.team1_k.project.seg.dataviz.data;
 
 import android.content.ContentUris;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.test.MoreAsserts ;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.database.Cursor;
@@ -12,7 +10,6 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 
 import com.team1_k.project.seg.dataviz.data.DataVizContract.*;
-import com.team1_k.project.seg.dataviz.model.Country;
 
 import java.util.Map;
 import java.util.Set;
@@ -172,7 +169,7 @@ public class DataVizContentProviderTest extends AndroidTestCase {
 
         loader = new CursorLoader(
                 getContext(),
-                CountryEntry.buildCountryWithMetricUri(country_id),
+                CountryEntry.buildCountryWithMetricUriWithId(country_id),
                 MetricEntry.COLUMNS_FOR_METRIC_QUERY,
                 null,
                 null,
