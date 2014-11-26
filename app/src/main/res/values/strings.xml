@@ -17,5 +17,14 @@
     <string name="title_activity_metric_selection">MetricSelectionActivity</string>
     <string name="title_activity_country_selection">CountrySelectionActivity</string>
     <string name="title_activity_country_detail">CountryDetailActivity</string>
+    <string name="title_activity_navigation_drawer_fragment">NavigationDrawerFragment</string>
+    <string name="title_section1">Home</string>
+    <string name="title_section2">News</string>
+    <string name="title_section3">Markets</string>
+    <string name="title_section4">Countries</string>
+    <string name="title_section5">More</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
 
 </resources>
