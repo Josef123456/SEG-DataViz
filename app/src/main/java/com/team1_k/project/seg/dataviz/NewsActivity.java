@@ -8,8 +8,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import com.team1_k.project.seg.dataviz.data_news.RssAdapter;
 import com.team1_k.project.seg.dataviz.data_news.RssItem;
 import com.team1_k.project.seg.dataviz.data_news.RssService;
@@ -28,7 +36,6 @@ public class NewsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        Intent x = new Intent();
         RssFragment trial = new RssFragment();
         getFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, trial).commit();
@@ -39,7 +46,7 @@ public class NewsActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.news, menu);
+        getMenuInflater().inflate(R.menu.main_view, menu);
         return true;
     }
 
@@ -121,9 +128,5 @@ public class NewsActivity extends Activity {
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         }
-    }
-
-    static class ViewHolder {
-        TextView itemTitle;
     }
 }
