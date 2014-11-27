@@ -3,7 +3,6 @@ package com.team1_k.project.seg.dataviz;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -43,10 +42,36 @@ public class MainViewActivity extends Activity implements NavigationDrawerFragme
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+//        FragmentManager fragmentManager = getFragmentManager();
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+//                .commit();
+        switch(position){
+//            case 1:
+//                Intent intentHome = new Intent(this, MainViewActivity.class);
+//                startActivity(intentHome);
+//                break;
+            case 1:
+                Intent intentNews = new Intent(this, NewsActivity.class);
+                startActivity(intentNews);
+                break;
+            // @Bayu you need to create your activity first...
+//            case 2:
+//                Intent intentMarket = new Intent(this, MarketActivity.class);
+//                startActivity(intnentMarket);
+//                break;
+            case 3:
+                Intent intentCountries = new Intent(this, CountrySelectionActivity.class);
+                startActivity(intentCountries);
+                break;
+            //@All we gonna work on that activty later as well to compare and do some settings
+//            case 4:
+//                Intent intentMore = new Intent(this, MoreActivity.class);
+//                startActivity(intnentMore);
+//                break;
+
+
+        }
     }
 
     public void onSectionAttached(int number) {
