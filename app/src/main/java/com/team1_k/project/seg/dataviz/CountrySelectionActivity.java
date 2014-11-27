@@ -1,7 +1,6 @@
 package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -17,8 +16,6 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.team1_k.project.seg.dataviz.R;
-import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.CountryEntry;
 import com.team1_k.project.seg.dataviz.data.DataVizDbHelper;
 
@@ -77,6 +74,47 @@ public class CountrySelectionActivity extends Activity implements
                 startActivity(intent);
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main_view, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()) {
+
+//            case R.id.action_settings:
+//                Intent intentSettings = new Intent(CountrySelectionActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentSettings);
+//                break;
+            case R.id.action_home:
+                Intent intentHome = new Intent(CountrySelectionActivity.this, MainViewActivity.class);
+                this.startActivity(intentHome);
+                break;
+            case R.id.action_News:
+                Intent intentNews = new Intent(CountrySelectionActivity.this, NewsActivity.class);
+                this.startActivity(intentNews);
+                break;
+//            case R.id.action_Markets:
+//                Intent intentMarkets = new Intent(CountrySelectionActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentMarkets);
+//                break;
+            case R.id.action_Countries:
+                Intent intentCountries = new Intent(CountrySelectionActivity.this, CountrySelectionActivity.class);
+                this.startActivity(intentCountries);
+                break;
+//            case R.id.action_More:
+//                Intent intentMore = new Intent(CountrySelectionActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentMore);
+//                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return true;
     }
 
     @Override

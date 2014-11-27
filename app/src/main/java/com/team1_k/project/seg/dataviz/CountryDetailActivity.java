@@ -8,15 +8,14 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
@@ -65,6 +64,47 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
         fetchMetrics();
         fetchStats();
         getLoaderManager().initLoader(DATA_POINT_LOADER, null, this);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main_view, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()) {
+
+//            case R.id.action_settings:
+//                Intent intentSettings = new Intent(CountryDetailActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentSettings);
+//                break;
+            case R.id.action_home:
+                Intent intentHome = new Intent(CountryDetailActivity.this, MainViewActivity.class);
+                this.startActivity(intentHome);
+                break;
+            case R.id.action_News:
+                Intent intentNews = new Intent(CountryDetailActivity.this, NewsActivity.class);
+                this.startActivity(intentNews);
+                break;
+//            case R.id.action_Markets:
+//                Intent intentMarkets = new Intent(CountryDetailActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentMarkets);
+//                break;
+            case R.id.action_Countries:
+                Intent intentCountries = new Intent(CountryDetailActivity.this, CountrySelectionActivity.class);
+                this.startActivity(intentCountries);
+                break;
+//            case R.id.action_More:
+//                Intent intentMore = new Intent(CountryDetailActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentMore);
+//                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return true;
     }
 
     private void fetchStats() {

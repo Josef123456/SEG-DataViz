@@ -27,14 +27,38 @@ public class MainViewActivity extends Activity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch(item.getItemId()) {
+
+//            case R.id.action_settings:
+//                Intent intentSettings = new Intent(MainViewActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentSettings);
+//                break;
+            case R.id.action_home:
+                Intent intentHome = new Intent(MainViewActivity.this, MainViewActivity.class);
+                this.startActivity(intentHome);
+                break;
+            case R.id.action_News:
+                Intent intentNews = new Intent(MainViewActivity.this, NewsActivity.class);
+                this.startActivity(intentNews);
+                break;
+//            case R.id.action_Markets:
+//                Intent intentMarkets = new Intent(MainViewActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentMarkets);
+//                break;
+            case R.id.action_Countries:
+                Intent intentCountries = new Intent(MainViewActivity.this, CountrySelectionActivity.class);
+                this.startActivity(intentCountries);
+                break;
+//            case R.id.action_More:
+//                Intent intentMore = new Intent(MainViewActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentMore);
+//                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
+        return true;
     }
 
     public void startNewsActivity(View view) {

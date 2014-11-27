@@ -1,8 +1,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.team1_k.project.seg.dataviz.MainViewActivity" >
-    <item android:id="@+id/action_settings"
+    tools:context="com.team1_k.project.seg.dataviz.MainViewActivity">
+    <item
+        android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
+    <item
+        android:id="@+id/action_home"
+        android:title="@string/home_button"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/action_News"
+        android:title="@string/news_button"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/action_Markets"
+        android:title="@string/market_button"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/action_Countries"
+        android:title="@string/countries_button"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/action_More"
+        android:title="@string/more_button"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
 </menu>

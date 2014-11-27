@@ -52,14 +52,38 @@ public class NewsActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch(item.getItemId()) {
+
+//            case R.id.action_settings:
+//                Intent intentSettings = new Intent(NewsActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentSettings);
+//                break;
+            case R.id.action_home:
+                Intent intentHome = new Intent(NewsActivity.this, MainViewActivity.class);
+                this.startActivity(intentHome);
+                break;
+            case R.id.action_News:
+                Intent intentNews = new Intent(NewsActivity.this, NewsActivity.class);
+                this.startActivity(intentNews);
+                break;
+//            case R.id.action_Markets:
+//                Intent intentMarkets = new Intent(MainViewActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentMarkets);
+//                break;
+            case R.id.action_Countries:
+                Intent intentCountries = new Intent(NewsActivity.this, CountrySelectionActivity.class);
+                this.startActivity(intentCountries);
+                break;
+//            case R.id.action_More:
+//                Intent intentMore = new Intent(NewsActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentMore);
+//                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
+        return true;
     }
 
    @SuppressLint("ValidFragment")
