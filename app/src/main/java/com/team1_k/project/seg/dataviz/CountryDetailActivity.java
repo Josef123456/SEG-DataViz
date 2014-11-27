@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -22,9 +24,13 @@ import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.DataPointEntry;
 import com.team1_k.project.seg.dataviz.model.Client;
 import com.team1_k.project.seg.dataviz.model.Country;
+import com.team1_k.project.seg.dataviz.model.DataPoint;
 import com.team1_k.project.seg.dataviz.model.Metric;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 
 public class CountryDetailActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -44,7 +50,8 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
     private Country mCountry ;
     private Client mClient ;
     private Metric[] mMetrics;
-    private CursorAdapter mDataPointAdapter;
+    private ArrayAdapter mDataPointAdapter;
+    private ArrayList<DataPoint> mDataPoints = new ArrayList<DataPoint>() ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +72,11 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
             mQueryBuilder.fetchDataForCountryAndMetric(mCountry, metric);
         }
 
-        mDataPointAdapter = new DataPointAdapter(getApplicationContext(), null, 0);
+        mDataPointAdapter = new DataPointArrayAdapter(
+                getApplicationContext(),
+                R.layout.list_row_country_detail_data_point,
+                new DataPoint[] {}
+        );
 
         ListView listView = (ListView) findViewById(R.id.countryDataPointListView);
         listView.setAdapter(mDataPointAdapter);
@@ -95,7 +106,6 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
         }
     }
 
-
     private void fetchClient() {
         //TODO: get this from somewhere in the app
         mClient = new Client(Client.Type.INVESTOR);
@@ -117,18 +127,42 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
 
+        //need to only show the first entry for each metric
+        ArrayList<Long> selectedMetricIds = new ArrayList<Long>();
 
+        cursor.moveToFirst();
+        mDataPoints = new ArrayList<DataPoint>();
+        while ( ! cursor.isAfterLast() ) {
 
-        mDataPointAdapter.swapCursor(cursor);
+            long metricId = cursor.getLong(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_METRIC_ID
+            ) ;
+            int year = cursor.getInt(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_YEAR
+            );
+            Double value = cursor.getDouble(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_VALUE
+            );
+            if ( ! selectedMetricIds.contains(metricId) ) {
+                selectedMetricIds.add(metricId);
+                DataPoint dataPoint = new DataPoint(value, year );
+                mDataPoints.add( dataPoint) ;
+            }
+            cursor.moveToNext();
+        }
+        mDataPointAdapter.clear();
+        mDataPointAdapter.addAll(mDataPoints);
+        Log.d(LOG_TAG, String.valueOf(mDataPoints.size()));
+        mDataPointAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
-        mDataPointAdapter.swapCursor(null);
+        mDataPointAdapter.clear();
+        mDataPointAdapter.notifyDataSetChanged();
     }
 
-
-    public static class DataPointAdapter extends CursorAdapter {
+    public static class DataPointArrayAdapter extends ArrayAdapter<DataPoint> {
 
         private Context mContext;
 
@@ -140,36 +174,56 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
                 this.mYearTextView = (TextView) view.findViewById(R.id.dataPointYear);
                 this.mValueTextView = (TextView) view.findViewById(R.id.dataPointValue);
             }
+
+
         }
 
-        public DataPointAdapter(Context context, Cursor c, int flags) {
-            super(context, c, flags);
-            mContext = context;
-        }
+        private ArrayList<DataPoint> mDataPoints = new ArrayList<DataPoint>();
 
-        @Override
-        public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-            View view = LayoutInflater.from(context)
-                    .inflate(R.layout.list_row_country_detail_data_point,
-                            viewGroup, false);
-            ViewHolder viewHolder = new ViewHolder(view);
-
-            view.setTag(viewHolder);
-            return view;
+        public DataPointArrayAdapter(Context context, int resource, DataPoint[] objects) {
+            super(context, resource, objects);
+            mDataPoints.addAll(Arrays.asList(objects));
+            mContext = context ;
         }
 
         @Override
-        public void bindView(View view, Context context, Cursor cursor) {
-            ViewHolder viewHolder = (ViewHolder) view.getTag();
-            Double year = cursor.getDouble(
-                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_YEAR
-            );
-            Double value = cursor.getDouble(
-                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_VALUE
-            );
+        public void clear() {
+            mDataPoints.clear();
+        }
+
+        @Override
+        public void addAll(Collection<? extends DataPoint> collection) {
+            mDataPoints.addAll(collection);
+        }
+
+        @Override
+        public int getCount() {
+            return mDataPoints.size();
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View row = convertView;
+            ViewHolder holder;
+            if ( row == null ) {
+                row = LayoutInflater.from(mContext)
+                        .inflate(R.layout.list_row_country_detail_data_point,
+                                parent, false);
+                holder = new ViewHolder(row);
+                row.setTag(holder);
+            } else {
+                holder = (ViewHolder) row.getTag();
+            }
+
+            DataPoint dataPoint = mDataPoints.get(position);
+
+            int year = dataPoint.getYear();
+            Double value = dataPoint.getValue();
             DecimalFormat decimalFormat = new DecimalFormat("#.##");
-            viewHolder.mValueTextView.setText(decimalFormat.format(value));
-            viewHolder.mYearTextView.setText(decimalFormat.format(year));
+            holder.mValueTextView.setText(decimalFormat.format(value));
+            holder.mYearTextView.setText(decimalFormat.format(year));
+
+            return row ;
         }
     }
 

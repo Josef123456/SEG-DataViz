@@ -49,7 +49,7 @@ public class CountrySelectionActivity extends Activity implements
         getLoaderManager().initLoader(COUNTRY_LOADER, null, this);
         setContentView(R.layout.activity_country_selection);
         QueryBuilder queryBuilder = new QueryBuilder(getApplicationContext());
-        queryBuilder.getCountries();
+        //queryBuilder.getCountries();
         mCountryAdapter = new SimpleCursorAdapter(
                 getApplicationContext(),
                 R.layout.country_list_view_layout,

@@ -30,6 +30,11 @@ public class DataPoint {
         Log.i(LOG_TAG, this.toString());
     }
 
+    public DataPoint(double mValue, int mYear) {
+        this.mValue = mValue;
+        this.mYear = mYear;
+    }
+
     public String toString() {
         return String.valueOf(mYear) + " - " + String.valueOf(mValue);
     }
