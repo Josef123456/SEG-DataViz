@@ -48,8 +48,6 @@ public class CountrySelectionActivity extends Activity implements
 
         getLoaderManager().initLoader(COUNTRY_LOADER, null, this);
         setContentView(R.layout.activity_country_selection);
-        QueryBuilder queryBuilder = new QueryBuilder(getApplicationContext());
-        //queryBuilder.getCountries();
         mCountryAdapter = new SimpleCursorAdapter(
                 getApplicationContext(),
                 R.layout.country_list_view_layout,
@@ -67,8 +65,15 @@ public class CountrySelectionActivity extends Activity implements
         listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Cursor cursor = mCountryAdapter.getCursor();
+                cursor.moveToPosition(i);
+                String country_api_id = cursor.getString(
+                  CountryEntry.INDEX_COLUMN_API_ID
+                );
+
                 Intent intent = new Intent(getApplicationContext(), CountryDetailActivity.class)
-                        .putExtra(CountryDetailActivity.TAG_COUNTRY_ID, "GBR");
+                        .putExtra(CountryDetailActivity.TAG_COUNTRY_ID, country_api_id);
                 startActivity(intent);
             }
         });

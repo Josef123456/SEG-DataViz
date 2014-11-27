@@ -217,7 +217,12 @@ public class DataVizContentProvider extends ContentProvider {
                 int returnCount = 0 ;
                 try {
                     for( ContentValues value: values) {
-                        long _id = db.insert( MetricEntry.TABLE_NAME, null, value);
+                        long _id = db.insertWithOnConflict(
+                                MetricEntry.TABLE_NAME,
+                                null,
+                                value,
+                                SQLiteDatabase.CONFLICT_REPLACE
+                        );
                         if ( _id != -1 ) {
                             ++ returnCount;
                         }
@@ -234,7 +239,12 @@ public class DataVizContentProvider extends ContentProvider {
                 int returnCount = 0 ;
                 try {
                     for ( ContentValues value: values ) {
-                        long _id = db.insert(CountryEntry.TABLE_NAME, null, value);
+                        long _id = db.insertWithOnConflict(
+                                CountryEntry.TABLE_NAME,
+                                null,
+                                value,
+                                SQLiteDatabase.CONFLICT_REPLACE
+                        );
                         if (_id != -1) {
                             ++returnCount;
                         }

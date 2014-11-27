@@ -49,8 +49,6 @@ public class MetricSelectionActivity extends Activity
         );
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metric_selection);
-        QueryBuilder queryBuilder = new QueryBuilder(getApplicationContext());
-        queryBuilder.getMetrics();
         ListView listView = (ListView) findViewById(R.id.metric_list_view);
         listView.setAdapter(mMetricAdapter);
     }
