@@ -33,6 +33,7 @@ public class CountrySelectionActivity extends Activity implements
             CountryEntry.COLUMN_NAME,
             CountryEntry.COLUMN_API_ID
     };
+    protected ListView listView;
 
     public static int COL_COUNTRY_ID = 0 ;
     public static int COL_NAME = 1 ;
@@ -41,7 +42,7 @@ public class CountrySelectionActivity extends Activity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DataVizDbHelper dbHelper = new DataVizDbHelper(getApplicationContext());
+        final DataVizDbHelper dbHelper = new DataVizDbHelper(getApplicationContext());
         super.onCreate(savedInstanceState);
 
         getLoaderManager().initLoader(COUNTRY_LOADER, null, this);
@@ -58,8 +59,10 @@ public class CountrySelectionActivity extends Activity implements
                 },
                 0
         );
-        final ListView listView = (ListView) findViewById(R.id.country_list_view);
+
+        listView = (ListView) findViewById(R.id.country_list_view);
         listView.setAdapter(mCountryAdapter);
+
         listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -96,6 +99,9 @@ public class CountrySelectionActivity extends Activity implements
                 Intent intentNews = new Intent(CountrySelectionActivity.this, NewsActivity.class);
                 this.startActivity(intentNews);
                 break;
+            /**
+             * This part is for Bayu later:
+             */
 //            case R.id.action_Markets:
 //                Intent intentMarkets = new Intent(CountrySelectionActivity.this, ActivityForItemOne.class);
 //                this.startActivity(intentMarkets);
@@ -104,18 +110,43 @@ public class CountrySelectionActivity extends Activity implements
                 Intent intentCountries = new Intent(CountrySelectionActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);
                 break;
+            /**
+             * This part is for later:
+             */
 //            case R.id.action_More:
 //                Intent intentMore = new Intent(CountrySelectionActivity.this, ActivityForItemOne.class);
 //                this.startActivity(intentMore);
 //                break;
+//
+            /**
+             @Alexandru : I am using a setOnQueryTextListener now and it is not working
+             It is working with an ArrayAdpater though...
+             And I f***ing convert it to an ArrayAdapter as well
+              */
+
+//
+//            case R.id.search:
+//                MenuItem searchItem=item;
+//                Log.e("REACH", "REACH");
+//                SearchView searchView=(SearchView) searchItem.getActionView();
+//
+//                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//                    @Override
+//                    public boolean onQueryTextSubmit(String query) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean onQueryTextChange(String newText) {
+//                        Log.e("reached", "reached query text changed");
+//                        mCountryAdapter.getFilter().filter(newText);
+//                        return false;
+//                    }
+//                });
+//                break;
+
             default:
                 return super.onOptionsItemSelected(item);
-        }
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
