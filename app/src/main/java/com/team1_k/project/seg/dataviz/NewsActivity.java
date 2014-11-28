@@ -42,7 +42,6 @@ public class NewsActivity extends Activity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -53,7 +52,7 @@ public class NewsActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
 
             case R.id.action_home:
                 Intent intentHome = new Intent(NewsActivity.this, MainViewActivity.class);
@@ -82,8 +81,8 @@ public class NewsActivity extends Activity {
         return true;
     }
 
-   @SuppressLint("ValidFragment")
-   public class RssFragment extends Fragment implements AdapterView.OnItemClickListener {
+    @SuppressLint("ValidFragment")
+    public class RssFragment extends Fragment implements AdapterView.OnItemClickListener {
 
         private ProgressBar progressBar;
         private ListView listView;
@@ -137,7 +136,9 @@ public class NewsActivity extends Activity {
                 }
                 progressBar.setVisibility(View.GONE);
                 listView.setVisibility(View.VISIBLE);
-            };
+            }
+
+            ;
         };
 
         @Override
