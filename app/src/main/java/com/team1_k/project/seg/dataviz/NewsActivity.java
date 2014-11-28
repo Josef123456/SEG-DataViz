@@ -55,10 +55,6 @@ public class NewsActivity extends Activity {
 
         switch(item.getItemId()) {
 
-//            case R.id.action_settings:
-//                Intent intentSettings = new Intent(NewsActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentSettings);
-//                break;
             case R.id.action_home:
                 Intent intentHome = new Intent(NewsActivity.this, MainViewActivity.class);
                 this.startActivity(intentHome);

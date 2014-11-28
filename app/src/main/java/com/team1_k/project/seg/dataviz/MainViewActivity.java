@@ -30,10 +30,6 @@ public class MainViewActivity extends Activity{
 
         switch(item.getItemId()) {
 
-//            case R.id.action_settings:
-//                Intent intentSettings = new Intent(MainViewActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentSettings);
-//                break;
             case R.id.action_home:
                 Intent intentHome = new Intent(MainViewActivity.this, MainViewActivity.class);
                 this.startActivity(intentHome);

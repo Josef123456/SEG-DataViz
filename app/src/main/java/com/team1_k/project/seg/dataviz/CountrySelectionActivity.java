@@ -22,7 +22,7 @@ import com.team1_k.project.seg.dataviz.data.DataVizDbHelper;
 public class CountrySelectionActivity extends Activity implements
         LoaderManager.LoaderCallbacks<Cursor>{
 
-    private CursorAdapter mCountryAdapter ;
+    protected CursorAdapter mCountryAdapter ;
 
     private static final String LOG_TAG = "ui.country" ;
 
@@ -37,6 +37,7 @@ public class CountrySelectionActivity extends Activity implements
     public static int COL_COUNTRY_ID = 0 ;
     public static int COL_NAME = 1 ;
     public static int COL_API_ID = 2 ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class CountrySelectionActivity extends Activity implements
                 },
                 0
         );
-        ListView listView = (ListView) findViewById(R.id.country_list_view);
+        final ListView listView = (ListView) findViewById(R.id.country_list_view);
         listView.setAdapter(mCountryAdapter);
         listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
@@ -74,11 +75,12 @@ public class CountrySelectionActivity extends Activity implements
                 startActivity(intent);
             }
         });
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.main_view, menu);
+        getMenuInflater().inflate(R.menu.country_view, menu);
         return super.onCreateOptionsMenu(menu);
     }
     @Override
@@ -86,10 +88,6 @@ public class CountrySelectionActivity extends Activity implements
 
         switch(item.getItemId()) {
 
-//            case R.id.action_settings:
-//                Intent intentSettings = new Intent(CountrySelectionActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentSettings);
-//                break;
             case R.id.action_home:
                 Intent intentHome = new Intent(CountrySelectionActivity.this, MainViewActivity.class);
                 this.startActivity(intentHome);
@@ -113,8 +111,13 @@ public class CountrySelectionActivity extends Activity implements
             default:
                 return super.onOptionsItemSelected(item);
         }
+        int id = item.getItemId();
 
-        return true;
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -144,4 +147,5 @@ public class CountrySelectionActivity extends Activity implements
         Log.d(LOG_TAG, "reset loader");
         mCountryAdapter.swapCursor(null);
     }
+
 }

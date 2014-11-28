@@ -76,10 +76,6 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
 
         switch(item.getItemId()) {
 
-//            case R.id.action_settings:
-//                Intent intentSettings = new Intent(CountryDetailActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentSettings);
-//                break;
             case R.id.action_home:
                 Intent intentHome = new Intent(CountryDetailActivity.this, MainViewActivity.class);
                 this.startActivity(intentHome);

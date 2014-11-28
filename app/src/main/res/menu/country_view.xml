@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.team1_k.project.seg.dataviz.MainViewActivity">
 
+
     <item
         android:id="@+id/action_home"
         android:title="@string/home_button"
@@ -27,5 +28,11 @@
         android:title="@string/more_button"
         android:orderInCategory="100"
         android:showAsAction="never" />
+    <item
+        android:id="@+id/search"
+        android:title="@string/app_name"
+        android:icon="@android:drawable/ic_search_category_default"
+        android:showAsAction="collapseActionView|ifRoom"
+        android:actionViewClass="android.widget.SearchView" />
 
 </menu>

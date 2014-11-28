@@ -20,5 +20,6 @@
     <string name="title_activity_country_detail">CountryDetailActivity</string>
     <string name="action_example">Example action</string>
     <string name="title_activity_graph">graphActivity</string>
+    <string name="searchHint">Search</string>
 
 </resources>
