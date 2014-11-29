@@ -31,13 +31,14 @@
                 android:onClick="startNewsActivity" />
 
             <Button
-                android:id="@+id/button_Markets"
+                android:id="@+id/market_button"
+                android:onClick="startExchangeRatesActivity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 android:textSize="40dp"
-                android:text="@string/market_button" />
+                android:text="@string/exchange_button" />
 
         </LinearLayout>
 

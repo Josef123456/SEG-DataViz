@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import com.team1_k.project.seg.dataviz.data_exchange_rate.ExchangeRate;
 
 
 public class MainViewActivity extends Activity{
@@ -66,6 +67,11 @@ public class MainViewActivity extends Activity{
     public void startCountriesActivity(View view) {
         Intent intentCountries = new Intent(this, CountrySelectionActivity.class);
         startActivity(intentCountries);
+    }
+
+    public void startExchangeRatesActivity(View view) {
+        Intent intentExchange = new Intent(this, ExchangeRatesActivity.class);
+        startActivity(intentExchange);
     }
 
 

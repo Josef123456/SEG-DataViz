@@ -13,7 +13,7 @@
         android:showAsAction="never" />
     <item
         android:id="@+id/action_Markets"
-        android:title="@string/market_button"
+        android:title="@string/exchange_button"
         android:orderInCategory="100"
         android:showAsAction="never" />
     <item
