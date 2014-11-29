@@ -6,6 +6,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,7 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
+import android.widget.FilterQueryProvider;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 
 import com.team1_k.project.seg.dataviz.data.DataVizContract.CountryEntry;
@@ -25,6 +28,8 @@ public class CountrySelectionActivity extends Activity implements
     protected CursorAdapter mCountryAdapter ;
 
     private static final String LOG_TAG = "ui.country" ;
+
+    private static final String SORT_ORDER = CountryEntry.TABLE_NAME + "." + CountryEntry.COLUMN_NAME + " ASC";
 
     private static final int COUNTRY_LOADER = 0 ;
 
@@ -59,6 +64,27 @@ public class CountrySelectionActivity extends Activity implements
                 },
                 0
         );
+
+        mCountryAdapter.setFilterQueryProvider( new FilterQueryProvider() {
+            @Override
+            public Cursor runQuery(CharSequence charSequence) {
+                String constraint = charSequence.toString();
+                DataVizDbHelper mDbHelper = new DataVizDbHelper(getApplicationContext());
+                SQLiteDatabase db = mDbHelper.getReadableDatabase() ;
+
+                Log.i ( LOG_TAG, "cnstr: " + constraint);
+
+                return db.query(
+                        CountryEntry.TABLE_NAME,
+                        CountryEntry.COLUMNS,
+                        CountryEntry.COLUMN_NAME + " LIKE ?",
+                        new String[] { constraint + "%"},
+                        null,
+                        null,
+                        SORT_ORDER
+                );
+            }
+        });
 
         listView = (ListView) findViewById(R.id.country_list_view);
         listView.setAdapter(mCountryAdapter);
@@ -124,26 +150,26 @@ public class CountrySelectionActivity extends Activity implements
              And I f***ing convert it to an ArrayAdapter as well
               */
 
-//
-//            case R.id.search:
-//                MenuItem searchItem=item;
-//                Log.e("REACH", "REACH");
-//                SearchView searchView=(SearchView) searchItem.getActionView();
-//
-//                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//                    @Override
-//                    public boolean onQueryTextSubmit(String query) {
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public boolean onQueryTextChange(String newText) {
-//                        Log.e("reached", "reached query text changed");
-//                        mCountryAdapter.getFilter().filter(newText);
-//                        return false;
-//                    }
-//                });
-//                break;
+
+            case R.id.search:
+                MenuItem searchItem=item;
+                SearchView searchView=(SearchView) searchItem.getActionView();
+
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        Log.i(LOG_TAG, "reached query text changed" + newText );
+                        mCountryAdapter.getFilter().filter(newText);
+                        mCountryAdapter.notifyDataSetChanged();
+                        return false;
+                    }
+                });
+                break;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -153,18 +179,14 @@ public class CountrySelectionActivity extends Activity implements
 
     @Override
     public Loader onCreateLoader(int i, Bundle bundle) {
-
-        String sortOrder = CountryEntry.TABLE_NAME + "." + CountryEntry.COLUMN_NAME + " ASC";
-
         return new CursorLoader(
                 getApplicationContext(),
                 CountryEntry.CONTENT_URI,
                 COUNTRY_COLUMNS,
                 null,
                 null,
-                sortOrder
+                SORT_ORDER
         );
-
     }
 
     @Override
