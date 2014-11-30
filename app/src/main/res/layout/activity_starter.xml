@@ -3,14 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/plutoinvestor">
+    android:background="@android:color/black">
 
     //personal preference to decide later
-    <!--<ImageView-->
-        <!--android:id="@+id/pluto_Invest"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:scaleType="center"-->
-        <!--android:src="@drawable/plutoinvestor"/>-->
+    <ImageView
+        android:id="@+id/pluto_Invest"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:src="@drawable/plutoinvest"/>
 
 </LinearLayout>
