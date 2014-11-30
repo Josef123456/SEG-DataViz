@@ -144,12 +144,6 @@ public class CountrySelectionActivity extends Activity implements
 //                this.startActivity(intentMore);
 //                break;
 //
-            /**
-             @Alexandru : I am using a setOnQueryTextListener now and it is not working
-             It is working with an ArrayAdpater though...
-             And I f***ing convert it to an ArrayAdapter as well
-              */
-
 
             case R.id.search:
                 MenuItem searchItem=item;

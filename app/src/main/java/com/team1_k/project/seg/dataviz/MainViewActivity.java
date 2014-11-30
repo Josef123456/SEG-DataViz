@@ -3,10 +3,10 @@ package com.team1_k.project.seg.dataviz;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import com.team1_k.project.seg.dataviz.data_exchange_rate.ExchangeRate;
 
 
 public class MainViewActivity extends Activity{
@@ -14,7 +14,18 @@ public class MainViewActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_view);
+        setContentView(R.layout.activity_starter);
+
+        new CountDownTimer(10000,1000){
+            @Override
+            public void onTick(long millisUntilFinished){}
+
+            @Override
+            public void onFinish(){
+                //set the new Content of your activity
+                MainViewActivity.this.setContentView(R.layout.activity_main_view);
+            }
+        }.start();
 
     }
     @Override
