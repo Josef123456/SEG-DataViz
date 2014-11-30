@@ -1,11 +1,17 @@
 package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.*;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import com.team1_k.project.seg.dataviz.data_exchange_rate.ExchangeRate;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class ExchangeRatesActivity extends Activity {
@@ -15,10 +21,22 @@ public class ExchangeRatesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange_rates);
 
+
+
         //TextView exchangeView = (TextView) findViewById(R.id.exchangeView);
-        ExchangeRate xChange = new ExchangeRate(this);
-        String toPut = xChange.getRate(ExchangeRate.EXCHANGE_GBP, ExchangeRate.EXCHANGE_EUR);
+        //ExchangeRate xChange = new ExchangeRate(this);
+        //String toPut = xChange.getRate(ExchangeAdapter.EXCHANGE_EUR);
         //exchangeView.setText(toPut);
+
+        ListView listView = (ListView) findViewById(R.id.exchange_listview);
+        ProgressBar pb = (ProgressBar) findViewById(R.id.pb);
+        ExchangeRate xChange = new ExchangeRate(this, listView, pb);
+
+        ArrayList<String> list = xChange.getRates();
+
+        StableArrayAdapter adapter = new StableArrayAdapter(this,
+                android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(adapter);
     }
 
 
@@ -43,4 +61,30 @@ public class ExchangeRatesActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private class StableArrayAdapter extends ArrayAdapter<String> {
+
+        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+
+        public StableArrayAdapter(Context context, int textViewResourceId,
+                                  List<String> objects) {
+            super(context, textViewResourceId, objects);
+            for (int i = 0; i < objects.size(); ++i) {
+                mIdMap.put(objects.get(i), i);
+            }
+        }
+
+        @Override
+        public long getItemId(int position) {
+            String item = getItem(position);
+            return mIdMap.get(item);
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return true;
+        }
+
+    }
+
 }
