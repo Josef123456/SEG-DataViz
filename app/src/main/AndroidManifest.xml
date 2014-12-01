@@ -76,7 +76,7 @@
             android:name="com.team1_k.project.seg.dataviz.graphActivity"
             android:label="@string/title_activity_graph" />
         <activity
-            android:name="com.team1_k.project.seg.dataviz.GraphActivity"
+            android:name=".graph.LineGraphActivity"
             android:label="@string/title_activity_graph" />
         <activity
             android:name="com.team1_k.project.seg.dataviz.ExchangeRatesActivity"

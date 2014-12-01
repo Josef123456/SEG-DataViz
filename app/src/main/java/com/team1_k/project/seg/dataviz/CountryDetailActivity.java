@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.DataPointEntry;
+import com.team1_k.project.seg.dataviz.graph.LineGraphActivity;
 import com.team1_k.project.seg.dataviz.model.Client;
 import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.DataPoint;
@@ -116,6 +118,15 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
 
         ListView listView = (ListView) findViewById(R.id.countryDataPointListView);
         listView.setAdapter(mDataPointAdapter);
+        listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), LineGraphActivity.class)
+                        .putExtra(LineGraphActivity.TAG_COUNTRY_ID, mCountry.getDatabaseId())
+                        .putExtra(LineGraphActivity.TAG_METRIC_ID, mMetrics[i].getDatabaseId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void fetchMetrics() {
@@ -152,7 +163,8 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
         String sortOrder = DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_YEAR + " DESC";
         return new CursorLoader(
                 getApplicationContext(),
-                DataVizContract.CountryEntry.buildCountryWithMetricUriWithId(mCountry.getDatabaseId()),
+                DataVizContract.CountryEntry.
+                        buildCountryWithMetricUriWithId(mCountry.getDatabaseId()),
                 DataVizContract.MetricEntry.COLUMNS_FOR_METRIC_QUERY,
                 null,
                 null,
@@ -210,8 +222,6 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
                 this.mYearTextView = (TextView) view.findViewById(R.id.dataPointYear);
                 this.mValueTextView = (TextView) view.findViewById(R.id.dataPointValue);
             }
-
-
         }
 
         private ArrayList<DataPoint> mDataPoints = new ArrayList<DataPoint>();
