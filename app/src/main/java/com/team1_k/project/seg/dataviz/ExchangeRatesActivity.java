@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import com.team1_k.project.seg.dataviz.data_exchange_rate.ExchangeRate;
@@ -21,22 +22,13 @@ public class ExchangeRatesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange_rates);
 
-
-
-        //TextView exchangeView = (TextView) findViewById(R.id.exchangeView);
-        //ExchangeRate xChange = new ExchangeRate(this);
-        //String toPut = xChange.getRate(ExchangeAdapter.EXCHANGE_EUR);
-        //exchangeView.setText(toPut);
+        LinearLayout ll_1 = (LinearLayout) findViewById(R.id.ll_1);
+        LinearLayout ll_2 = (LinearLayout) findViewById(R.id.ll_2);
 
         ListView listView = (ListView) findViewById(R.id.exchange_listview);
         ProgressBar pb = (ProgressBar) findViewById(R.id.pb);
-        ExchangeRate xChange = new ExchangeRate(this, listView, pb);
-
-        ArrayList<String> list = xChange.getRates();
-
-        StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
-        listView.setAdapter(adapter);
+        ExchangeRate xChange = new ExchangeRate(this, listView, pb, ll_1, ll_2);
+        xChange.getRates();
     }
 
 
@@ -61,30 +53,4 @@ public class ExchangeRatesActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    private class StableArrayAdapter extends ArrayAdapter<String> {
-
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
-        }
-
-        @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
-
-    }
-
 }

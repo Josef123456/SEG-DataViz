@@ -13,4 +13,16 @@
         <item name="android:background">@drawable/custom_drawables</item>
     </style>
 
+    <style name="ExchangeMainText">
+        <item name="android:textColor">#CC6600</item>
+        <item name="android:textSize">35sp</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="ExchangeText">
+        <item name="android:textColor">#CC6600</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
 </resources>

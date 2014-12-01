@@ -1,14 +1,87 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-    >
+                android:orientation="vertical">
 
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/exchange_listview"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:visibility="gone"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="1 USD to"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        style="@style/ExchangeMainText"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/invis_view1"
+        android:layout_below="@id/textView"
+        android:visibility="invisible"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/invis_view1"
+        android:id="@+id/ll_1"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Main Currencies"
+            android:id="@+id/textView2"
+            style="@style/ExchangeText"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:id="@+id/invis_view2"
+            android:layout_below="@id/textView2"
+            android:visibility="invisible"/>
+
+        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/exchange_listview"
+                  android:layout_below="@id/invis_view2"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_1"
+        android:id="@+id/ll_2"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/invis_view3"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Other Currencies"
+            android:id="@+id/textView3"
+            android:layout_below="@id/invis_view3"
+            style="@style/ExchangeText"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:id="@+id/invis_view4"
+            android:layout_below="@id/textView3"
+            android:visibility="invisible"/>
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/pb"
@@ -17,5 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="visible"/>
+
+
 
 </RelativeLayout>

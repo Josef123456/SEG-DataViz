@@ -1,11 +1,10 @@
 package com.team1_k.project.seg.dataviz.data_exchange_rate;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.*;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.koushikdutta.async.http.AsyncHttpResponse;
 import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
@@ -16,6 +15,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by dbrisingr on 26/11/14.
@@ -26,30 +26,38 @@ public class ExchangeRate {
     public static String EXCHANGE_URL_BASE = "http://openexchangerates.org/api/";
     public static String EXCHANGE_URL_LATEST = "latest.json?app_id=41c2e84ad34a4407b8343a96606f6a07";
     public static String EXCHANGE_URL_CURRENCIES = "currencies.json?app_id=41c2e84ad34a4407b8343a96606f6a07";
-    public static String EXCHANGE_URL_DEFAULT = EXCHANGE_URL_BASE+EXCHANGE_URL_LATEST;
     public static String EXCHANGE_GBP = "GBP";
-    public static String EXCHANGE_USD = "USD";
     public static String EXCHANGE_EUR = "EUR";
     public static String EXCHANGE_CHF = "CHF";
     public static String EXCHANGE_JPY = "JPY";
     public static String EXCHANGE_RUB = "RUB";
     public static String EXCHANGE_NOK = "NOK";
     public static String EXCHANGE_SEK = "SEK";
-    public static String BASE_URL = "http://openexchangerates.org/api/";
+    public static String EXCHANGE_AUD = "AUD";
+    public static String EXCHANGE_BZD = "BZD";
+    public static String EXCHANGE_CAD = "CAD";
+    public static String EXCHANGE_QAR = "QAR";
+
+
     ExchangeRatesActivity xChangeActivity;
     ListView listView;
     ProgressBar pb;
+    LinearLayout ll_1;
+    LinearLayout ll_2;
 
 
-    public ExchangeRate(ExchangeRatesActivity xChange, ListView listView, ProgressBar pb){
+    public ExchangeRate(ExchangeRatesActivity xChange, ListView listView, ProgressBar pb, LinearLayout ll_1, LinearLayout ll_2){
         this.xChangeActivity = xChange;
         this.listView = listView;
         this.pb = pb;
+        this.ll_1 = ll_1;
+        this.ll_2 = ll_2;
     }
 
     JSONObject rates;
-    ArrayList<String> list;
-    public ArrayList<String> getRates(){
+    List<String> list;
+
+    public void getRates(){
 
         final String[] temp = {
                 EXCHANGE_GBP, EXCHANGE_EUR, EXCHANGE_CHF, EXCHANGE_JPY, EXCHANGE_RUB, EXCHANGE_NOK, EXCHANGE_SEK
@@ -72,7 +80,7 @@ public class ExchangeRate {
 
                     for(int i = 0; i < 7; i++){
                         try {
-                            list.add(rates.getJSONObject("rates").getString(temp[i]));
+                            list.add(temp[i]+"\n"+rates.getJSONObject("rates").getString(temp[i]));
                             parseRates();
 
                         } catch (JSONException exception) {
@@ -86,18 +94,18 @@ public class ExchangeRate {
                 }
             }
         });
-
-
-        return list;
     }
 
     private void parseRates(){
-        StableArrayAdapter adapter = new StableArrayAdapter(xChangeActivity,
-                android.R.layout.simple_list_item_1, list);
+        //StableArrayAdapter adapter = new StableArrayAdapter(xChangeActivity,
+        //R.layout.exchange_item, list);
+
+        //CustomAdapter adapterx = new CustomAdapter(xChangeActivity, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(xChangeActivity ,R.layout.exchange_item,list);
         listView.setAdapter(adapter);
 
         pb.setVisibility(View.GONE);
-        listView.setVisibility(View.VISIBLE);
+        ll_1.setVisibility(View.VISIBLE);
     }
 
 }
