@@ -3,6 +3,7 @@ package com.team1_k.project.seg.dataviz.graph;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,13 +14,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.team1_k.project.seg.dataviz.CountrySelectionActivity;
+import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
+import com.team1_k.project.seg.dataviz.MainViewActivity;
+import com.team1_k.project.seg.dataviz.NewsActivity;
 import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.model.DataPoint;
-import com.team1_k.project.seg.dataviz.model.Metric;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -216,22 +219,41 @@ public class LineGraphActivity extends FragmentActivity
         }
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_graph, menu);
-        return true;
-
+        getMenuInflater().inflate(R.menu.main_view, menu);
+        return super.onCreateOptionsMenu(menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id = item.getItemId();
+        switch(item.getItemId()) {
 
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.action_home:
+                Intent intentHome = new Intent(LineGraphActivity.this, MainViewActivity.class);
+                this.startActivity(intentHome);
+                break;
+            case R.id.action_News:
+                Intent intentNews = new Intent(LineGraphActivity.this, NewsActivity.class);
+                this.startActivity(intentNews);
+                break;
+            case R.id.action_Markets:
+                Intent intentMarkets = new Intent(LineGraphActivity.this, ExchangeRatesActivity.class);
+                this.startActivity(intentMarkets);
+                break;
+            case R.id.action_Countries:
+                Intent intentCountries = new Intent(LineGraphActivity.this, CountrySelectionActivity.class);
+                this.startActivity(intentCountries);
+                break;
+//            case R.id.action_More:
+//                Intent intentMore = new Intent(CountryDetailActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentMore);
+//                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
+        return true;
     }
 }
+

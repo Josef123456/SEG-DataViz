@@ -8,7 +8,7 @@
     <application
         android:name="com.team1_k.project.seg.dataviz.DataVizApplication"
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/plutoinvest"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -74,10 +74,16 @@
         </activity>
         <activity
             android:name="com.team1_k.project.seg.dataviz.graphActivity"
-            android:label="@string/title_activity_graph" />
+            android:label="@string/title_activity_graph"
+            android:parentActivityName="com.team1_k.project.seg.dataviz.CountryDetailActivity" />
+
         <activity
             android:name=".graph.LineGraphActivity"
-            android:label="@string/title_activity_graph" />
+            android:label="@string/title_activity_graph"
+            android:parentActivityName="com.team1_k.project.seg.dataviz.CountryDetailActivity"/>
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.team1_k.project.seg.dataviz.CountrDetail" />
         <activity
             android:name="com.team1_k.project.seg.dataviz.ExchangeRatesActivity"
             android:label="@string/title_activity_exchange_rates"

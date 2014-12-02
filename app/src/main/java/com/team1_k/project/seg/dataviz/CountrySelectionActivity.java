@@ -125,13 +125,10 @@ public class CountrySelectionActivity extends Activity implements
                 Intent intentNews = new Intent(CountrySelectionActivity.this, NewsActivity.class);
                 this.startActivity(intentNews);
                 break;
-            /**
-             * This part is for Bayu later:
-             */
-//            case R.id.action_Markets:
-//                Intent intentMarkets = new Intent(CountrySelectionActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentMarkets);
-//                break;
+            case R.id.action_Markets:
+                Intent intentMarkets = new Intent(CountrySelectionActivity.this, ExchangeRatesActivity.class);
+                this.startActivity(intentMarkets);
+                break;
             case R.id.action_Countries:
                 Intent intentCountries = new Intent(CountrySelectionActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);

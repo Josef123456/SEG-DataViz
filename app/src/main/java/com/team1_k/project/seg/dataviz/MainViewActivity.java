@@ -10,10 +10,12 @@ import android.view.View;
 
 public class MainViewActivity extends Activity{
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view);
+
 
     }
     @Override
@@ -36,10 +38,10 @@ public class MainViewActivity extends Activity{
                 Intent intentNews = new Intent(MainViewActivity.this, NewsActivity.class);
                 this.startActivity(intentNews);
                 break;
-//            case R.id.action_Markets:
-//                Intent intentMarkets = new Intent(MainViewActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentMarkets);
-//                break;
+            case R.id.action_Markets:
+                Intent intentMarkets = new Intent(MainViewActivity.this, ExchangeRatesActivity.class);
+                this.startActivity(intentMarkets);
+                break;
             case R.id.action_Countries:
                 Intent intentCountries = new Intent(MainViewActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);

@@ -12,4 +12,5 @@
         android:id="@+id/country_list_view"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

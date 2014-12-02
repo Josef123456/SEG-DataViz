@@ -62,10 +62,10 @@ public class NewsActivity extends Activity {
                 Intent intentNews = new Intent(NewsActivity.this, NewsActivity.class);
                 this.startActivity(intentNews);
                 break;
-//            case R.id.action_Markets:
-//                Intent intentMarkets = new Intent(MainViewActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentMarkets);
-//                break;
+            case R.id.action_Markets:
+                Intent intentMarkets = new Intent(NewsActivity.this, ExchangeRatesActivity.class);
+                this.startActivity(intentMarkets);
+                break;
             case R.id.action_Countries:
                 Intent intentCountries = new Intent(NewsActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);

@@ -86,10 +86,10 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
                 Intent intentNews = new Intent(CountryDetailActivity.this, NewsActivity.class);
                 this.startActivity(intentNews);
                 break;
-//            case R.id.action_Markets:
-//                Intent intentMarkets = new Intent(CountryDetailActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentMarkets);
-//                break;
+            case R.id.action_Markets:
+                Intent intentMarkets = new Intent(CountryDetailActivity.this, ExchangeRatesActivity.class);
+                this.startActivity(intentMarkets);
+                break;
             case R.id.action_Countries:
                 Intent intentCountries = new Intent(CountryDetailActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);

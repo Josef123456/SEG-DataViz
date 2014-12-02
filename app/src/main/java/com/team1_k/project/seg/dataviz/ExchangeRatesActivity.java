@@ -1,18 +1,15 @@
 package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.*;
-import android.widget.ArrayAdapter;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import com.team1_k.project.seg.dataviz.data_exchange_rate.ExchangeRate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.team1_k.project.seg.dataviz.data_exchange_rate.ExchangeRate;
 
 
 public class ExchangeRatesActivity extends Activity {
@@ -35,22 +32,39 @@ public class ExchangeRatesActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_exchange_rates, menu);
+        getMenuInflater().inflate(R.menu.main_view, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+
+            case R.id.action_home:
+                Intent intentHome = new Intent(ExchangeRatesActivity.this, MainViewActivity.class);
+                this.startActivity(intentHome);
+                break;
+            case R.id.action_News:
+                Intent intentNews = new Intent(ExchangeRatesActivity.this, NewsActivity.class);
+                this.startActivity(intentNews);
+                break;
+            case R.id.action_Markets:
+                Intent intentMarkets = new Intent(ExchangeRatesActivity.this, ExchangeRatesActivity.class);
+                this.startActivity(intentMarkets);
+                break;
+            case R.id.action_Countries:
+                Intent intentCountries = new Intent(ExchangeRatesActivity.this, CountrySelectionActivity.class);
+                this.startActivity(intentCountries);
+                break;
+//            case R.id.action_More:
+//                Intent intentMore = new Intent(NewsActivity.this, ActivityForItemOne.class);
+//                this.startActivity(intentMore);
+//                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }
