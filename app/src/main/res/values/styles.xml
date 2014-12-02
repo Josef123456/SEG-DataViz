@@ -6,7 +6,7 @@
     </style>
 
     <style name="Buttons">
-        <item name="android:textColor">#CC6600</item>
+        <item name="android:textColor">#ff3fcc54</item>
         <item name="android:typeface">sans</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
@@ -14,13 +14,13 @@
     </style>
 
     <style name="ExchangeMainText">
-        <item name="android:textColor">#CC6600</item>
+        <item name="android:textColor">#FF3FCC54</item>
         <item name="android:textSize">35sp</item>
         <item name="android:typeface">sans</item>
     </style>
 
     <style name="ExchangeText">
-        <item name="android:textColor">#CC6600</item>
+        <item name="android:textColor">#FF3FCC54</item>
         <item name="android:textSize">25sp</item>
         <item name="android:typeface">sans</item>
     </style>

@@ -41,18 +41,21 @@ public class CustomAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.rss_item, null);
+            convertView = View.inflate(context, R.layout.exchange_item, null);
             holder = new ViewHolder();
+            holder.textLabel = (TextView) convertView.findViewById(R.id.textLabel);
             holder.itemTitle = (TextView) convertView.findViewById(R.id.itemTitle);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        holder.textLabel.setText(items.get(position).getLabel());
         holder.itemTitle.setText(items.get(position).getTitle());
         return convertView;
     }
 
     static class ViewHolder {
+        TextView textLabel;
         TextView itemTitle;
 
     }

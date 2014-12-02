@@ -5,12 +5,17 @@ package com.team1_k.project.seg.dataviz.data_exchange_rate;
  */
 public class ExchangeItem {
 
+    private final String label;
     private final String title;
 
-    public ExchangeItem(String title) {
+    public ExchangeItem(String label, String title) {
+        this.label = label;
         this.title = title;
     }
 
+    public String getLabel() {
+        return label;
+    }
     public String getTitle() {
         return title;
     }

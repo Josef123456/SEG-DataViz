@@ -37,6 +37,8 @@ public class ExchangeRate {
     public static String EXCHANGE_BZD = "BZD";
     public static String EXCHANGE_CAD = "CAD";
     public static String EXCHANGE_QAR = "QAR";
+    public static String EXCHANGE_CZK = "CZK";
+    public static String EXCHANGE_HKD = "HKD";
 
 
     ExchangeRatesActivity xChangeActivity;
@@ -55,7 +57,7 @@ public class ExchangeRate {
     }
 
     JSONObject rates;
-    List<String> list;
+    List<ExchangeItem> list;
 
     public void getRates(){
 
@@ -63,7 +65,7 @@ public class ExchangeRate {
                 EXCHANGE_GBP, EXCHANGE_EUR, EXCHANGE_CHF, EXCHANGE_JPY, EXCHANGE_RUB, EXCHANGE_NOK, EXCHANGE_SEK
         };
 
-        list  = new ArrayList<String>();
+        list  = new ArrayList<ExchangeItem>();
         String toGet = EXCHANGE_URL_BASE+EXCHANGE_URL_LATEST;
 
         AsyncHttpClient.getDefaultInstance().getString(toGet, new AsyncHttpClient.StringCallback() {
@@ -80,7 +82,7 @@ public class ExchangeRate {
 
                     for(int i = 0; i < 7; i++){
                         try {
-                            list.add(temp[i]+"\n"+rates.getJSONObject("rates").getString(temp[i]));
+                            list.add(new ExchangeItem(temp[i], rates.getJSONObject("rates").getString(temp[i])));
                             parseRates();
 
                         } catch (JSONException exception) {
@@ -100,8 +102,8 @@ public class ExchangeRate {
         //StableArrayAdapter adapter = new StableArrayAdapter(xChangeActivity,
         //R.layout.exchange_item, list);
 
-        //CustomAdapter adapterx = new CustomAdapter(xChangeActivity, list);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(xChangeActivity ,R.layout.exchange_item,list);
+        CustomAdapter adapter = new CustomAdapter(xChangeActivity, list);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(xChangeActivity, R.layout.exchange_item, list);
         listView.setAdapter(adapter);
 
         pb.setVisibility(View.GONE);
