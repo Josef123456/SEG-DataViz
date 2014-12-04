@@ -53,6 +53,7 @@ public class CustomAdapter extends BaseAdapter {
         holder.textLabel.setText(items.get(position).getLabel());
         holder.itemTitle.setText(items.get(position).getTitle());
         holder.itemDifference.setText(items.get(position).getDifference());
+
         System.out.println(items.get(position).getDifference());
         return convertView;
     }

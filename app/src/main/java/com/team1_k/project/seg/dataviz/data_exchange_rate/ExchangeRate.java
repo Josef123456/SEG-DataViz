@@ -30,7 +30,6 @@ public class ExchangeRate {
     public static String EXCHANGE_URL_BASE = "http://openexchangerates.org/api/";
     public static String EXCHANGE_HISTORICAL = "historical/2014-";
     public static String EXCHANGE_URL_LATEST = "latest.json?app_id=41c2e84ad34a4407b8343a96606f6a07";
-    public static String EXCHANGE_URL_BASE_DIFFERENCE;
     public static String EXCHANGE_GBP = "GBP";
     public static String EXCHANGE_EUR = "EUR";
     public static String EXCHANGE_CHF = "CHF";
@@ -156,8 +155,7 @@ public class ExchangeRate {
                         float xChangeYesterday = Float.parseFloat(toCompare.getJSONObject("rates").getString(temp[i]));
 
                         float temp = xChangeYesterday - xChangeToday;
-                        double x = (double) temp;
-                        double diff = Math.round(x*100000)/100000;
+                        String diff = String.format("%.6f", temp);
 
                         list.get(i).setDifference(""+diff);
                         if(isPortrait == true){
