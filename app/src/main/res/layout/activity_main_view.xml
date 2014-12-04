@@ -67,7 +67,8 @@
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 android:textSize="40dp"
-                android:text="@string/more_button" />
+                android:text="@string/more_button"
+                android:onClick="comparisonActivity"/>
 
         </LinearLayout>
     </LinearLayout>

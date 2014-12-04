@@ -8,7 +8,7 @@
     <string name="news_button">News</string>
     <string name="exchange_button">Exchange Rates</string>
     <string name="countries_button">Countries</string>
-    <string name="more_button">More</string>
+    <string name="more_button">Comparison</string>
     <string name="other">Other</string>
     <string name="title_activity_interest">InterestActivity</string>
     <string name="interests">Interests</string>
@@ -22,5 +22,6 @@
     <string name="title_activity_graph">graphActivity</string>
     <string name="searchHint">Search</string>
     <string name="title_activity_exchange_rates">ExchangeRatesActivity</string>
+    <string name="title_activity_comparison">ComparisonActivity</string>
 
 </resources>

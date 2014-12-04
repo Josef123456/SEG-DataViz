@@ -60,10 +60,10 @@ public class ExchangeRatesActivity extends Activity {
                 Intent intentCountries = new Intent(ExchangeRatesActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);
                 break;
-//            case R.id.action_More:
-//                Intent intentMore = new Intent(NewsActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentMore);
-//                break;
+            case R.id.action_More:
+                Intent intentMore = new Intent(ExchangeRatesActivity.this,ComparisonActivity.class);
+                this.startActivity(intentMore);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
