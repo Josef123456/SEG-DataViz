@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.team1_k.project.seg.dataviz.CountryDetailActivity;
 import com.team1_k.project.seg.dataviz.CountrySelectionActivity;
 import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
 import com.team1_k.project.seg.dataviz.MainViewActivity;
@@ -23,6 +24,7 @@ import com.team1_k.project.seg.dataviz.NewsActivity;
 import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.model.DataPoint;
+import com.team1_k.project.seg.dataviz.model.Metric;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +44,11 @@ public class LineGraphActivity extends FragmentActivity
     private static final String LOG_TAG = "ui.graph.line";
     public static final String TAG_COUNTRY_ID = "country_id";
     public static final String TAG_METRIC_ID = "metric_id";
+    public static final String TAG_COUNTRY_API_ID = "country_api_id";
 
     private long mCountryDatabaseId;
     private long mMetricDatabaseId;
+    private String mCountryApiId;
     private ArrayList<DataPoint> mDataPoints = new ArrayList<DataPoint>() ;
 
     private final static int DATA_POINT_LOADER = 0 ;
@@ -62,6 +66,7 @@ public class LineGraphActivity extends FragmentActivity
         }
         mCountryDatabaseId = getIntent().getLongExtra(TAG_COUNTRY_ID,0);
         mMetricDatabaseId = getIntent().getLongExtra(TAG_METRIC_ID,0);
+        mCountryApiId = getIntent().getStringExtra(TAG_COUNTRY_API_ID);
         getLoaderManager().initLoader(DATA_POINT_LOADER, null, this);
     }
 
@@ -71,7 +76,7 @@ public class LineGraphActivity extends FragmentActivity
         return new CursorLoader(
                 getApplicationContext(),
                 DataVizContract.CountryEntry.
-                        buildCountryWithMetricId(mCountryDatabaseId,mMetricDatabaseId),
+                        buildCountryWithMetricId(mCountryDatabaseId, mMetricDatabaseId),
                 DataVizContract.MetricEntry.COLUMNS_FOR_METRIC_QUERY,
                 null,
                 null,
@@ -95,8 +100,21 @@ public class LineGraphActivity extends FragmentActivity
             Double value = cursor.getDouble(
                     DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_VALUE
             );
+            String metricName = cursor.getString(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_NAME
+            );
+            String metricDescription = cursor.getString(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_DESCRIPTION
+            );
+            String metricApiId = cursor.getString(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_API_ID
+            );
             if ( metricId == mMetricDatabaseId ) {
-                DataPoint dataPoint = new DataPoint(value, year );
+                DataPoint dataPoint = new DataPoint(
+                        value,
+                        year,
+                        new Metric( metricApiId, metricName, metricDescription, metricId)
+                );
                 mDataPoints.add( dataPoint) ;
             }
             cursor.moveToNext();
@@ -110,7 +128,6 @@ public class LineGraphActivity extends FragmentActivity
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
     }
 
     public static class LineGraph extends Fragment {

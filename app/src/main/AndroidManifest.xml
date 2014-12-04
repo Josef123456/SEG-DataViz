@@ -68,9 +68,6 @@
             android:name="com.team1_k.project.seg.dataviz.CountryDetailActivity"
             android:label="@string/title_activity_country_detail"
             android:parentActivityName="com.team1_k.project.seg.dataviz.CountrySelectionActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.team1_k.project.seg.dataviz.CountrySelection" />
         </activity>
         <activity
             android:name="com.team1_k.project.seg.dataviz.graphActivity"

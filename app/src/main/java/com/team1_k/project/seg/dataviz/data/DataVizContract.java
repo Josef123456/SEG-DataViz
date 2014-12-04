@@ -119,6 +119,9 @@ public class DataVizContract {
         } ;
 
         public static final int INDEX_METRIC_QUERY_COLUMN_METRIC_ID = 1 ;
+        public static final int INDEX_METRIC_QUERY_COLUMN_NAME = 2 ;
+        public static final int INDEX_METRIC_QUERY_COLUMN_DESCRIPTION = 3 ;
+        public static final int INDEX_METRIC_QUERY_COLUMN_API_ID = 4 ;
         public static final int INDEX_METRIC_QUERY_COLUMN_YEAR = 5;
         public static final int INDEX_METRIC_QUERY_COLUMN_VALUE = 6 ;
     }

@@ -68,7 +68,7 @@ public class Metric {
         return mDatabaseId;
     }
 
-    private Metric(String mApiId, String mName,
+    public Metric(String mApiId, String mName,
                    String mDescription, long mDatabaseId) {
         this.mApiId = mApiId;
         this.mName = mName;

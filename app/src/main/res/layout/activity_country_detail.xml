@@ -22,6 +22,6 @@
         android:id="@+id/countryDataPointListView"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/countryName"
-        tools:listitem="@layout/country_detail_data_point_view_layout" />
+        tools:listitem="@layout/list_row_country_detail_data_point" />
 
 </RelativeLayout>

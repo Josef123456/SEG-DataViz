@@ -38,7 +38,7 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
 
     private static final String LOG_TAG = "ui.country.detail" ;
 
-    protected static final String TAG_COUNTRY_ID = "COUNTRY_ID" ;
+    public static final String TAG_COUNTRY_API_ID = "COUNTRY_ID" ;
 
     private static final int DATA_POINT_LOADER = 0 ;
     private static final String[] DATA_POINT_COLUMNS = {
@@ -49,6 +49,7 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
     private QueryBuilder mQueryBuilder;
     private Intent mIntent ;
     private Country mCountry ;
+    private String mCountryApiId ;
     private Client mClient ;
     private Metric[] mMetrics;
     private ArrayAdapter mDataPointAdapter;
@@ -58,10 +59,14 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_detail);
-
-        mIntent = getIntent();
+        if ( savedInstanceState != null && savedInstanceState.containsKey(TAG_COUNTRY_API_ID)) {
+            mCountryApiId = savedInstanceState.getString(TAG_COUNTRY_API_ID);
+        } else {
+            mIntent = getIntent();
+            mCountryApiId = mIntent.getStringExtra(TAG_COUNTRY_API_ID);
+        }
         mQueryBuilder = new QueryBuilder(getApplicationContext());
-
+        Log.d ( LOG_TAG , "creating country detail" );
         fetchCountry();
         fetchClient();
         fetchMetrics();
@@ -105,17 +110,21 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
         return true;
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(TAG_COUNTRY_API_ID, mCountry.getApiId());
+    }
+
     private void fetchStats() {
         for ( Metric metric: mMetrics) {
             mQueryBuilder.fetchDataForCountryAndMetric(mCountry, metric);
         }
-
         mDataPointAdapter = new DataPointArrayAdapter(
                 getApplicationContext(),
                 R.layout.list_row_country_detail_data_point,
                 new DataPoint[] {}
         );
-
         ListView listView = (ListView) findViewById(R.id.countryDataPointListView);
         listView.setAdapter(mDataPointAdapter);
         listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
@@ -123,7 +132,8 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), LineGraphActivity.class)
                         .putExtra(LineGraphActivity.TAG_COUNTRY_ID, mCountry.getDatabaseId())
-                        .putExtra(LineGraphActivity.TAG_METRIC_ID, mMetrics[i].getDatabaseId());
+                        .putExtra(LineGraphActivity.TAG_METRIC_ID, mMetrics[i].getDatabaseId())
+                        .putExtra(LineGraphActivity.TAG_COUNTRY_API_ID, mCountry.getApiId());
                 startActivity(intent);
             }
         });
@@ -144,11 +154,12 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
     }
 
     private void fetchCountry() {
-        String country_api_id = mIntent.getStringExtra(TAG_COUNTRY_ID);
         try {
             Log.d ( LOG_TAG, "in fetch country");
-            mCountry = Country.getCountryWithApiId(getApplicationContext(), country_api_id);
+            mCountry = Country.getCountryWithApiId(getApplicationContext(), mCountryApiId);
             getLoaderManager().initLoader(DATA_POINT_LOADER, null, this);
+            TextView countryName = (TextView) findViewById(R.id.countryName);
+            countryName.setText(mCountry.getName());
             Log.d ( LOG_TAG, "loader should start");
         } catch ( Exception e ) {
             Log.e(LOG_TAG, e.toString() );
@@ -187,16 +198,29 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
 
             long metricId = cursor.getLong(
                     DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_METRIC_ID
-            ) ;
+            );
             int year = cursor.getInt(
                     DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_YEAR
             );
             Double value = cursor.getDouble(
                     DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_VALUE
             );
+            String metricName = cursor.getString(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_NAME
+            );
+            String metricDescription = cursor.getString(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_DESCRIPTION
+            );
+            String metricApiId = cursor.getString(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_API_ID
+            );
             if ( ! selectedMetricIds.contains(metricId) ) {
                 selectedMetricIds.add(metricId);
-                DataPoint dataPoint = new DataPoint(value, year );
+                DataPoint dataPoint = new DataPoint(
+                        value,
+                        year,
+                        new Metric( metricApiId, metricName, metricDescription, metricId)
+                );
                 mDataPoints.add( dataPoint) ;
             }
             cursor.moveToNext();
@@ -220,10 +244,15 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
         static class ViewHolder {
             TextView mYearTextView;
             TextView mValueTextView;
+            TextView mMetricDescriptionTextView;
+            TextView mMetricNameTextView;
 
             public ViewHolder(View view) {
                 this.mYearTextView = (TextView) view.findViewById(R.id.dataPointYear);
                 this.mValueTextView = (TextView) view.findViewById(R.id.dataPointValue);
+                this.mMetricDescriptionTextView = (TextView) view
+                        .findViewById(R.id.dataPointMetricDescription);
+                this.mMetricNameTextView = (TextView) view.findViewById(R.id.dataPointMetricName);
             }
         }
 
@@ -269,9 +298,10 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
             int year = dataPoint.getYear();
             Double value = dataPoint.getValue();
             DecimalFormat decimalFormat = new DecimalFormat("#.##");
-            holder.mValueTextView.setText(decimalFormat.format(value));
-            holder.mYearTextView.setText(decimalFormat.format(year));
-
+            holder.mValueTextView.setText("Value: " + decimalFormat.format(value));
+            holder.mYearTextView.setText("Latest year:" + decimalFormat.format(year));
+            holder.mMetricDescriptionTextView.setText(dataPoint.getMetric().getDescription());
+            holder.mMetricNameTextView.setText(dataPoint.getMetric().getName());
             return row ;
         }
     }

@@ -15,6 +15,8 @@ public class DataPoint {
     private double mValue = 0 ;
     private int mYear = 0 ;
 
+    private Metric mMetric ;
+
     public DataPoint(JSONObject dataPoint) {
         try {
             this.mValue = Double.valueOf(dataPoint.getString("value"));
@@ -27,13 +29,18 @@ public class DataPoint {
         Log.i(LOG_TAG, this.toString());
     }
 
-    public DataPoint(double mValue, int mYear) {
+    public DataPoint(double mValue, int mYear, Metric mMetric ) {
         this.mValue = mValue;
         this.mYear = mYear;
+        this.mMetric = mMetric;
     }
 
     public String toString() {
         return String.valueOf(mYear) + " - " + String.valueOf(mValue);
+    }
+
+    public Metric getMetric() {
+        return mMetric;
     }
 
     public double getValue() {

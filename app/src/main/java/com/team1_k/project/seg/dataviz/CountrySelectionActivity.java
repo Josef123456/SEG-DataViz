@@ -100,7 +100,7 @@ public class CountrySelectionActivity extends Activity implements
                 );
 
                 Intent intent = new Intent(getApplicationContext(), CountryDetailActivity.class)
-                        .putExtra(CountryDetailActivity.TAG_COUNTRY_ID, country_api_id);
+                        .putExtra(CountryDetailActivity.TAG_COUNTRY_API_ID, country_api_id);
                 startActivity(intent);
             }
         });
