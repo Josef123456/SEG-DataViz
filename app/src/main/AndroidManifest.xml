@@ -67,6 +67,7 @@
         <activity
             android:name="com.team1_k.project.seg.dataviz.CountryDetailActivity"
             android:label="@string/title_activity_country_detail"
+            android:launchMode="singleTop"
             android:parentActivityName="com.team1_k.project.seg.dataviz.CountrySelectionActivity" >
         </activity>
         <activity
