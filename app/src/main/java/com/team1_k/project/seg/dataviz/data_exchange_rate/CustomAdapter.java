@@ -45,18 +45,21 @@ public class CustomAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.textLabel = (TextView) convertView.findViewById(R.id.textLabel);
             holder.itemTitle = (TextView) convertView.findViewById(R.id.itemTitle);
+            holder.itemDifference = (TextView) convertView.findViewById(R.id.itemDifference);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.textLabel.setText(items.get(position).getLabel());
         holder.itemTitle.setText(items.get(position).getTitle());
+        holder.itemDifference.setText(items.get(position).getDifference());
+        System.out.println(items.get(position).getDifference());
         return convertView;
     }
 
     static class ViewHolder {
         TextView textLabel;
         TextView itemTitle;
-
+        TextView itemDifference;
     }
 }

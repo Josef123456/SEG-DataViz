@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import android.widget.TextView;
 import com.team1_k.project.seg.dataviz.data_exchange_rate.ExchangeRate;
 
 
@@ -21,10 +22,12 @@ public class ExchangeRatesActivity extends Activity {
 
         LinearLayout ll_1 = (LinearLayout) findViewById(R.id.ll_1);
         LinearLayout ll_2 = (LinearLayout) findViewById(R.id.ll_2);
-
         ListView listView = (ListView) findViewById(R.id.exchange_listview);
+        ListView listView2 = (ListView) findViewById(R.id.other_listview);
+        TextView tvPortrait = (TextView) findViewById(R.id.tvPortrait);
+
         ProgressBar pb = (ProgressBar) findViewById(R.id.pb);
-        ExchangeRate xChange = new ExchangeRate(this, listView, pb, ll_1, ll_2);
+        ExchangeRate xChange = new ExchangeRate(this, listView, listView2, pb, ll_1, ll_2, tvPortrait);
         xChange.getRates();
     }
 

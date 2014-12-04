@@ -79,19 +79,20 @@
     </LinearLayout>
 
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/invis_view3"
+        android:layout_below="@id/ll_1"
+        android:visibility="invisible"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll_1"
+        android:layout_below="@id/invis_view3"
         android:id="@+id/ll_2"
         android:visibility="gone">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/invis_view3"
-            android:visibility="invisible"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -99,7 +100,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Other Currencies"
             android:id="@+id/textView3"
-            android:layout_below="@id/invis_view3"
             style="@style/ExchangeText"/>
 
         <View
@@ -108,7 +108,24 @@
             android:id="@+id/invis_view4"
             android:layout_below="@id/textView3"
             android:visibility="invisible"/>
+
+        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/other_listview"
+                  android:layout_below="@id/textView3"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="(Switch orientation to portrait to see other currencies)"
+        android:id="@+id/tvPortrait"
+        android:layout_below="@id/ll_1"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
     <ProgressBar
         android:id="@+id/pb"
