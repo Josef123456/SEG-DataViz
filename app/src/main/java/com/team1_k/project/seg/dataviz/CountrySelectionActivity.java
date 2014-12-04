@@ -54,7 +54,7 @@ public class CountrySelectionActivity extends Activity implements
         setContentView(R.layout.activity_country_selection);
         mCountryAdapter = new SimpleCursorAdapter(
                 getApplicationContext(),
-                R.layout.country_list_view_layout,
+                R.layout.list_row_country,
                 null,
                 new String[] {
                         CountryEntry.COLUMN_NAME

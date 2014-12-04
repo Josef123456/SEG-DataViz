@@ -19,13 +19,14 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:id="@+id/dataPointMetricDescription"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="5dp"
     />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,7 +35,6 @@
             android:text="Medium Text"
             android:id="@+id/dataPointYear"
             android:layout_marginLeft="5dp"
-            android:layout_marginBottom="15dp"
             android:layout_weight="0.5"/>
 
         <TextView
@@ -44,17 +44,7 @@
             android:text="Medium Text"
             android:id="@+id/dataPointValue"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="43dp"
-            android:layout_marginBottom="15dp"
             android:layout_weight="0.5"/>
 
         </LinearLayout>
-
-
-
-
-
-
-
-
 </LinearLayout>
