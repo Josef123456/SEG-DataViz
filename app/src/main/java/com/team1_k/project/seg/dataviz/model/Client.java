@@ -16,7 +16,20 @@ public class Client {
     }
 
     public enum Type {
-        INVESTOR(new String[]{"NY.GDP.MKTP.CD", "SL.UEM.TOTL.ZS"}), STUDENT(new String[]{"MINWAGE"});
+        INVESTOR(
+                new String[]{
+                        "NY.GDP.MKTP.CD",
+                        "SL.UEM.TOTL.ZS",
+                        "IC.EXP.COST.CD",
+                        "IC.IMP.COST.CD",
+                        "NE.EXP.GNFS.KD.ZG",
+                        "NE.IMP.GNFS.KD.ZG",
+                        "FP.CPI.TOTL.ZG",
+                        "SL.TLF.TOTL.IN",
+                        "FR.INR.RINR"
+                }
+        ),
+        STUDENT(new String[]{"MINWAGE"});
 
         String[] interests;
 

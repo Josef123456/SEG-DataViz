@@ -62,7 +62,8 @@ public class CountryWithMetricQuery {
         dataPointContentValues.put(DataPointEntry.COLUMN_COUNTRY_ID, mCountry.getDatabaseId());
         Log.i(LOG_TAG, "data point for year " + dataPoint.getYear()
                 + " with value " + dataPoint.getValue()
-                + " for country " + mCountry.getName() + " & metric " + mMetric.getApiId()
+                + " for country " + mCountry.getDatabaseId() + " & metric "
+                + mMetric.getDatabaseId()
         ) ;
         return dataPointContentValues;
     }

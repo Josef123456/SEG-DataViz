@@ -61,11 +61,11 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
 
         mIntent = getIntent();
         mQueryBuilder = new QueryBuilder(getApplicationContext());
-        fetchClient();
+
         fetchCountry();
+        fetchClient();
         fetchMetrics();
         fetchStats();
-        getLoaderManager().initLoader(DATA_POINT_LOADER, null, this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,7 +146,10 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
     private void fetchCountry() {
         String country_api_id = mIntent.getStringExtra(TAG_COUNTRY_ID);
         try {
+            Log.d ( LOG_TAG, "in fetch country");
             mCountry = Country.getCountryWithApiId(getApplicationContext(), country_api_id);
+            getLoaderManager().initLoader(DATA_POINT_LOADER, null, this);
+            Log.d ( LOG_TAG, "loader should start");
         } catch ( Exception e ) {
             Log.e(LOG_TAG, e.toString() );
             e.printStackTrace();
@@ -164,7 +167,7 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
         return new CursorLoader(
                 getApplicationContext(),
                 DataVizContract.CountryEntry.
-                        buildCountryWithMetricUriWithId(mCountry.getDatabaseId()),
+                        buildCountryWithMetricsUriWithId(mCountry.getDatabaseId()),
                 DataVizContract.MetricEntry.COLUMNS_FOR_METRIC_QUERY,
                 null,
                 null,

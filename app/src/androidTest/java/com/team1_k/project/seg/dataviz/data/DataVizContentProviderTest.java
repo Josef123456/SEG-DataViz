@@ -169,7 +169,7 @@ public class DataVizContentProviderTest extends AndroidTestCase {
 
         loader = new CursorLoader(
                 getContext(),
-                CountryEntry.buildCountryWithMetricUriWithId(country_id),
+                CountryEntry.buildCountryWithMetricsUriWithId(country_id),
                 MetricEntry.COLUMNS_FOR_METRIC_QUERY,
                 null,
                 null,

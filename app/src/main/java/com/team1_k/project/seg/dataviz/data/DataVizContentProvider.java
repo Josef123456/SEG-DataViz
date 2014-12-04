@@ -1,6 +1,7 @@
 package com.team1_k.project.seg.dataviz.data;
 
 import com.team1_k.project.seg.dataviz.data.DataVizContract.* ;
+import com.team1_k.project.seg.dataviz.model.DataPoint;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -10,6 +11,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataVizContentProvider extends ContentProvider {
 
@@ -17,9 +23,12 @@ public class DataVizContentProvider extends ContentProvider {
 
     private static final UriMatcher sUriMatcher = buildUriMatcher() ;
 
+    private static final String LOG_TAG = "content_provider" ;
+
     private static final int COUNTRY= 100 ;
     private static final int COUNTRY_ID = 101 ;
     private static final int COUNTRY_WITH_METRICS = 102 ;
+    private static final int COUNTRY_WITH_METRIC = 103 ;
 
     private static final int METRIC = 200 ;
     private static final int METRIC_ID = 201 ;
@@ -59,6 +68,8 @@ public class DataVizContentProvider extends ContentProvider {
         matcher.addURI( AUTHORITY, DataVizContract.PATH_DATA_POINT, DATA_POINT ) ;
         matcher.addURI( AUTHORITY, DataVizContract.PATH_DATA_POINT + "/#", DATA_POINT_ID ) ;
 
+        matcher.addURI( AUTHORITY, DataVizContract.PATH_COUNTRY + "/#/metrics/#", COUNTRY_WITH_METRIC );
+
         return matcher;
     }
 
@@ -75,6 +86,7 @@ public class DataVizContentProvider extends ContentProvider {
             case COUNTRY: return CountryEntry.CONTENT_TYPE ;
             case COUNTRY_ID: return CountryEntry.CONTENT_ITEM_TYPE ;
             case COUNTRY_WITH_METRICS: return CountryEntry.CONTENT_TYPE ;
+            case COUNTRY_WITH_METRIC: return CountryEntry.CONTENT_TYPE ;
 
             case METRIC: return MetricEntry.CONTENT_TYPE ;
             case METRIC_ID: return MetricEntry.CONTENT_ITEM_TYPE ;
@@ -168,13 +180,37 @@ public class DataVizContentProvider extends ContentProvider {
                 returnCursor = countryWithMetricsQueryBuilder.query(
                         db,
                         projection,
-                        CountryEntry.TABLE_NAME + "." + CountryEntry._ID + " = ?",
+                        CountryEntry.TABLE_NAME + "." + CountryEntry._ID + " = ?" + " AND "
+                                + DataPointEntry.TABLE_NAME + "."
+                                + DataPointEntry.COLUMN_VALUE + " > 0",
                         new String[] { String.valueOf(ContentUris.parseId(uri)) },
                         null,
                         null,
                         sortOrder
                 );
                 break ;
+            }
+            case COUNTRY_WITH_METRIC: {
+                Log.d(LOG_TAG, uri.toString());
+                ContentUris.parseId(uri);
+                List<String> path = uri.getPathSegments();
+                String metric_id = path.get(3);
+                String country_id = path.get(1);
+                returnCursor = countryWithMetricsQueryBuilder.query(
+                        db,
+                        projection,
+                        CountryEntry.TABLE_NAME + "." + CountryEntry._ID + " = ?"
+                                + " AND "
+                                + MetricEntry.TABLE_NAME + "." + MetricEntry._ID + " = ?"
+                                + " AND "
+                                + DataPointEntry.TABLE_NAME + "."
+                                + DataPointEntry.COLUMN_VALUE + " > 0",
+                        new String[] { country_id, metric_id },
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
             }
             case METRIC: {
                 returnCursor = db.query(
@@ -221,7 +257,7 @@ public class DataVizContentProvider extends ContentProvider {
                                 MetricEntry.TABLE_NAME,
                                 null,
                                 value,
-                                SQLiteDatabase.CONFLICT_REPLACE
+                                SQLiteDatabase.CONFLICT_IGNORE
                         );
                         if ( _id != -1 ) {
                             ++ returnCount;
@@ -231,6 +267,7 @@ public class DataVizContentProvider extends ContentProvider {
                 } finally {
                     db.endTransaction();
                 }
+                Log.d ( LOG_TAG, "Metric return count:" + returnCount ) ;
                 getContext().getContentResolver().notifyChange(uri,null);
                 return returnCount;
             }
@@ -243,7 +280,7 @@ public class DataVizContentProvider extends ContentProvider {
                                 CountryEntry.TABLE_NAME,
                                 null,
                                 value,
-                                SQLiteDatabase.CONFLICT_REPLACE
+                                SQLiteDatabase.CONFLICT_IGNORE
                         );
                         if (_id != -1) {
                             ++returnCount;
@@ -253,6 +290,7 @@ public class DataVizContentProvider extends ContentProvider {
                 } finally {
                     db.endTransaction();
                 }
+                Log.d ( LOG_TAG, "Country return count:" + returnCount ) ;
                 getContext().getContentResolver().notifyChange(uri, null);
                 return returnCount;
             }
@@ -270,6 +308,7 @@ public class DataVizContentProvider extends ContentProvider {
                 } finally {
                     db.endTransaction();
                 }
+                Log.d ( LOG_TAG, "data point bulk insert: " + returnCount);
                 getContext().getContentResolver().notifyChange(uri, null);
                 getContext().getContentResolver()
                         .notifyChange(CountryEntry.buildCountryWithMetricUri(), null);

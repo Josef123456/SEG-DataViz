@@ -71,7 +71,7 @@ public class LineGraphActivity extends FragmentActivity
         return new CursorLoader(
                 getApplicationContext(),
                 DataVizContract.CountryEntry.
-                        buildCountryWithMetricUriWithId(mCountryDatabaseId),
+                        buildCountryWithMetricId(mCountryDatabaseId,mMetricDatabaseId),
                 DataVizContract.MetricEntry.COLUMNS_FOR_METRIC_QUERY,
                 null,
                 null,
