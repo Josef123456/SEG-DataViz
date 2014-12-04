@@ -95,6 +95,10 @@
             android:name="com.team1_k.project.seg.dataviz.ComparisonActivity"
             android:label="@string/title_activity_comparison" >
         </activity>
+        <activity
+            android:name="com.team1_k.project.seg.dataviz.ComparisonCountrySelectionActivity"
+            android:label="@string/title_activity_comparison_country_selection" >
+        </activity>
     </application>
 
 </manifest>

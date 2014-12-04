@@ -29,6 +29,7 @@ public class DataVizContentProvider extends ContentProvider {
     private static final int COUNTRY_ID = 101 ;
     private static final int COUNTRY_WITH_METRICS = 102 ;
     private static final int COUNTRY_WITH_METRIC = 103 ;
+    private static final int COUNTRIES_WITH_METRICS = 104 ;
 
     private static final int METRIC = 200 ;
     private static final int METRIC_ID = 201 ;
@@ -206,6 +207,19 @@ public class DataVizContentProvider extends ContentProvider {
                                 + DataPointEntry.TABLE_NAME + "."
                                 + DataPointEntry.COLUMN_VALUE + " > 0",
                         new String[] { country_id, metric_id },
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case COUNTRIES_WITH_METRICS: {
+                Log.d ( LOG_TAG, uri.toString());
+                returnCursor = countryWithMetricsQueryBuilder.query(
+                        db,
+                        projection,
+                        selection,
+                        selectionArgs,
                         null,
                         null,
                         sortOrder
