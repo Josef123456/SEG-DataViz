@@ -70,10 +70,10 @@ public class NewsActivity extends Activity {
                 Intent intentCountries = new Intent(NewsActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);
                 break;
-//            case R.id.action_More:
-//                Intent intentMore = new Intent(NewsActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentMore);
-//                break;
+            case R.id.action_More:
+                Intent intentMore = new Intent(NewsActivity.this,ComparisonActivity.class);
+                this.startActivity(intentMore);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -73,14 +73,15 @@
             android:name="com.team1_k.project.seg.dataviz.graphActivity"
             android:label="@string/title_activity_graph"
             android:parentActivityName="com.team1_k.project.seg.dataviz.CountryDetailActivity" />
-
         <activity
-            android:name=".graph.LineGraphActivity"
+            android:name="com.team1_k.project.seg.dataviz.graph.LineGraphActivity"
             android:label="@string/title_activity_graph"
-            android:parentActivityName="com.team1_k.project.seg.dataviz.CountryDetailActivity"/>
+            android:parentActivityName="com.team1_k.project.seg.dataviz.CountryDetailActivity" />
+
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value="com.team1_k.project.seg.dataviz.CountrDetail" />
+
         <activity
             android:name="com.team1_k.project.seg.dataviz.ExchangeRatesActivity"
             android:label="@string/title_activity_exchange_rates"
@@ -88,6 +89,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.team1_k.project.seg.dataviz.MainViewActivity" />
+        </activity>
+        <activity
+            android:name="com.team1_k.project.seg.dataviz.ComparisonActivity"
+            android:label="@string/title_activity_comparison" >
         </activity>
     </application>
 

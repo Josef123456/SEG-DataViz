@@ -46,10 +46,10 @@ public class MainViewActivity extends Activity{
                 Intent intentCountries = new Intent(MainViewActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);
                 break;
-//            case R.id.action_More:
-//                Intent intentMore = new Intent(MainViewActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentMore);
-//                break;
+            case R.id.action_More:
+                Intent intentMore = new Intent(MainViewActivity.this, ComparisonActivity.class);
+                this.startActivity(intentMore);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -73,6 +73,10 @@ public class MainViewActivity extends Activity{
     public void startExchangeRatesActivity(View view) {
         Intent intentExchange = new Intent(this, ExchangeRatesActivity.class);
         startActivity(intentExchange);
+    }
+    public void comparisonActivity(View view){
+        Intent intentComparing = new Intent(this, ComparisonActivity.class);
+        startActivity(intentComparing);
     }
 
 

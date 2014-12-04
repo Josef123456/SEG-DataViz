@@ -133,14 +133,11 @@ public class CountrySelectionActivity extends Activity implements
                 Intent intentCountries = new Intent(CountrySelectionActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);
                 break;
-            /**
-             * This part is for later:
-             */
-//            case R.id.action_More:
-//                Intent intentMore = new Intent(CountrySelectionActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentMore);
-//                break;
-//
+            case R.id.action_More:
+                Intent intentMore = new Intent(CountrySelectionActivity.this, ComparisonActivity.class);
+                this.startActivity(intentMore);
+                break;
+
 
             case R.id.search:
                 MenuItem searchItem=item;

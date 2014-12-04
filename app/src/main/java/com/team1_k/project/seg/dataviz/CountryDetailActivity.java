@@ -99,10 +99,10 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
                 Intent intentCountries = new Intent(CountryDetailActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);
                 break;
-//            case R.id.action_More:
-//                Intent intentMore = new Intent(CountryDetailActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentMore);
-//                break;
+            case R.id.action_More:
+                Intent intentMore = new Intent(CountryDetailActivity.this,ComparisonActivity.class);
+                this.startActivity(intentMore);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
