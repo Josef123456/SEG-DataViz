@@ -1,21 +1,61 @@
 package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.team1_k.project.seg.dataviz.adapters.MetricArrayAdapter;
+import com.team1_k.project.seg.dataviz.model.Client;
+import com.team1_k.project.seg.dataviz.model.Metric;
 
 
 public class ComparisonActivity extends Activity {
 
-    //private
+    private Metric[] mMetrics;
+    private Client mClient ;
+    private static final String LOG_TAG = "ui.comparison" ;
+
+    private void fetchClient() {
+        mClient = new Client(Client.Type.INVESTOR);
+    }
+
+    private void fetchMetrics() {
+        String[] metric_api_ids = mClient.getType().getInterests() ;
+        int length = metric_api_ids.length ;
+        mMetrics = new Metric[length];
+        try {
+            for (int i = 0; i < length; ++i) {
+                mMetrics[i] = Metric.getMetricWithApiId(getApplicationContext(), metric_api_ids[i]);
+            }
+        } catch ( Exception e ) {
+            Log.e(LOG_TAG, e.toString());
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comparison);
+        fetchClient();
+        fetchMetrics();
+        ListView listView = (ListView) findViewById(R.id.comparisonList);
+        listView.setAdapter(new MetricArrayAdapter(
+                getApplicationContext(),
+                R.layout.list_row_comparison,
+                mMetrics
+            )
+        );
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
