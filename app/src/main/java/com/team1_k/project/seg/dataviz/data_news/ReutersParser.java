@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by dbrisingr on 21/11/14.
  */
-public class BloombergParser {
+public class ReutersParser {
     // We don't use namespaces
     private final String ns = null;
 

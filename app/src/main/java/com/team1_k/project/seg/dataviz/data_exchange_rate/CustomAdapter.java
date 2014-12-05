@@ -1,6 +1,7 @@
 package com.team1_k.project.seg.dataviz.data_exchange_rate;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -52,6 +53,11 @@ public class CustomAdapter extends BaseAdapter {
         }
         holder.textLabel.setText(items.get(position).getLabel());
         holder.itemTitle.setText(items.get(position).getTitle());
+        if(Float.parseFloat(items.get(position).getDifference()) >= 0f){
+            holder.itemDifference.setTextColor(Color.RED);
+        }else{
+            holder.itemDifference.setTextColor(Color.GREEN);
+        }
         holder.itemDifference.setText(items.get(position).getDifference());
 
         System.out.println(items.get(position).getDifference());

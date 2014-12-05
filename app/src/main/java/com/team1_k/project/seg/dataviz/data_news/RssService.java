@@ -32,7 +32,7 @@ public class RssService extends IntentService {
         Log.d(SyncStateContract.Constants._ID, "Service started");
         List<RssItem> rssItems = null;
         try {
-            BloombergParser parser = new BloombergParser();
+            ReutersParser parser = new ReutersParser();
             rssItems = parser.parse(getInputStream(RSS_LINK));
         } catch (XmlPullParserException e) {
             Log.w(e.getMessage(), e);

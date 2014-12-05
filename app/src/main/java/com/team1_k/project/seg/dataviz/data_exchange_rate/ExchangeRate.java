@@ -159,7 +159,14 @@ public class ExchangeRate {
 
                         list.get(i).setDifference(""+diff);
                         if(isPortrait == true){
-                            listOthers.get(i).setDifference(""+diff);
+
+                            float xChangeToday2 = Float.parseFloat(listOthers.get(i).getTitle());
+                            float xChangeYesterday2 = Float.parseFloat(toCompare.getJSONObject("rates").getString(temp2[i]));
+
+                            float temp2 = xChangeYesterday2 - xChangeToday2;
+                            String diff2 = String.format("%.6f", temp2);
+
+                            listOthers.get(i).setDifference(""+diff2);
                         }
                     }
                 }catch (JSONException ex){
