@@ -34,7 +34,6 @@ public class ReutersParser {
         String link = null;
         List<RssItem> items = new ArrayList<RssItem>();
         while (parser.next() != XmlPullParser.END_DOCUMENT) {
-            System.out.println(parser.getEventType());
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }

@@ -47,15 +47,19 @@ public class ComparisonActivity extends Activity {
         fetchMetrics();
         ListView listView = (ListView) findViewById(R.id.comparisonList);
         listView.setAdapter(new MetricArrayAdapter(
-                getApplicationContext(),
-                R.layout.list_row_comparison,
-                mMetrics
-            )
+                        getApplicationContext(),
+                        R.layout.list_row_comparison,
+                        mMetrics
+                )
         );
         listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        CountryComparisonSelectionActivity.class
+                ).putExtra(CountryComparisonSelectionActivity.TAG_METRIC_DATABASE_ID, mMetrics[i].getDatabaseId());
+                startActivity(intent);
             }
         });
     }

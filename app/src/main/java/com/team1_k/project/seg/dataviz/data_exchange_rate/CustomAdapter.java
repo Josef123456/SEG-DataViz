@@ -60,7 +60,6 @@ public class CustomAdapter extends BaseAdapter {
         }
         holder.itemDifference.setText(items.get(position).getDifference());
 
-        System.out.println(items.get(position).getDifference());
         return convertView;
     }
 

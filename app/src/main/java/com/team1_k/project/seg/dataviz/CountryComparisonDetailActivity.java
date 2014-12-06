@@ -1,17 +1,29 @@
 package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
 public class CountryComparisonDetailActivity extends Activity {
 
+    public static final String TAG_COUNTRY_DATABASE_IDS = "countries_database_ids" ;
+    private static final String LOG_TAG = "ui.comparison.detail";
+    public static final String TAG_METRIC_DATABASE_ID = "metric_database_id" ;
+    long[] mCountryDatabaseIds ;
+    long mMetricDatabaseId ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_comparison_detail);
+        Intent intent = getIntent();
+        mCountryDatabaseIds = intent.getLongArrayExtra(TAG_COUNTRY_DATABASE_IDS);
+        mMetricDatabaseId = intent.getLongExtra(TAG_METRIC_DATABASE_ID, 0);
+        Log.d(LOG_TAG, String.valueOf(mMetricDatabaseId) );
     }
 
 

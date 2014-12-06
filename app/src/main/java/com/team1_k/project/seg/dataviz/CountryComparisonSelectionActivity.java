@@ -14,9 +14,12 @@ import android.widget.Button;
 import android.widget.ListView;
 
 
-public class ComparisonCountrySelectionActivity extends Activity {
+public class CountryComparisonSelectionActivity extends Activity {
 
     private static final String LOG_TAG = "ui.comparison.country_selection" ;
+    public static final String TAG_METRIC_DATABASE_ID = "metric_database_id" ;
+
+    private long mMetricDatabaseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public class ComparisonCountrySelectionActivity extends Activity {
         listView.setItemsCanFocus(false);
         listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         Button goButton = (Button) findViewById(R.id.comparisonGoButton);
+        Intent intent = getIntent();
+        mMetricDatabaseId = intent.getLongExtra(TAG_METRIC_DATABASE_ID, 0);
 
         goButton.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -39,6 +44,17 @@ public class ComparisonCountrySelectionActivity extends Activity {
                 SparseBooleanArray array = listView.getCheckedItemPositions();
                 for ( int i = 0 ; i < array.size() ; ++ i ) {
                     Log.d(LOG_TAG, String.valueOf(array.keyAt(i)));
+                    Intent intent = new Intent(
+                            getApplicationContext(),
+                            CountryComparisonDetailActivity.class
+                    ).putExtra(
+                            CountryComparisonDetailActivity.TAG_COUNTRY_DATABASE_IDS,
+                            new long[] {8315, 8367}
+                    ).putExtra(
+                            CountryComparisonDetailActivity.TAG_METRIC_DATABASE_ID,
+                            mMetricDatabaseId
+                    );
+                    startActivity(intent);
                 }
             }
         });
@@ -60,23 +76,23 @@ public class ComparisonCountrySelectionActivity extends Activity {
         switch(item.getItemId()) {
 
             case R.id.action_home:
-                Intent intentHome = new Intent(ComparisonCountrySelectionActivity.this, MainViewActivity.class);
+                Intent intentHome = new Intent(CountryComparisonSelectionActivity.this, MainViewActivity.class);
                 this.startActivity(intentHome);
                 break;
             case R.id.action_News:
-                Intent intentNews = new Intent(ComparisonCountrySelectionActivity.this, NewsActivity.class);
+                Intent intentNews = new Intent(CountryComparisonSelectionActivity.this, NewsActivity.class);
                 this.startActivity(intentNews);
                 break;
             case R.id.action_Markets:
-                Intent intentMarkets = new Intent(ComparisonCountrySelectionActivity.this, ExchangeRatesActivity.class);
+                Intent intentMarkets = new Intent(CountryComparisonSelectionActivity.this, ExchangeRatesActivity.class);
                 this.startActivity(intentMarkets);
                 break;
             case R.id.action_Countries:
-                Intent intentCountries = new Intent(ComparisonCountrySelectionActivity.this, CountrySelectionActivity.class);
+                Intent intentCountries = new Intent(CountryComparisonSelectionActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);
                 break;
             case R.id.action_More:
-                Intent intentMore = new Intent(ComparisonCountrySelectionActivity.this,ComparisonActivity.class);
+                Intent intentMore = new Intent(CountryComparisonSelectionActivity.this,ComparisonActivity.class);
                 this.startActivity(intentMore);
                 break;
             default:
