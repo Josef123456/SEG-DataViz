@@ -1,77 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background">
+    android:background="@drawable/newyork">
 
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <LinearLayout
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-
-        <LinearLayout
+        <TabWidget
+            android:id="@android:id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="20dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <Button
-                android:id="@+id/button_News"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/news_button"
-                android:layout_marginRight="10dp"
-                android:textSize="40dp"
-                android:onClick="startNewsActivity" />
-
-            <Button
-                android:id="@+id/market_button"
-                android:onClick="startExchangeRatesActivity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginLeft="10dp"
-                android:textSize="40dp"
-                android:text="@string/exchange_button" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
+        <FrameLayout
+            android:id="@android:id/tabcontent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="20dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_Countries"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginRight="10dp"
-                android:textSize="40dp"
-                android:text="@string/countries_button"
-                android:onClick="startCountriesActivity" />
-
-            <Button
-                android:id="@+id/button_More"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginLeft="10dp"
-                android:textSize="40dp"
-                android:text="@string/more_button"
-                android:onClick="comparisonActivity"/>
-
-        </LinearLayout>
+            android:layout_height="match_parent" />
     </LinearLayout>
-</LinearLayout>
-
-
+</TabHost>

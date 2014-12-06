@@ -1,8 +1,7 @@
 package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -49,7 +48,7 @@ public class ComparisonCountrySelectionActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_comparison_country_selection, menu);
+        getMenuInflater().inflate(R.menu.main_view, menu);
         return true;
     }
 
@@ -58,13 +57,32 @@ public class ComparisonCountrySelectionActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch(item.getItemId()) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.action_home:
+                Intent intentHome = new Intent(ComparisonCountrySelectionActivity.this, MainViewActivity.class);
+                this.startActivity(intentHome);
+                break;
+            case R.id.action_News:
+                Intent intentNews = new Intent(ComparisonCountrySelectionActivity.this, NewsActivity.class);
+                this.startActivity(intentNews);
+                break;
+            case R.id.action_Markets:
+                Intent intentMarkets = new Intent(ComparisonCountrySelectionActivity.this, ExchangeRatesActivity.class);
+                this.startActivity(intentMarkets);
+                break;
+            case R.id.action_Countries:
+                Intent intentCountries = new Intent(ComparisonCountrySelectionActivity.this, CountrySelectionActivity.class);
+                this.startActivity(intentCountries);
+                break;
+            case R.id.action_More:
+                Intent intentMore = new Intent(ComparisonCountrySelectionActivity.this,ComparisonActivity.class);
+                this.startActivity(intentMore);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }
