@@ -12,5 +12,5 @@
         android:id="@+id/metric_list_view"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        tools:listitem="@layout/metric_list_view_layout" />
+        tools:listitem="@layout/metric_list_view_layout"/>
 </RelativeLayout>

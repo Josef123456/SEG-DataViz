@@ -24,5 +24,6 @@
     <string name="title_activity_exchange_rates">ExchangeRatesActivity</string>
     <string name="title_activity_comparison">ComparisonActivity</string>
     <string name="title_activity_comparison_country_selection">ComparisonCountrySelectionActivity</string>
+    <string name="app_search">Search</string>
 
 </resources>

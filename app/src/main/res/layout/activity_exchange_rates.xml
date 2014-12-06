@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/newyork">
 
     <TextView
         android:layout_width="wrap_content"
@@ -11,14 +12,14 @@
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        style="@style/ExchangeMainText"/>
+        style="@style/ExchangeMainText" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:id="@+id/invis_view1"
         android:layout_below="@id/textView"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -41,7 +42,7 @@
                 android:text="Main Currencies"
                 android:id="@+id/tv"
                 android:gravity="left"
-                style="@style/ExchangeText"/>
+                style="@style/ExchangeText" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -50,7 +51,7 @@
                 android:text="Latest Rate"
                 android:id="@+id/tv2"
                 android:gravity="center"
-                style="@style/ExchangeText"/>
+                style="@style/ExchangeText" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -59,7 +60,7 @@
                 android:text="Change (from yesterday)"
                 android:id="@+id/tv3"
                 android:gravity="right"
-                style="@style/ExchangeText"/>
+                style="@style/ExchangeText" />
         </RelativeLayout>
 
         <View
@@ -67,14 +68,14 @@
             android:layout_height="20dp"
             android:id="@+id/invis_view2"
             android:layout_below="@id/textView2"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/exchange_listview"
-                  android:layout_below="@id/invis_view2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="center"/>
+            android:id="@+id/exchange_listview"
+            android:layout_below="@id/invis_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
@@ -84,7 +85,7 @@
         android:layout_height="30dp"
         android:id="@+id/invis_view3"
         android:layout_below="@id/ll_1"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -100,20 +101,20 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Other Currencies"
             android:id="@+id/textView3"
-            style="@style/ExchangeText"/>
+            style="@style/ExchangeText" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:id="@+id/invis_view4"
             android:layout_below="@id/textView3"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/other_listview"
-                  android:layout_below="@id/textView3"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"/>
+            android:id="@+id/other_listview"
+            android:layout_below="@id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <TextView
@@ -124,7 +125,7 @@
         android:id="@+id/tvPortrait"
         android:layout_below="@id/ll_1"
         android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/pb"
@@ -132,6 +133,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
 </RelativeLayout>

@@ -28,7 +28,9 @@
         android:id="@+id/listView"
         android:layout_below="@+id/textView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
