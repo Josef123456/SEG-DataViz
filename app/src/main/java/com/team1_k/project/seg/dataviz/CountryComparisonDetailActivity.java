@@ -10,11 +10,11 @@ import android.view.MenuItem;
 
 public class CountryComparisonDetailActivity extends Activity {
 
-    public static final String TAG_COUNTRY_DATABASE_IDS = "countries_database_ids" ;
+    public static final String TAG_COUNTRY_DATABASE_IDS = "countries_database_ids";
     private static final String LOG_TAG = "ui.comparison.detail";
-    public static final String TAG_METRIC_DATABASE_ID = "metric_database_id" ;
-    long[] mCountryDatabaseIds ;
-    long mMetricDatabaseId ;
+    public static final String TAG_METRIC_DATABASE_ID = "metric_database_id";
+    long[] mCountryDatabaseIds;
+    long mMetricDatabaseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,29 +23,45 @@ public class CountryComparisonDetailActivity extends Activity {
         Intent intent = getIntent();
         mCountryDatabaseIds = intent.getLongArrayExtra(TAG_COUNTRY_DATABASE_IDS);
         mMetricDatabaseId = intent.getLongExtra(TAG_METRIC_DATABASE_ID, 0);
-        Log.d(LOG_TAG, String.valueOf(mMetricDatabaseId) );
+        Log.d(LOG_TAG, String.valueOf(mMetricDatabaseId));
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_country_comparison_detail, menu);
+        getMenuInflater().inflate(R.menu.main_view, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.action_home:
+                Intent intentHome = new Intent(CountryComparisonDetailActivity.this, MainViewActivity.class);
+                this.startActivity(intentHome);
+                break;
+            case R.id.action_News:
+                Intent intentNews = new Intent(CountryComparisonDetailActivity.this, NewsActivity.class);
+                this.startActivity(intentNews);
+                break;
+            case R.id.action_Markets:
+                Intent intentMarkets = new Intent(CountryComparisonDetailActivity.this, ExchangeRatesActivity.class);
+                this.startActivity(intentMarkets);
+                break;
+            case R.id.action_Countries:
+                Intent intentCountries = new Intent(CountryComparisonDetailActivity.this, CountrySelectionActivity.class);
+                this.startActivity(intentCountries);
+                break;
+            case R.id.action_More:
+                Intent intentMore = new Intent(CountryComparisonDetailActivity.this, ComparisonActivity.class);
+                this.startActivity(intentMore);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }
