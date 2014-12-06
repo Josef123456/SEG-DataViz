@@ -71,7 +71,11 @@
             android:parentActivityName="com.team1_k.project.seg.dataviz.CountrySelectionActivity" >
         </activity>
         <activity
-            android:name="com.team1_k.project.seg.dataviz.graph.LineGraphActivity"
+            android:name="com.team1_k.project.seg.dataviz.graphActivity"
+            android:label="@string/title_activity_graph"
+            android:parentActivityName="com.team1_k.project.seg.dataviz.CountryDetailActivity" />
+        <activity
+            android:name=".CountryWithMetricActivity"
             android:label="@string/title_activity_graph"
             android:parentActivityName="com.team1_k.project.seg.dataviz.CountryDetailActivity" />
 
@@ -92,8 +96,12 @@
             android:label="@string/title_activity_comparison" >
         </activity>
         <activity
-            android:name="com.team1_k.project.seg.dataviz.ComparisonCountrySelectionActivity"
+            android:name=".CountryComparisonSelectionActivity"
             android:label="@string/title_activity_comparison_country_selection" >
+        </activity>
+        <activity
+            android:name="com.team1_k.project.seg.dataviz.CountryComparisonDetailActivity"
+            android:label="@string/title_activity_country_comparison_detail" >
         </activity>
     </application>
 

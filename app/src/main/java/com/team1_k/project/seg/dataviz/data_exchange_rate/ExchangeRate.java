@@ -134,7 +134,6 @@ public class ExchangeRate {
         Calendar c = Calendar.getInstance();
         String month = ""+(c.get(Calendar.MONTH)+1);
         String date = "-0"+(c.get(Calendar.DATE)-1);
-        System.out.println("month: "+month+" and date: "+date);
         String toGet = EXCHANGE_URL_BASE+EXCHANGE_HISTORICAL+month+date+EXCHANGE_APP_ID;
 
 

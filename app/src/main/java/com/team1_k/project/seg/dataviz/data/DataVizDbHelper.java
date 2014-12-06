@@ -58,7 +58,7 @@ public class DataVizDbHelper extends SQLiteOpenHelper {
                 MetricEntry.TABLE_NAME + " (" + MetricEntry._ID + ")" +
                 "UNIQUE(" + DataPointEntry.COLUMN_METRIC_ID + ", " +
                     DataPointEntry.COLUMN_COUNTRY_ID + " ," +
-                    DataPointEntry.COLUMN_YEAR + ") ON CONFLICT REPLACE"
+                    DataPointEntry.COLUMN_YEAR + ") ON CONFLICT IGNORE"
                 + ")";
         sqLiteDatabase.execSQL(SQL_CREATE_DATA_POINT_TABLE);
 

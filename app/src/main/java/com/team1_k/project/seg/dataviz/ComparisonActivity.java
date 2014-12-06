@@ -55,7 +55,11 @@ public class ComparisonActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        CountryComparisonSelectionActivity.class
+                ).putExtra(CountryComparisonSelectionActivity.TAG_METRIC_DATABASE_ID, mMetrics[i].getDatabaseId());
+                startActivity(intent);
             }
         });
     }
