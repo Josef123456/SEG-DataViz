@@ -2,18 +2,15 @@ package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -23,16 +20,12 @@ import com.team1_k.project.seg.dataviz.adapters.DataPointArrayAdapter;
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.DataPointEntry;
-import com.team1_k.project.seg.dataviz.graph.LineGraphActivity;
 import com.team1_k.project.seg.dataviz.model.Client;
 import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.DataPoint;
 import com.team1_k.project.seg.dataviz.model.Metric;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 
 
 public class CountryDetailActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -131,10 +124,10 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
         listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), LineGraphActivity.class)
-                        .putExtra(LineGraphActivity.TAG_COUNTRY_ID, mCountry.getDatabaseId())
-                        .putExtra(LineGraphActivity.TAG_METRIC_ID, mMetrics[i].getDatabaseId())
-                        .putExtra(LineGraphActivity.TAG_COUNTRY_API_ID, mCountry.getApiId());
+                Intent intent = new Intent(getApplicationContext(), CountryWithMetricActivity.class)
+                        .putExtra(CountryWithMetricActivity.TAG_COUNTRY_ID, mCountry.getDatabaseId())
+                        .putExtra(CountryWithMetricActivity.TAG_METRIC_ID, mMetrics[i].getDatabaseId())
+                        .putExtra(CountryWithMetricActivity.TAG_COUNTRY_API_ID, mCountry.getApiId());
                 startActivity(intent);
             }
         });
