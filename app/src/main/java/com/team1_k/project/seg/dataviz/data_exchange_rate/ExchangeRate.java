@@ -1,7 +1,5 @@
 package com.team1_k.project.seg.dataviz.data_exchange_rate;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.View;
@@ -9,14 +7,12 @@ import android.widget.*;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.koushikdutta.async.http.AsyncHttpResponse;
 import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
-import com.team1_k.project.seg.dataviz.R;
-import org.json.JSONArray;
+import com.team1_k.project.seg.dataviz.adapters.CustomAdapter;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 

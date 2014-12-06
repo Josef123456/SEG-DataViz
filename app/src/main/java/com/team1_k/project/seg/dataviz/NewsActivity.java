@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.team1_k.project.seg.dataviz.data_news.RssAdapter;
+import com.team1_k.project.seg.dataviz.adapters.RssAdapter;
 import com.team1_k.project.seg.dataviz.data_news.RssItem;
 import com.team1_k.project.seg.dataviz.data_news.RssService;
 
