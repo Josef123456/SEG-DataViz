@@ -69,7 +69,15 @@ public class DataVizContentProvider extends ContentProvider {
         matcher.addURI( AUTHORITY, DataVizContract.PATH_DATA_POINT, DATA_POINT ) ;
         matcher.addURI( AUTHORITY, DataVizContract.PATH_DATA_POINT + "/#", DATA_POINT_ID ) ;
 
-        matcher.addURI( AUTHORITY, DataVizContract.PATH_COUNTRY + "/#/metrics/#", COUNTRY_WITH_METRIC );
+        matcher.addURI(
+                AUTHORITY,
+                DataVizContract.PATH_COUNTRY + "/metrics", COUNTRIES_WITH_METRICS
+        );
+        matcher.addURI(
+                AUTHORITY,
+                DataVizContract.PATH_COUNTRY + "/#/metrics/#",
+                COUNTRY_WITH_METRIC
+        );
 
         return matcher;
     }
@@ -88,6 +96,7 @@ public class DataVizContentProvider extends ContentProvider {
             case COUNTRY_ID: return CountryEntry.CONTENT_ITEM_TYPE ;
             case COUNTRY_WITH_METRICS: return CountryEntry.CONTENT_TYPE ;
             case COUNTRY_WITH_METRIC: return CountryEntry.CONTENT_TYPE ;
+            case COUNTRIES_WITH_METRICS: return CountryEntry.CONTENT_TYPE ;
 
             case METRIC: return MetricEntry.CONTENT_TYPE ;
             case METRIC_ID: return MetricEntry.CONTENT_ITEM_TYPE ;
@@ -224,6 +233,8 @@ public class DataVizContentProvider extends ContentProvider {
                         null,
                         sortOrder
                 );
+                Log.d ( LOG_TAG, selection ) ;
+                Log.d ( LOG_TAG, selectionArgs[0]);// + " " + selectionArgs[1] ) ;
                 break;
             }
             case METRIC: {

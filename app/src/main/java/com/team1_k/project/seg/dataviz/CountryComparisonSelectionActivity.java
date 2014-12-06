@@ -25,7 +25,7 @@ public class CountryComparisonSelectionActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comparison_country_selection);
+        setContentView(R.layout.activity_country_comparison_selection);
         final ListView listView = (ListView) findViewById(R.id.countryListWithCheckbox);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,

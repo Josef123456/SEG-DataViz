@@ -41,6 +41,11 @@ public class DataVizContract {
             return ContentUris.withAppendedId(CONTENT_URI, _ID) ;
         }
 
+        public static Uri buildCountriesWithMetricsUri(){
+            return CONTENT_URI.buildUpon().
+                    appendEncodedPath("metrics").build();
+        }
+
         public static Uri buildCountryWithMetricsUriWithId(long _ID){
             return CONTENT_URI.buildUpon().
                     appendEncodedPath("metrics").
@@ -115,15 +120,20 @@ public class DataVizContract {
                 MetricEntry.TABLE_NAME + "." + COLUMN_DESCRIPTION,
                 MetricEntry.TABLE_NAME + "." + COLUMN_API_ID,
                 DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_YEAR,
-                DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_VALUE
+                DataPointEntry.TABLE_NAME + "." + DataPointEntry.COLUMN_VALUE,
+                CountryEntry.TABLE_NAME + "." + CountryEntry.COLUMN_API_ID,
+                CountryEntry.TABLE_NAME + "." + CountryEntry._ID
         } ;
 
+        public static final int INDEX_METRIC_QUERY_COLUMN_COUNTRY_NAME = 0 ;
         public static final int INDEX_METRIC_QUERY_COLUMN_METRIC_ID = 1 ;
         public static final int INDEX_METRIC_QUERY_COLUMN_NAME = 2 ;
         public static final int INDEX_METRIC_QUERY_COLUMN_DESCRIPTION = 3 ;
         public static final int INDEX_METRIC_QUERY_COLUMN_API_ID = 4 ;
         public static final int INDEX_METRIC_QUERY_COLUMN_YEAR = 5;
         public static final int INDEX_METRIC_QUERY_COLUMN_VALUE = 6 ;
+        public static final int INDEX_METRIC_QUERY_COLUMN_COUNTRY_API_ID = 7;
+        public static final int INDEX_METRIC_QUERY_COLUMN_COUNTRY_ID = 8 ;
     }
 
     public static final class DataPointEntry implements BaseColumns {

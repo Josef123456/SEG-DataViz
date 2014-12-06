@@ -39,11 +39,11 @@ public class CountryWithMetricActivity extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_graph);
+        setContentView(R.layout.activity_country_with_metric);
         mGraphFragment = new LineGraphFragment () ;
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, mGraphFragment).commit();
+                    .add(R.id.countryWithMetricContainer, mGraphFragment).commit();
         }
         mCountryDatabaseId = getIntent().getLongExtra(TAG_COUNTRY_ID,0);
         mMetricDatabaseId = getIntent().getLongExtra(TAG_METRIC_ID,0);
@@ -67,7 +67,6 @@ public class CountryWithMetricActivity extends FragmentActivity
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-
         cursor.moveToFirst();
         mDataPoints = new ArrayList<DataPoint>();
         while ( ! cursor.isAfterLast() ) {
