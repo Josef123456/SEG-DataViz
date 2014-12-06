@@ -49,6 +49,14 @@ public class NewsActivity extends Activity {
         return true;
     }
 
+    /**
+     * Inside the menu the user can easily change the activities by selecting the menu items.
+     * There are five cases inside the switch statement.
+     * The user can go to the main page (home), to see the news, exchange rate, countries and comparing the countries.
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -71,7 +79,7 @@ public class NewsActivity extends Activity {
                 this.startActivity(intentCountries);
                 break;
             case R.id.action_More:
-                Intent intentMore = new Intent(NewsActivity.this,ComparisonActivity.class);
+                Intent intentMore = new Intent(NewsActivity.this, ComparisonActivity.class);
                 this.startActivity(intentMore);
                 break;
             default:
@@ -96,11 +104,11 @@ public class NewsActivity extends Activity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-                view = inflater.inflate(R.layout.fragment_news, container, false);
-                progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-                listView = (ListView) view.findViewById(R.id.listView);
-                listView.setOnItemClickListener(this);
-                startService();
+            view = inflater.inflate(R.layout.fragment_news, container, false);
+            progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+            listView = (ListView) view.findViewById(R.id.listView);
+            listView.setOnItemClickListener(this);
+            startService();
 
             return view;
         }

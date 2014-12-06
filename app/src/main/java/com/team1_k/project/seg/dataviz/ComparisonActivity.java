@@ -18,22 +18,22 @@ import com.team1_k.project.seg.dataviz.model.Metric;
 public class ComparisonActivity extends Activity {
 
     private Metric[] mMetrics;
-    private Client mClient ;
-    private static final String LOG_TAG = "ui.comparison" ;
+    private Client mClient;
+    private static final String LOG_TAG = "ui.comparison";
 
     private void fetchClient() {
         mClient = new Client(Client.Type.INVESTOR);
     }
 
     private void fetchMetrics() {
-        String[] metric_api_ids = mClient.getType().getInterests() ;
-        int length = metric_api_ids.length ;
+        String[] metric_api_ids = mClient.getType().getInterests();
+        int length = metric_api_ids.length;
         mMetrics = new Metric[length];
         try {
             for (int i = 0; i < length; ++i) {
                 mMetrics[i] = Metric.getMetricWithApiId(getApplicationContext(), metric_api_ids[i]);
             }
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             Log.e(LOG_TAG, e.toString());
             e.printStackTrace();
         }
@@ -47,12 +47,12 @@ public class ComparisonActivity extends Activity {
         fetchMetrics();
         ListView listView = (ListView) findViewById(R.id.comparisonList);
         listView.setAdapter(new MetricArrayAdapter(
-                getApplicationContext(),
-                R.layout.list_row_comparison,
-                mMetrics
-            )
+                        getApplicationContext(),
+                        R.layout.list_row_comparison,
+                        mMetrics
+                )
         );
-        listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -67,12 +67,20 @@ public class ComparisonActivity extends Activity {
         return true;
     }
 
+    /**
+     * Inside the menu the user can easily change the activities by selecting the menu items.
+     * There are five cases inside the switch statement.
+     * The user can go to the main page (home), to see the news, exchange rate, countries and comparing the countries.
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
 
             case R.id.action_home:
                 Intent intentHome = new Intent(ComparisonActivity.this, MainViewActivity.class);

@@ -8,10 +8,20 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
-
+/**
+ * The MainViewActivity is showing the content of NewsActivity,
+ * ExchangeRateActivity, CountrySelectionActivity and ComparisonActivity in 4 tabs.
+ * The user can easily click on the tabs to change the activity.
+ * @author Team2K
+ */
 public class MainViewActivity extends TabActivity {
 
-
+    /**
+     * This method is going to set the content of the 4 activities and starts the relevant intents
+     * once the user click on the corresponding tabs
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +36,8 @@ public class MainViewActivity extends TabActivity {
         newsActivity.setContent(newsIntent);
 
         // Tab for ExchangeRate
-        TabSpec exchangeRateActivity = tabHost.newTabSpec("ExchangeRate");
-        exchangeRateActivity.setIndicator("ExchangeRate", getResources().getDrawable(R.drawable.market));
+        TabSpec exchangeRateActivity = tabHost.newTabSpec("Exchange Rate");
+        exchangeRateActivity.setIndicator("Exchange Rate", getResources().getDrawable(R.drawable.market));
         Intent exchangeIntent = new Intent(this, ExchangeRatesActivity.class);
         exchangeRateActivity.setContent(exchangeIntent);
 
@@ -37,7 +47,7 @@ public class MainViewActivity extends TabActivity {
         Intent countriesIntent = new Intent(this, CountrySelectionActivity.class);
         countriesActivity.setContent(countriesIntent);
 
-
+        // Tab for Comparison
         TabSpec compareActivity = tabHost.newTabSpec("Comparison");
         compareActivity.setIndicator("Comparison", getResources().getDrawable(R.drawable.more));
         Intent comparisonIntent = new Intent(this, ComparisonActivity.class);
@@ -58,6 +68,14 @@ public class MainViewActivity extends TabActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Inside the menu the user can easily change the activities by selecting the menu items.
+     * There are five cases inside the switch statement.
+     * The user can go to the main page (home), to see the news, exchange rate, countries and comparing the countries.
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -86,7 +104,6 @@ public class MainViewActivity extends TabActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
         return true;
     }
 }

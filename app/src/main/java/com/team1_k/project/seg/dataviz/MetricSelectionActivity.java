@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.MetricEntry;
 
 
@@ -18,18 +17,13 @@ public class MetricSelectionActivity extends Activity
 
     private SimpleCursorAdapter mMetricAdapter;
 
-    private static final int METRIC_LOADER = 0 ;
+    private static final int METRIC_LOADER = 0;
 
     private static final String[] METRIC_COLUMNS = {
             MetricEntry.TABLE_NAME + "." + MetricEntry._ID,
             MetricEntry.COLUMN_NAME,
             MetricEntry.COLUMN_DESCRIPTION
-    } ;
-
-    public static final int COL_METRIC_ID = 0 ;
-    public static final int COL_NAME = 1 ;
-    public static final int COL_DESCRIPTION = 2 ;
-
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +60,6 @@ public class MetricSelectionActivity extends Activity
                 null,
                 sortOrder
         );
-
     }
 
     @Override

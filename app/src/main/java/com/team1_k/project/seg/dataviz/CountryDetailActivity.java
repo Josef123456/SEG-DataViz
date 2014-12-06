@@ -2,18 +2,15 @@ package com.team1_k.project.seg.dataviz;
 
 import android.app.Activity;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -29,60 +26,67 @@ import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.DataPoint;
 import com.team1_k.project.seg.dataviz.model.Metric;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 
 
 public class CountryDetailActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final String LOG_TAG = "ui.country.detail" ;
+    private static final String LOG_TAG = "ui.country.detail";
 
-    public static final String TAG_COUNTRY_API_ID = "COUNTRY_ID" ;
+    public static final String TAG_COUNTRY_API_ID = "COUNTRY_ID";
 
-    private static final int DATA_POINT_LOADER = 0 ;
+    private static final int DATA_POINT_LOADER = 0;
     private static final String[] DATA_POINT_COLUMNS = {
             DataPointEntry.COLUMN_YEAR,
             DataPointEntry.COLUMN_VALUE
-    } ;
+    };
 
     private QueryBuilder mQueryBuilder;
-    private Intent mIntent ;
-    private Country mCountry ;
-    private String mCountryApiId ;
-    private Client mClient ;
+    private Intent mIntent;
+    private Country mCountry;
+    private String mCountryApiId;
+    private Client mClient;
     private Metric[] mMetrics;
     private ArrayAdapter mDataPointAdapter;
-    private ArrayList<DataPoint> mDataPoints = new ArrayList<DataPoint>() ;
+    private ArrayList<DataPoint> mDataPoints = new ArrayList<DataPoint>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_detail);
-        if ( savedInstanceState != null && savedInstanceState.containsKey(TAG_COUNTRY_API_ID)) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(TAG_COUNTRY_API_ID)) {
             mCountryApiId = savedInstanceState.getString(TAG_COUNTRY_API_ID);
         } else {
             mIntent = getIntent();
             mCountryApiId = mIntent.getStringExtra(TAG_COUNTRY_API_ID);
         }
         mQueryBuilder = new QueryBuilder(getApplicationContext());
-        Log.d ( LOG_TAG , "creating country detail" );
+        Log.d(LOG_TAG, "creating country detail");
         fetchCountry();
         fetchClient();
         fetchMetrics();
         fetchStats();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.main_view, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+    /**
+     * Inside the menu the user can easily change the activities by selecting the menu items.
+     * There are five cases inside the switch statement.
+     * The user can go to the main page (home), to see the news, exchange rate, countries and comparing the countries.
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
 
             case R.id.action_home:
                 Intent intentHome = new Intent(CountryDetailActivity.this, MainViewActivity.class);
@@ -101,7 +105,7 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
                 this.startActivity(intentCountries);
                 break;
             case R.id.action_More:
-                Intent intentMore = new Intent(CountryDetailActivity.this,ComparisonActivity.class);
+                Intent intentMore = new Intent(CountryDetailActivity.this, ComparisonActivity.class);
                 this.startActivity(intentMore);
                 break;
             default:
@@ -118,17 +122,17 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
     }
 
     private void fetchStats() {
-        for ( Metric metric: mMetrics) {
+        for (Metric metric : mMetrics) {
             mQueryBuilder.fetchDataForCountryAndMetric(mCountry, metric);
         }
         mDataPointAdapter = new DataPointArrayAdapter(
                 getApplicationContext(),
                 R.layout.list_row_country_detail_data_point,
-                new DataPoint[] {}
+                new DataPoint[]{}
         );
         ListView listView = (ListView) findViewById(R.id.countryDataPointListView);
         listView.setAdapter(mDataPointAdapter);
-        listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), LineGraphActivity.class)
@@ -141,29 +145,29 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
     }
 
     private void fetchMetrics() {
-        String[] metric_api_ids = mClient.getType().getInterests() ;
-        int length = metric_api_ids.length ;
+        String[] metric_api_ids = mClient.getType().getInterests();
+        int length = metric_api_ids.length;
         mMetrics = new Metric[length];
         try {
             for (int i = 0; i < length; ++i) {
                 mMetrics[i] = Metric.getMetricWithApiId(getApplicationContext(), metric_api_ids[i]);
             }
-        } catch ( Exception e ) {
-            Log.e( LOG_TAG , e.toString());
+        } catch (Exception e) {
+            Log.e(LOG_TAG, e.toString());
             e.printStackTrace();
         }
     }
 
     private void fetchCountry() {
         try {
-            Log.d ( LOG_TAG, "in fetch country");
+            Log.d(LOG_TAG, "in fetch country");
             mCountry = Country.getCountryWithApiId(getApplicationContext(), mCountryApiId);
             getLoaderManager().initLoader(DATA_POINT_LOADER, null, this);
             TextView countryName = (TextView) findViewById(R.id.countryName);
             countryName.setText(mCountry.getName());
-            Log.d ( LOG_TAG, "loader should start");
-        } catch ( Exception e ) {
-            Log.e(LOG_TAG, e.toString() );
+            Log.d(LOG_TAG, "loader should start");
+        } catch (Exception e) {
+            Log.e(LOG_TAG, e.toString());
             e.printStackTrace();
         }
     }
@@ -195,7 +199,7 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
 
         cursor.moveToFirst();
         mDataPoints = new ArrayList<DataPoint>();
-        while ( ! cursor.isAfterLast() ) {
+        while (!cursor.isAfterLast()) {
 
             long metricId = cursor.getLong(
                     DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_METRIC_ID
@@ -215,14 +219,14 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
             String metricApiId = cursor.getString(
                     DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_API_ID
             );
-            if ( ! selectedMetricIds.contains(metricId) ) {
+            if (!selectedMetricIds.contains(metricId)) {
                 selectedMetricIds.add(metricId);
                 DataPoint dataPoint = new DataPoint(
                         value,
                         year,
-                        new Metric( metricApiId, metricName, metricDescription, metricId)
+                        new Metric(metricApiId, metricName, metricDescription, metricId)
                 );
-                mDataPoints.add( dataPoint) ;
+                mDataPoints.add(dataPoint);
             }
             cursor.moveToNext();
         }

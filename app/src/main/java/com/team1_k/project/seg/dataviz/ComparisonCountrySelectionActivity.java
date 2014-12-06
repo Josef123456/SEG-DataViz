@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 public class ComparisonCountrySelectionActivity extends Activity {
 
-    private static final String LOG_TAG = "ui.comparison.country_selection" ;
+    private static final String LOG_TAG = "ui.comparison.country_selection";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +26,18 @@ public class ComparisonCountrySelectionActivity extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_multiple_choice,
-                new String[] { "test", "test2","test", "test2","test", "test2","test", "test2","test", "test2","test", "test2"});
+                new String[]{"test", "test2", "test", "test2", "test", "test2", "test", "test2", "test", "test2", "test", "test2"});
         listView.setAdapter(adapter);
         listView.setItemsCanFocus(false);
         listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         Button goButton = (Button) findViewById(R.id.comparisonGoButton);
 
-        goButton.setOnClickListener( new View.OnClickListener() {
+        goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 SparseBooleanArray array = listView.getCheckedItemPositions();
-                for ( int i = 0 ; i < array.size() ; ++ i ) {
+                for (int i = 0; i < array.size(); ++i) {
                     Log.d(LOG_TAG, String.valueOf(array.keyAt(i)));
                 }
             }
@@ -52,12 +52,20 @@ public class ComparisonCountrySelectionActivity extends Activity {
         return true;
     }
 
+    /**
+     * Inside the menu the user can easily change the activities by selecting the menu items.
+     * There are five cases inside the switch statement.
+     * The user can go to the main page (home), to see the news, exchange rate, countries and comparing the countries.
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
 
             case R.id.action_home:
                 Intent intentHome = new Intent(ComparisonCountrySelectionActivity.this, MainViewActivity.class);
@@ -76,7 +84,7 @@ public class ComparisonCountrySelectionActivity extends Activity {
                 this.startActivity(intentCountries);
                 break;
             case R.id.action_More:
-                Intent intentMore = new Intent(ComparisonCountrySelectionActivity.this,ComparisonActivity.class);
+                Intent intentMore = new Intent(ComparisonCountrySelectionActivity.this, ComparisonActivity.class);
                 this.startActivity(intentMore);
                 break;
             default:

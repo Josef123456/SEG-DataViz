@@ -8,8 +8,8 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-
 import android.widget.TextView;
+
 import com.team1_k.project.seg.dataviz.data_exchange_rate.ExchangeRate;
 
 
@@ -39,6 +39,14 @@ public class ExchangeRatesActivity extends Activity {
         return true;
     }
 
+    /**
+     * Inside the menu the user can easily change the activities by selecting the menu items.
+     * There are five cases inside the switch statement.
+     * The user can go to the main page (home), to see the news, exchange rate, countries and comparing the countries.
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -61,7 +69,7 @@ public class ExchangeRatesActivity extends Activity {
                 this.startActivity(intentCountries);
                 break;
             case R.id.action_More:
-                Intent intentMore = new Intent(ExchangeRatesActivity.this,ComparisonActivity.class);
+                Intent intentMore = new Intent(ExchangeRatesActivity.this, ComparisonActivity.class);
                 this.startActivity(intentMore);
                 break;
             default:
