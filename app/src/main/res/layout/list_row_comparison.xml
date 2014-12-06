@@ -7,7 +7,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:textSize="30dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="10dp"
         android:id="@+id/dataPointMetricName"
         android:layout_marginBottom="5dp" />
 
@@ -16,6 +18,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
+        android:textSize="16dp"
+        android:lineSpacingExtra="10dp"
+        android:textColor="#FFFFE0"
         android:id="@+id/dataPointMetricDescription"
         android:layout_marginBottom="5dp"
         />
