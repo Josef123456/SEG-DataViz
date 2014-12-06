@@ -8,12 +8,15 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -39,11 +42,11 @@ public class CountrySelectionActivity extends Activity implements
             CountryEntry.COLUMN_API_ID
     };
     protected ListView listView;
+    protected EditText editText;
 
     public static int COL_COUNTRY_ID = 0 ;
     public static int COL_NAME = 1 ;
     public static int COL_API_ID = 2 ;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +107,30 @@ public class CountrySelectionActivity extends Activity implements
                 startActivity(intent);
             }
         });
+
+        editText = (EditText) findViewById(R.id.search_global);
+        editText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                String searchString=editText.getText().toString();
+                mCountryAdapter.getFilter().filter(searchString);
+                mCountryAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
     }
     @Override

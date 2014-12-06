@@ -19,7 +19,7 @@
     <string name="title_activity_country_selection">CountrySelectionActivity</string>
     <string name="title_activity_country_detail">CountryDetailActivity</string>
     <string name="action_example">Example action</string>
-    <string name="title_activity_graph">graphActivity</string>
+    <string name="title_activity_graph">GraphActivity</string>
     <string name="searchHint">Search</string>
     <string name="title_activity_exchange_rates">ExchangeRatesActivity</string>
     <string name="title_activity_comparison">ComparisonActivity</string>

@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.team1_k.project.seg.dataviz.CountryDetailActivity;
+import com.team1_k.project.seg.dataviz.ComparisonActivity;
 import com.team1_k.project.seg.dataviz.CountrySelectionActivity;
 import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
 import com.team1_k.project.seg.dataviz.MainViewActivity;
@@ -49,9 +49,9 @@ public class LineGraphActivity extends FragmentActivity
     private long mCountryDatabaseId;
     private long mMetricDatabaseId;
     private String mCountryApiId;
-    private ArrayList<DataPoint> mDataPoints = new ArrayList<DataPoint>() ;
+    private ArrayList<DataPoint> mDataPoints = new ArrayList<DataPoint>();
 
-    private final static int DATA_POINT_LOADER = 0 ;
+    private final static int DATA_POINT_LOADER = 0;
 
     private LineGraph mGraphFragment;
 
@@ -59,13 +59,13 @@ public class LineGraphActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
-        mGraphFragment = new LineGraph () ;
+        mGraphFragment = new LineGraph();
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, mGraphFragment ).commit();
+                    .add(R.id.container, mGraphFragment).commit();
         }
-        mCountryDatabaseId = getIntent().getLongExtra(TAG_COUNTRY_ID,0);
-        mMetricDatabaseId = getIntent().getLongExtra(TAG_METRIC_ID,0);
+        mCountryDatabaseId = getIntent().getLongExtra(TAG_COUNTRY_ID, 0);
+        mMetricDatabaseId = getIntent().getLongExtra(TAG_METRIC_ID, 0);
         mCountryApiId = getIntent().getStringExtra(TAG_COUNTRY_API_ID);
         getLoaderManager().initLoader(DATA_POINT_LOADER, null, this);
     }
@@ -89,11 +89,11 @@ public class LineGraphActivity extends FragmentActivity
 
         cursor.moveToFirst();
         mDataPoints = new ArrayList<DataPoint>();
-        while ( ! cursor.isAfterLast() ) {
+        while (!cursor.isAfterLast()) {
 
             long metricId = cursor.getLong(
                     DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_METRIC_ID
-            ) ;
+            );
             int year = cursor.getInt(
                     DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_YEAR
             );
@@ -109,13 +109,13 @@ public class LineGraphActivity extends FragmentActivity
             String metricApiId = cursor.getString(
                     DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_API_ID
             );
-            if ( metricId == mMetricDatabaseId ) {
+            if (metricId == mMetricDatabaseId) {
                 DataPoint dataPoint = new DataPoint(
                         value,
                         year,
-                        new Metric( metricApiId, metricName, metricDescription, metricId)
+                        new Metric(metricApiId, metricName, metricDescription, metricId)
                 );
-                mDataPoints.add( dataPoint) ;
+                mDataPoints.add(dataPoint);
             }
             cursor.moveToNext();
         }
@@ -138,7 +138,7 @@ public class LineGraphActivity extends FragmentActivity
         int maxNumberOfLines = 1;
         int numberOfPoints = 0;
 
-        float[][] randomNumbersTab ;
+        float[][] randomNumbersTab;
 
         boolean hasAxes = true;
         boolean hasAxesNames = true;
@@ -156,7 +156,7 @@ public class LineGraphActivity extends FragmentActivity
         }
 
         public void updateData(ArrayList<DataPoint> dataPoints) {
-            int i = 0 ;
+            int i = 0;
             numberOfPoints = dataPoints.size();
             randomNumbersTab = new float[maxNumberOfLines][numberOfPoints];
             for (int j = 0; j < numberOfPoints; ++j) {
@@ -187,7 +187,7 @@ public class LineGraphActivity extends FragmentActivity
                 List<PointValue> values = new ArrayList<PointValue>();
                 for (int j = 0; j < numberOfPoints; ++j) {
                     values.add(new PointValue(j, randomNumbersTab[i][j]));
-                    Log.i ( LOG_TAG, String.valueOf(randomNumbersTab[i][j]));
+                    Log.i(LOG_TAG, String.valueOf(randomNumbersTab[i][j]));
                 }
 
                 Line line = new Line(values);
@@ -241,10 +241,11 @@ public class LineGraphActivity extends FragmentActivity
         getMenuInflater().inflate(R.menu.main_view, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
 
             case R.id.action_home:
                 Intent intentHome = new Intent(LineGraphActivity.this, MainViewActivity.class);
@@ -262,10 +263,12 @@ public class LineGraphActivity extends FragmentActivity
                 Intent intentCountries = new Intent(LineGraphActivity.this, CountrySelectionActivity.class);
                 this.startActivity(intentCountries);
                 break;
-//            case R.id.action_More:
-//                Intent intentMore = new Intent(CountryDetailActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentMore);
-//                break;
+            case R.id.action_More:
+                Intent intentMore = new Intent(LineGraphActivity.this, ComparisonActivity.class);
+                this.startActivity(intentMore);
+                break;
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }
