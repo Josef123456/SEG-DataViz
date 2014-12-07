@@ -14,19 +14,12 @@ import com.team1_k.project.seg.dataviz.model.DataPoint;
 import java.util.ArrayList;
 import java.util.List;
 
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.ValueShape;
-import lecho.lib.hellocharts.util.Utils;
-import lecho.lib.hellocharts.view.LineChartView;
-
 /**
  * Created by alexstoick on 12/6/14.
  */
 public class LineGraphFragment extends Fragment {
-
+    public void updateData(ArrayList<ArrayList<DataPoint>> dataPointsArray) {}
+/*
     private static final String LOG_TAG = "ui.graph.line_graph.fragment";
 
     LineChartView chart;
@@ -129,5 +122,5 @@ public class LineGraphFragment extends Fragment {
         @Override
         public void onNothingTouched() {
         }
-    }
+    }*/
 }
