@@ -75,6 +75,10 @@ public class Country {
         }
     }
 
+    public Country(String mApiId) {
+        this.mApiId = mApiId;
+    }
+
     private Country(String mName, String mApiId,
                    double mLatitude, double mLongitude,
                    String mCapitalCity, long mDatabaseId) {

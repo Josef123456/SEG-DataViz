@@ -48,23 +48,6 @@ public class QueryBuilder {
         new CountryWithMetricQuery(mContext).fetchDataForCountryAndMetric(country, metric);
     }
 
-    /**
-     * Grabs specific metric for a country bound by years. API call will look like this
-     * /countries/country.iso/indicators/metric.id?per_page=10&date=startYear:endYear&format=json
-     * @param country
-     * @param metric
-     * @param startYear
-     * @param finalYear
-     * @return JSON String
-     */
-    public String fetchDataForCountryAndMetric ( Country country, Metric metric, int startYear, int finalYear) {
-        return "" ;
-    }
-
-    public Metric get_metric_with_api_id(String api_id){
-        return new Metric(new JSONObject());
-    }
-
     public void getCountries () {
         CountryQuery helper = new CountryQuery(mContext);
         //TODO: pass all of this onto the country query so that it parse page information

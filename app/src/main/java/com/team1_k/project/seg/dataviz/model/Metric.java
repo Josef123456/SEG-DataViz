@@ -76,6 +76,10 @@ public class Metric {
         this.mDatabaseId = mDatabaseId;
     }
 
+    public Metric(String mApiId) {
+        this.mApiId = mApiId;
+    }
+
     public static Metric getMetricWithApiId(Context context, String apiId) throws Exception{
 
         Cursor cursor = context.getContentResolver().query(

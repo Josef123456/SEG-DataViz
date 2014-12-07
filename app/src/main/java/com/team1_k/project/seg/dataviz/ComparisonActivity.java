@@ -57,8 +57,14 @@ public class ComparisonActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(
                         getApplicationContext(),
-                        CountryComparisonSelectionActivity.class
-                ).putExtra(CountryComparisonSelectionActivity.TAG_METRIC_DATABASE_ID, mMetrics[i].getDatabaseId());
+                        CountryComparisonSelectionActivity.class)
+                        .putExtra(
+                                CountryComparisonSelectionActivity.TAG_METRIC_DATABASE_ID,
+                                mMetrics[i].getDatabaseId())
+                        .putExtra(
+                                CountryComparisonSelectionActivity.TAG_METRIC_API_ID,
+                                mMetrics[i].getApiId()
+                        );
                 startActivity(intent);
             }
         });
