@@ -50,7 +50,6 @@ public class CountrySelectionActivity extends Activity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final DataVizDbHelper dbHelper = new DataVizDbHelper(getApplicationContext());
         super.onCreate(savedInstanceState);
 
         getLoaderManager().initLoader(COUNTRY_LOADER, null, this);
