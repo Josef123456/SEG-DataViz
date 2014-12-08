@@ -78,7 +78,7 @@ public class DataPointArrayAdapter extends ArrayAdapter<DataPoint> {
 
         int year = dataPoint.getYear();
         Double value = dataPoint.getValue();
-        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###,###,###,###,###.##");
         holder.mValueTextView.setText("Value: " + decimalFormat.format(value));
         holder.mYearTextView.setText("Latest year:" + decimalFormat.format(year));
         holder.mMetricDescriptionTextView.setText(dataPoint.getMetric().getDescription());
