@@ -22,17 +22,18 @@ import android.widget.EditText;
 import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
-import com.team1_k.project.seg.dataviz.activities.country.CountrySelectionActivity;
-import com.team1_k.project.seg.dataviz.exchange_rate.ExchangeRatesActivity;
-import com.team1_k.project.seg.dataviz.activities.base.MainViewActivity;
-import com.team1_k.project.seg.dataviz.news.NewsActivity;
 import com.team1_k.project.seg.dataviz.R;
+import com.team1_k.project.seg.dataviz.activities.base.MainViewActivity;
+import com.team1_k.project.seg.dataviz.activities.country.CountrySelectionActivity;
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.data.DataVizDbHelper;
+import com.team1_k.project.seg.dataviz.exchange_rate.ExchangeRatesActivity;
 import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.Metric;
+import com.team1_k.project.seg.dataviz.news.NewsActivity;
 
 import java.util.ArrayList;
 
@@ -40,13 +41,19 @@ import java.util.ArrayList;
 public class CountryComparisonSelectionActivity extends Activity
         implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    protected EditText editText;
+    public static final String TAG_METRIC_DATABASE_ID = "metric_database_id";
+    public static final String TAG_METRIC_API_ID = "metric_api_id";
     private static final String SORT_ORDER =
             DataVizContract.CountryEntry.TABLE_NAME + "."
                     + DataVizContract.CountryEntry.COLUMN_NAME
                     + " ASC";
-
+    private static final String LOG_TAG = "ui.comparison.country_selection";
+    private static final int COUNTRY_LOADER = 0;
+    protected EditText editText;
     private CursorAdapter mCountryAdapter;
+    private long mMetricDatabaseId;
+    private String mMetricApiId;
+    private ArrayList<Long> mSelectedIds = new ArrayList<Long>();
 
     @Override
     public Loader onCreateLoader(int i, Bundle bundle) {
@@ -72,13 +79,6 @@ public class CountryComparisonSelectionActivity extends Activity
         mCountryAdapter.swapCursor(null);
     }
 
-    private static final String LOG_TAG = "ui.comparison.country_selection";
-    public static final String TAG_METRIC_DATABASE_ID = "metric_database_id";
-    public static final String TAG_METRIC_API_ID = "metric_api_id" ;
-    private long mMetricDatabaseId;
-    private String mMetricApiId;
-    private static final int COUNTRY_LOADER = 0;
-    private ArrayList<Long> mSelectedIds = new ArrayList<Long>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +120,13 @@ public class CountryComparisonSelectionActivity extends Activity
                 long mCountryDatabaseId = currentValue.getLong(
                         DataVizContract.CountryEntry.INDEX_COLUMN_ID
                 );
-                mSelectedIds.add(mCountryDatabaseId);
+                if (mSelectedIds.contains(mCountryDatabaseId)) {
+                    Log.w(LOG_TAG, "removing country form list");
+                    mSelectedIds.remove(mCountryDatabaseId);
+                } else {
+                    Log.w(LOG_TAG, "adding country to list");
+                    mSelectedIds.add(mCountryDatabaseId);
+                }
                 queryBuilder.fetchDataForCountryAndMetric(
                         new Country(mCountryApiId, mCountryDatabaseId),
                         new Metric(mMetricApiId, mMetricDatabaseId)
@@ -135,17 +141,22 @@ public class CountryComparisonSelectionActivity extends Activity
                 for ( int i = 0 ; i < mSelectedIds.size(); ++ i ) {
                     array[i] = mSelectedIds.get(i);
                 }
-                Intent intent = new Intent(
-                        getApplicationContext(),
-                        CountryComparisonDetailActivity.class
-                ).putExtra(
-                        CountryComparisonDetailActivity.TAG_COUNTRY_DATABASE_IDS,
-                        array
-                ).putExtra(
-                        CountryComparisonDetailActivity.TAG_METRIC_DATABASE_ID,
-                        mMetricDatabaseId
-                );
-                startActivity(intent);
+                if (mSelectedIds.size() == 0) {
+                    Toast.makeText(getApplicationContext(), "No country selection", Toast.LENGTH_LONG
+                    ).show();
+                } else {
+                    Intent intent = new Intent(
+                            getApplicationContext(),
+                            CountryComparisonDetailActivity.class
+                    ).putExtra(
+                            CountryComparisonDetailActivity.TAG_COUNTRY_DATABASE_IDS,
+                            array
+                    ).putExtra(
+                            CountryComparisonDetailActivity.TAG_METRIC_DATABASE_ID,
+                            mMetricDatabaseId
+                    );
+                    startActivity(intent);
+                }
             }
         });
 
@@ -157,7 +168,9 @@ public class CountryComparisonSelectionActivity extends Activity
                 SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
                 Log.i(LOG_TAG, "cnstr: " + constraint);
-
+                if (constraint.equals("")) {
+                    mSelectedIds = new ArrayList<Long>();
+                }
                 return db.query(
                         DataVizContract.CountryEntry.TABLE_NAME,
                         DataVizContract.CountryEntry.COLUMNS,
@@ -198,7 +211,7 @@ public class CountryComparisonSelectionActivity extends Activity
     @Override
     protected void onResume() {
         super.onResume();
-        mSelectedIds = new ArrayList<Long>();
+        //mSelectedIds = new ArrayList<Long>();
     }
 
     @Override
