@@ -75,6 +75,13 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         ;
     };
 
+    /**
+     * determines what happens when you click on an RssItem (an item in the ListView)
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         RssAdapter adapter = (RssAdapter) parent.getAdapter();

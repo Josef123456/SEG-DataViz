@@ -13,7 +13,7 @@ import java.util.List;
  * Created by dbrisingr on 21/11/14.
  */
 public class ReutersParser {
-    // We don't use namespaces
+
     private final String ns = null;
 
     public List<RssItem> parse(InputStream inputStream) throws XmlPullParserException, IOException {
@@ -28,6 +28,13 @@ public class ReutersParser {
         }
     }
 
+    /**
+     * Parses the rss items, creates an RssItem object, and puts them in a List
+     * @param parser
+     * @return the list of rss item parsed
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
     private List<RssItem> readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, null, "rss");
         String title = null;
@@ -69,7 +76,6 @@ public class ReutersParser {
         return title;
     }
 
-    // For the tags title and link, extract their text values.
     private String readText(XmlPullParser parser) throws IOException, XmlPullParserException {
         String result = "";
         if (parser.next() == XmlPullParser.TEXT) {

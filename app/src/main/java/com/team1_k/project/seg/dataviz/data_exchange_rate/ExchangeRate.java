@@ -89,6 +89,10 @@ public class ExchangeRate {
     List<ExchangeItem> list;
     List<ExchangeItem> listOthers;
 
+    /**
+     * Gets the exchange rates from the Internet from the given link, and then
+     * parses the result to a JSONObject
+     */
     public void getRates(){
 
         list  = new ArrayList<ExchangeItem>();
@@ -125,6 +129,10 @@ public class ExchangeRate {
 
     JSONObject toCompare;
 
+    /**
+     * Does the calculations for the "difference" column in the listView after getting
+     * the exchange rates from the previous day.
+     */
     public void getDifference(){
 
         Calendar c = Calendar.getInstance();
@@ -159,21 +167,20 @@ public class ExchangeRate {
                     return;
                 }
 
-                parseRates();
+                setAdapters();
             }
         });
 
 
     }
 
-    private void parseRates(){
+    /**
+     * Sets the adapters and finally removes the Progress Bar.
+     */
+    private void setAdapters(){
 
         CustomAdapter adapter = new CustomAdapter(xChangeActivity, list);
         listView.setAdapter(adapter);
-
-        //CustomAdapter adapter2 = new CustomAdapter(xChangeActivity, listOthers);
-        //listView2.setAdapter(adapter2);
-
         pb.setVisibility(View.GONE);
         ll_1.setVisibility(View.VISIBLE);
 

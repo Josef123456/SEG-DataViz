@@ -27,6 +27,10 @@ public class RssService extends IntentService {
         super("RssService");
     }
 
+    /**
+     * Gets the Rss feed and puts it in a bundle
+     * @param intent
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.d(SyncStateContract.Constants._ID, "Service started");
