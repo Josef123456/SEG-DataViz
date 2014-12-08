@@ -16,6 +16,7 @@ public class DataPoint {
     private int mYear = 0 ;
 
     private Metric mMetric ;
+    private Country mCountry ;
 
     /**
      * Builds a data point from a {@link org.json.JSONObject}
@@ -37,6 +38,17 @@ public class DataPoint {
         this.mValue = mValue;
         this.mYear = mYear;
         this.mMetric = mMetric;
+    }
+
+    public DataPoint(double mValue, int mYear, Metric mMetric, Country mCountry) {
+        this.mValue = mValue;
+        this.mYear = mYear;
+        this.mMetric = mMetric;
+        this.mCountry = mCountry;
+    }
+
+    public Country getCountry() {
+        return mCountry;
     }
 
     public String toString() {

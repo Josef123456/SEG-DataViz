@@ -8,6 +8,7 @@ import android.view.*;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarLineChartBase.BorderPosition;
 import com.github.mikephil.charting.charts.LineChart;
@@ -16,16 +17,16 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.OnChartGestureListener;
 import com.github.mikephil.charting.interfaces.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.Legend;
-import com.github.mikephil.charting.utils.LimitLine;
 import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.model.DataPoint;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by alexstoick on 12/6/14.
@@ -36,10 +37,17 @@ public class LineGraphFragment extends Fragment implements OnSeekBarChangeListen
     private static final String LOG_TAG = "ui.fragment.line_graph" ;
 
     private LineChart mChart;
-    private SeekBar mSeekBarX, mSeekBarY;
-    private TextView tvX, tvY;
     private View rootView;
     ArrayList<ArrayList<DataPoint>> mDataPointsArray;
+    ArrayList<String> mXVals = new ArrayList<String>();
+
+    private static final int[] mColors = {
+            Color.BLUE,
+            Color.GREEN,
+            Color.MAGENTA,
+            Color.RED,
+            Color.GRAY,
+    } ;
 
     private static final Map<String, String> metricToUnitBinding ;
     static {
@@ -60,7 +68,6 @@ public class LineGraphFragment extends Fragment implements OnSeekBarChangeListen
 
         rootView = inflater.inflate(R.layout.fragment_line_chart, container, false);
 
-
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -68,7 +75,6 @@ public class LineGraphFragment extends Fragment implements OnSeekBarChangeListen
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
 
-        mChart.setUnit(" billion $");
         mChart.setDrawUnitsInChart(true);
 
         mChart.setStartAtZero(false);
@@ -103,9 +109,9 @@ public class LineGraphFragment extends Fragment implements OnSeekBarChangeListen
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        mChart.invalidate();
     }
 
-    @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
     }
 
@@ -113,7 +119,7 @@ public class LineGraphFragment extends Fragment implements OnSeekBarChangeListen
     public void onStopTrackingTouch(SeekBar seekBar) {
     }
 
-    private void setData(int count, float range) {
+    private void setData() {
 
         ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
 
@@ -121,43 +127,69 @@ public class LineGraphFragment extends Fragment implements OnSeekBarChangeListen
 
         Log.w ( LOG_TAG , currentLine.get(0).getMetric().getApiId());
         mChart.setUnit(metricToUnitBinding.get(currentLine.get(0).getMetric().getApiId()));
-        ArrayList<String> xVals = new ArrayList<String>();
-        for (int i = 0; i < currentLine.size(); ++i) {
-            xVals.add( String.valueOf(currentLine.get(i).getYear()) );
+        getActivity().setTitle(currentLine.get(0).getMetric().getName());
+
+        Set<Integer> yearValues = new HashSet<Integer>();
+
+        for (int i = 0; i < mDataPointsArray.size(); ++i) {
+            ArrayList<DataPoint> currentArray = mDataPointsArray.get(i);
+            for ( int j = 0 ; j < currentArray.size(); ++ j )
+            yearValues.add(currentArray.get(j).getYear());
         }
+        List sortedYears =  new ArrayList(yearValues);
+        Collections.sort(sortedYears);
+        mXVals = new ArrayList<String>();
+        for ( int i = 0 ; i < sortedYears.size(); ++ i ) {
+            mXVals.add(String.valueOf(sortedYears.get(i)));
+        }
+
+        Log.w ( LOG_TAG, sortedYears.toArray().toString() ) ;
 
         for ( int lineNumber = 0 ; lineNumber < mDataPointsArray.size() ; ++ lineNumber) {
             currentLine = mDataPointsArray.get(lineNumber) ;
 
             ArrayList<Entry> yVals = new ArrayList<Entry>();
             for (int i = 0; i < currentLine.size(); ++i) {
+                yearValues.add(currentLine.get(i).getYear());
                 float displayValue = (float)currentLine.get(i).getValue() ;
                 Log.d ( LOG_TAG , String.valueOf(displayValue) );
                 if ( displayValue > 2147000000 )
                     displayValue = (float)currentLine.get(i).getValue() / 1000000000 ;
                 Log.d ( LOG_TAG, String.valueOf(displayValue));
-                yVals.add(new Entry(displayValue, i));
+                yVals.add(
+                        new Entry(
+                                displayValue,
+                                sortedYears.indexOf(currentLine.get(i).getYear())
+                        )
+                );
             }
-            LineDataSet dataSet = new LineDataSet(yVals, "DataSet " + lineNumber);
+            String name ;
+            if ( currentLine.get(0).getCountry() == null ) {
+                name = currentLine.get(0).getMetric().getName();
+            } else {
+                name = currentLine.get(0).getCountry().getName();
+            }
+            LineDataSet dataSet = new LineDataSet(
+                    yVals,
+                    name
+            );
 
-            dataSet.enableDashedLine(10f, 5f, 0f);
-            dataSet.setColor(Color.BLACK);
-            dataSet.setCircleColor(Color.BLACK);
-            dataSet.setLineWidth(1f);
-            dataSet.setCircleSize(4f);
-            dataSet.setFillAlpha(65);
-            dataSet.setFillColor(Color.BLACK);
+            dataSet.setColor(mColors[lineNumber]);
+            dataSet.setCircleColor(mColors[lineNumber]);
+            dataSet.setLineWidth(6f);
+            dataSet.setCircleSize(5f);
+            dataSet.setFillAlpha(100);
+            dataSet.setFillColor(mColors[lineNumber]);
             dataSets.add(dataSet); // add the datasets
         }
 
-        LineData data = new LineData(xVals, dataSets);
+        LineData data = new LineData(mXVals, dataSets);
 
         mChart.setData(data);
     }
 
     @Override
     public void onChartLongPressed(MotionEvent me) {
-        Log.i("LongPress", "Chart longpressed.");
     }
 
     @Override
@@ -173,11 +205,26 @@ public class LineGraphFragment extends Fragment implements OnSeekBarChangeListen
     @Override
     public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
         Log.i("Fling", "Chart flinged. VeloX: " + velocityX + ", VeloY: " + velocityY);
+        mChart.invalidate();
     }
 
     @Override
     public void onValueSelected(Entry e, int dataSetIndex) {
         Log.i("Entry selected", e.toString());
+        String message = "" ;
+        Log.w ( LOG_TAG, String.valueOf(mDataPointsArray.size()) );
+        if ( mDataPointsArray.size() <= 1 ) {
+            message = "Entry for year: " + mXVals.get(e.getXIndex())
+                    + " with value: " + String.valueOf(e.getVal()) + " " + mChart.getUnit() ;
+
+        } else {
+            message = "Entry for year: " + mXVals.get(e.getXIndex())
+                    + " with value: " + String.valueOf(e.getVal()) + " " + mChart.getUnit()
+                    + " for country "
+                    + mDataPointsArray.get(dataSetIndex).get(0).getCountry().getName()
+            ;
+        }
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -188,7 +235,7 @@ public class LineGraphFragment extends Fragment implements OnSeekBarChangeListen
     public void updateData(ArrayList<ArrayList<DataPoint>> dataPointsArray) {
         mDataPointsArray = dataPointsArray;
         Log.d ( LOG_TAG, String.valueOf(mDataPointsArray.size()) ) ;
-        setData(50, 400);
+        setData();
     }
 
 }

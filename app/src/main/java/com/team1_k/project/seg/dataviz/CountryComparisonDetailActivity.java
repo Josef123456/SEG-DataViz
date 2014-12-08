@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.graph.LineGraphFragment;
+import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.DataPoint;
 import com.team1_k.project.seg.dataviz.model.Metric;
 
@@ -102,7 +103,7 @@ public class CountryComparisonDetailActivity extends Activity
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         cursor.moveToFirst();
         mDataPoints = new ArrayList<ArrayList<DataPoint>>();
-        int lastCountryId = -1 ;
+        long lastCountryId = -1 ;
         ArrayList<DataPoint> selectedArray = new ArrayList<DataPoint>() ;
         Log.d ( LOG_TAG, "count of returns: " + String.valueOf(cursor.getCount()));
         while ( ! cursor.isAfterLast() ) {
@@ -128,7 +129,12 @@ public class CountryComparisonDetailActivity extends Activity
             String countryApiId = cursor.getString(
                     DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_COUNTRY_API_ID
             );
-            int countryDatabaseId = cursor.getInt(DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_COUNTRY_ID);
+            String countryName = cursor.getString (
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_COUNTRY_NAME
+            );
+            long countryDatabaseId = cursor.getLong(
+                    DataVizContract.MetricEntry.INDEX_METRIC_QUERY_COLUMN_COUNTRY_ID
+            );
             Log.d ( LOG_TAG, "current country id:" + countryDatabaseId ) ;
             Metric currentMetric = new Metric(
                     metricApiId,
@@ -136,7 +142,11 @@ public class CountryComparisonDetailActivity extends Activity
                     metricDescription,
                     metricId
             );
-
+            Country currentCountry = new Country(
+                    countryName,
+                    countryApiId,
+                    countryDatabaseId
+            );
             if ( lastCountryId != countryDatabaseId ) {
                 selectedArray = new ArrayList<DataPoint>();
                 lastCountryId = countryDatabaseId;
@@ -145,7 +155,8 @@ public class CountryComparisonDetailActivity extends Activity
             DataPoint dataPoint = new DataPoint(
                     value,
                     year,
-                    currentMetric
+                    currentMetric,
+                    currentCountry
             );
             selectedArray.add(dataPoint) ;
             cursor.moveToNext();

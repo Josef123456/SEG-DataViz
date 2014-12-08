@@ -84,6 +84,12 @@ public class Country {
         this.mDatabaseId = mDatabaseId;
     }
 
+    public Country(String mName, String mApiId, long mDatabaseId) {
+        this.mName = mName;
+        this.mApiId = mApiId;
+        this.mDatabaseId = mDatabaseId;
+    }
+
     private Country(String mName, String mApiId,
                    double mLatitude, double mLongitude,
                    String mCapitalCity, long mDatabaseId) {
