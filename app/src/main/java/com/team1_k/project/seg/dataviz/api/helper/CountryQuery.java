@@ -9,7 +9,6 @@ import com.koushikdutta.async.http.AsyncHttpResponse;
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.CountryEntry;
 import com.team1_k.project.seg.dataviz.model.Country;
-import com.team1_k.project.seg.dataviz.model.Metric;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,15 +19,21 @@ import org.json.JSONObject;
  */
 public class CountryQuery {
 
-    private static final String LOG_TAG = "api.helper.country" ;
+    private static final String LOG_TAG = "api.helper.country";
+    private Context mContext;
+
+    public CountryQuery(Context mContext) {
+        this.mContext = mContext;
+    }
 
     /**
      * Builds a {@link android.content.ContentValues} object for the country passed to the function
+     *
      * @param country the country which has to be inserted into the database
      * @return the formatted {@link android.content.ContentValues} object
      */
-    private ContentValues createCountryContentValues(Country country){
-        ContentValues countryValues = new ContentValues() ;
+    private ContentValues createCountryContentValues(Country country) {
+        ContentValues countryValues = new ContentValues();
 
         countryValues.put(CountryEntry.COLUMN_NAME, country.getName());
         countryValues.put(CountryEntry.COLUMN_API_ID, country.getApiId());
@@ -36,7 +41,7 @@ public class CountryQuery {
         countryValues.put(CountryEntry.COLUMN_LONGITUDE, country.getLongitude());
         countryValues.put(CountryEntry.COLUMN_LATITUDE, country.getLatitude());
         Log.i(LOG_TAG, "country with" + country.getName());
-        return countryValues ;
+        return countryValues;
     }
 
     private void parseCountries(JSONArray countries) throws JSONException {
@@ -44,7 +49,7 @@ public class CountryQuery {
         int length = countries.length();
         ContentValues[] bulkContentValues = new ContentValues[length];
 
-        for ( int i = 0 ; i < length ; ++ i ) {
+        for (int i = 0; i < length; ++i) {
             JSONObject country = countries.getJSONObject(i);
             bulkContentValues[i] = createCountryContentValues(new Country(country));
         }
@@ -54,11 +59,12 @@ public class CountryQuery {
 
     /**
      * Creates an async HTTP request for the request API resource.
+     *
      * @param page takes the page for the request
      */
     public void asyncCountryRequestWithPage(int page) {
         String url = QueryBuilder.API_BASE_URL + "country?region=WLD" + "&" +
-                "page=" + String.valueOf(page) + "&" + QueryBuilder.JSON_FORMAT ;
+                "page=" + String.valueOf(page) + "&" + QueryBuilder.JSON_FORMAT;
 
         AsyncHttpClient.getDefaultInstance().getString(url, new AsyncHttpClient.StringCallback() {
             @Override
@@ -73,17 +79,11 @@ public class CountryQuery {
                     JSONObject page_info = array.getJSONObject(0);
                     JSONArray countries = array.getJSONArray(1);
                     parseCountries(countries);
-                } catch ( JSONException ex ) {
+                } catch (JSONException ex) {
                     Log.e(LOG_TAG, ex.toString());
                     return;
                 }
             }
         });
-    }
-
-    private Context mContext ;
-
-    public CountryQuery(Context mContext) {
-        this.mContext = mContext;
     }
 }

@@ -1,13 +1,12 @@
 package com.team1_k.project.seg.dataviz.graph;
 
-import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.*;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarLineChartBase.BorderPosition;
@@ -15,17 +14,13 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.OnChartGestureListener;
-import com.github.mikephil.charting.interfaces.OnChartValueSelectedListener;
 import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.model.DataPoint;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -34,11 +29,10 @@ import java.util.Set;
 public class LineGraphFragment extends GraphFragment {
 
     private static final String LOG_TAG = "ui.fragment.line_graph" ;
-
-    private LineChart mChart;
-    private View rootView;
     ArrayList<ArrayList<DataPoint>> mDataPointsArray;
     ArrayList<String> mXVals = new ArrayList<String>();
+    private LineChart mChart;
+    private View rootView;
 
     public static LineGraphFragment newInstance(ArrayList<ArrayList<DataPoint>> mDataPointsArray) {
         LineGraphFragment fragment = new LineGraphFragment();
@@ -118,35 +112,31 @@ public class LineGraphFragment extends GraphFragment {
 
         Set<Integer> yearValues = new HashSet<Integer>();
 
-        for (int i = 0; i < mDataPointsArray.size(); ++i) {
-            ArrayList<DataPoint> currentArray = mDataPointsArray.get(i);
-            for ( int j = 0 ; j < currentArray.size(); ++ j )
-            yearValues.add(currentArray.get(j).getYear());
+        for (ArrayList<DataPoint> currentArray : mDataPointsArray) {
+            for (DataPoint aCurrentArray : currentArray) yearValues.add(aCurrentArray.getYear());
         }
         List sortedYears =  new ArrayList(yearValues);
         Collections.sort(sortedYears);
         mXVals = new ArrayList<String>();
-        for ( int i = 0 ; i < sortedYears.size(); ++ i ) {
-            mXVals.add(String.valueOf(sortedYears.get(i)));
+        for (Object sortedYear : sortedYears) {
+            mXVals.add(String.valueOf(sortedYear));
         }
-
-        Log.w ( LOG_TAG, sortedYears.toArray().toString() ) ;
 
         for ( int lineNumber = 0 ; lineNumber < mDataPointsArray.size() ; ++ lineNumber) {
             currentLine = mDataPointsArray.get(lineNumber) ;
 
             ArrayList<Entry> yVals = new ArrayList<Entry>();
-            for (int i = 0; i < currentLine.size(); ++i) {
-                yearValues.add(currentLine.get(i).getYear());
-                float displayValue = (float)currentLine.get(i).getValue() ;
-                Log.d ( LOG_TAG , String.valueOf(displayValue) );
-                if ( displayValue > 2147000000 )
-                    displayValue = (float)currentLine.get(i).getValue() / 1000000000 ;
-                Log.d ( LOG_TAG, String.valueOf(displayValue));
+            for (DataPoint aCurrentLine : currentLine) {
+                yearValues.add(aCurrentLine.getYear());
+                float displayValue = (float) aCurrentLine.getValue();
+                Log.d(LOG_TAG, String.valueOf(displayValue));
+                if (displayValue > 2147000000)
+                    displayValue = (float) aCurrentLine.getValue() / 1000000000;
+                Log.d(LOG_TAG, String.valueOf(displayValue));
                 yVals.add(
                         new Entry(
                                 displayValue,
-                                sortedYears.indexOf(currentLine.get(i).getYear())
+                                sortedYears.indexOf(aCurrentLine.getYear())
                         )
                 );
             }
