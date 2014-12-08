@@ -27,4 +27,6 @@
     <string name="app_search">Search</string>
     <string name="title_activity_country_comparison_detail">CountryComparisonDetail</string>
     <string name="indicator">Choose an indicator to compare:</string>
+    <string name="line_graph">Line Graph</string>
+    <string name="bar_graph">Bar Graph</string>
 </resources>

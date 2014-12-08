@@ -2,14 +2,11 @@ package com.team1_k.project.seg.dataviz;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.graph.LineGraphFragment;
@@ -111,40 +108,5 @@ public class CountryWithMetricActivity extends FragmentActivity
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_view, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch(item.getItemId()) {
-
-            case R.id.action_home:
-                Intent intentHome = new Intent(CountryWithMetricActivity.this, MainViewActivity.class);
-                this.startActivity(intentHome);
-                break;
-            case R.id.action_News:
-                Intent intentNews = new Intent(CountryWithMetricActivity.this, NewsActivity.class);
-                this.startActivity(intentNews);
-                break;
-            case R.id.action_Markets:
-                Intent intentMarkets = new Intent(CountryWithMetricActivity.this, ExchangeRatesActivity.class);
-                this.startActivity(intentMarkets);
-                break;
-            case R.id.action_Countries:
-                Intent intentCountries = new Intent(CountryWithMetricActivity.this, CountrySelectionActivity.class);
-                this.startActivity(intentCountries);
-                break;
-//            case R.id.action_More:
-//                Intent intentMore = new Intent(CountryDetailActivity.this, ActivityForItemOne.class);
-//                this.startActivity(intentMore);
-//                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
-        return true;
-    }
 }
 

@@ -8,6 +8,8 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.graph.BarGraphFragment;
@@ -50,6 +52,25 @@ public class CountryComparisonDetailActivity extends Activity
         }
         getLoaderManager().initLoader(DATA_POINT_LOADER, null, this);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.comparison, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+
+        }
+
+        return true;
+    }
+
 
     private String generateQuestionMarks() {
         String returnString = "(";
