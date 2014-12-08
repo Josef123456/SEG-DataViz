@@ -1,22 +1,28 @@
 package com.team1_k.project.seg.dataviz.graph;
 
+/**
+ * Created by alexstoick on 12/8/14.
+ */
+
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.*;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 
-import com.github.mikephil.charting.charts.BarLineChartBase.BorderPosition;
-import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.OnChartGestureListener;
 import com.github.mikephil.charting.interfaces.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.LargeValueFormatter;
+import com.github.mikephil.charting.utils.XLabels;
+import com.github.mikephil.charting.utils.YLabels;
 import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.model.DataPoint;
 
@@ -29,63 +35,51 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by alexstoick on 12/6/14.
+ * Created by dbrisingr on 08/12/14.
  */
-public class LineGraphFragment extends GraphFragment {
+public class BarGraphFragment extends GraphFragment {
 
-    private static final String LOG_TAG = "ui.fragment.line_graph" ;
-
-    private LineChart mChart;
+    private BarChart mChart;
     private View rootView;
-    ArrayList<ArrayList<DataPoint>> mDataPointsArray;
+    private final static String LOG_TAG = "ui.fragment.bar_graph";
+    private ArrayList<ArrayList<DataPoint>> mDataPointsArray;
     ArrayList<String> mXVals = new ArrayList<String>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_line_chart, container, false);
+        rootView = inflater.inflate(R.layout.frament_bar_chart, container, false);
 
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        mChart = (LineChart) rootView.findViewById(R.id.chart1);
-        mChart.setOnChartGestureListener(this);
+        mChart = (BarChart) rootView.findViewById(R.id.chart1);
         mChart.setOnChartValueSelectedListener(this);
+        mChart.setDescription("");
 
-        mChart.setDrawUnitsInChart(true);
-
-        mChart.setStartAtZero(false);
-
+        // disable the drawing of values
         mChart.setDrawYValues(false);
 
-        mChart.setDrawBorder(true);
-        mChart.setBorderPositions(new BorderPosition[] {
-                BorderPosition.BOTTOM
-        });
-        mChart.setDescription("");
-        mChart.setNoDataTextDescription("You need to provide data for the chart.");
+        // scaling can now only be done on x- and y-axis separately
+        mChart.setPinchZoom(false);
+        mChart.setValueFormatter(new LargeValueFormatter());
 
-        mChart.setDrawGridBackground(true);
-        mChart.setBackgroundColor(Color.WHITE);
-        mChart.setValueTextColor(Color.RED);
-        mChart.setHighlightEnabled(true);
+        mChart.setDrawBarShadow(false);
 
-        mChart.setTouchEnabled(true);
+        mChart.setDrawGridBackground(false);
+        mChart.setDrawHorizontalGrid(false);
 
-        mChart.setDragEnabled(true);
-        mChart.setScaleEnabled(true);
+        XLabels xl = mChart.getXLabels();
+        xl.setCenterXLabelText(true);
 
-        mChart.setPinchZoom(true);
-
-        mChart.setHighlightIndicatorEnabled(false);
-
-        mChart.animateX(2500);
+        YLabels yl = mChart.getYLabels();
+        yl.setFormatter(new LargeValueFormatter());
 
         return rootView;
     }
 
-    private void setData() {
+    public void setData(){
 
-        ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
+        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
 
         ArrayList<DataPoint> currentLine = mDataPointsArray.get(0) ;
 
@@ -98,7 +92,7 @@ public class LineGraphFragment extends GraphFragment {
         for (int i = 0; i < mDataPointsArray.size(); ++i) {
             ArrayList<DataPoint> currentArray = mDataPointsArray.get(i);
             for ( int j = 0 ; j < currentArray.size(); ++ j )
-            yearValues.add(currentArray.get(j).getYear());
+                yearValues.add(currentArray.get(j).getYear());
         }
         List sortedYears =  new ArrayList(yearValues);
         Collections.sort(sortedYears);
@@ -112,7 +106,7 @@ public class LineGraphFragment extends GraphFragment {
         for ( int lineNumber = 0 ; lineNumber < mDataPointsArray.size() ; ++ lineNumber) {
             currentLine = mDataPointsArray.get(lineNumber) ;
 
-            ArrayList<Entry> yVals = new ArrayList<Entry>();
+            ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
             for (int i = 0; i < currentLine.size(); ++i) {
                 yearValues.add(currentLine.get(i).getYear());
                 float displayValue = (float)currentLine.get(i).getValue() ;
@@ -121,7 +115,7 @@ public class LineGraphFragment extends GraphFragment {
                     displayValue = (float)currentLine.get(i).getValue() / 1000000000 ;
                 Log.d ( LOG_TAG, String.valueOf(displayValue));
                 yVals.add(
-                        new Entry(
+                        new BarEntry(
                                 displayValue,
                                 sortedYears.indexOf(currentLine.get(i).getYear())
                         )
@@ -133,42 +127,22 @@ public class LineGraphFragment extends GraphFragment {
             } else {
                 name = currentLine.get(0).getCountry().getName();
             }
-            LineDataSet dataSet = new LineDataSet(
+            BarDataSet dataSet = new BarDataSet(
                     yVals,
                     name
             );
 
             dataSet.setColor(mColors[lineNumber]);
-            dataSet.setCircleColor(mColors[lineNumber]);
-            dataSet.setLineWidth(6f);
-            dataSet.setCircleSize(5f);
-            dataSet.setFillAlpha(100);
-            dataSet.setFillColor(mColors[lineNumber]);
             dataSets.add(dataSet); // add the datasets
         }
-
-        LineData data = new LineData(mXVals, dataSets);
-
+        BarData data = new BarData(mXVals, dataSets);
         mChart.setData(data);
+        mChart.invalidate();
     }
 
     @Override
     public void onValueSelected(Entry e, int dataSetIndex) {
-        Log.i("Entry selected", e.toString());
-        String message = "" ;
-        Log.w ( LOG_TAG, String.valueOf(mDataPointsArray.size()) );
-        if ( mDataPointsArray.size() <= 1 ) {
-            message = "Entry for year: " + mXVals.get(e.getXIndex())
-                    + " with value: " + String.valueOf(e.getVal()) + " " + mChart.getUnit() ;
-
-        } else {
-            message = "Entry for year: " + mXVals.get(e.getXIndex())
-                    + " with value: " + String.valueOf(e.getVal()) + " " + mChart.getUnit()
-                    + " for country "
-                    + mDataPointsArray.get(dataSetIndex).get(0).getCountry().getName()
-            ;
-        }
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        Log.i( LOG_TAG , "Selected: " + e.toString() + ", dataSet: " + dataSetIndex);
     }
 
     public void updateData(ArrayList<ArrayList<DataPoint>> dataPointsArray) {
@@ -176,5 +150,4 @@ public class LineGraphFragment extends GraphFragment {
         Log.d ( LOG_TAG, String.valueOf(mDataPointsArray.size()) ) ;
         setData();
     }
-
 }

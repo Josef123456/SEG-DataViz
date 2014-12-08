@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
+import com.team1_k.project.seg.dataviz.graph.BarGraphFragment;
+import com.team1_k.project.seg.dataviz.graph.GraphFragment;
 import com.team1_k.project.seg.dataviz.graph.LineGraphFragment;
 import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.DataPoint;
@@ -30,14 +32,14 @@ public class CountryComparisonDetailActivity extends Activity
     long[] mCountryDatabaseIds ;
     long mMetricDatabaseId ;
     ArrayList<ArrayList<DataPoint>> mDataPoints;
-    LineGraphFragment mGraphFragment;
+    GraphFragment mGraphFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_comparison_detail);
         Intent intent = getIntent();
-        mGraphFragment = new LineGraphFragment();
+        mGraphFragment = new BarGraphFragment();
         mCountryDatabaseIds = intent.getLongArrayExtra(TAG_COUNTRY_DATABASE_IDS);
         mMetricDatabaseId = intent.getLongExtra(TAG_METRIC_DATABASE_ID, 0);
         Log.d(LOG_TAG, String.valueOf(mMetricDatabaseId) );
