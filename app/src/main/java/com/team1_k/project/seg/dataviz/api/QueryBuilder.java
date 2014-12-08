@@ -48,9 +48,11 @@ public class QueryBuilder {
         new CountryWithMetricQuery(mContext).fetchDataForCountryAndMetric(country, metric);
     }
 
+    /**
+     * Grabs all of the countries available in the API.
+     */
     public void getCountries () {
         CountryQuery helper = new CountryQuery(mContext);
-        //TODO: pass all of this onto the country query so that it parse page information
 
         for ( int i = 1 ; i < 6 ; ++ i ) {
             helper.asyncCountryRequestWithPage(i);
@@ -59,12 +61,9 @@ public class QueryBuilder {
 
     /**
      * Gets all the available metrics. API Call:
-     * /source/2/indicators?format=json
-     * @return JSON String
      */
     public void getMetrics () {
         MetricQuery helper = new MetricQuery(mContext);
-        //TODO: pass all of this onto the metric query so that it parse page information
 
         for (int i = 1; i<25; ++ i) {
             helper.asyncMetricRequestWithPage(i);

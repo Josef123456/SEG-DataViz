@@ -22,6 +22,11 @@ public class CountryQuery {
 
     private static final String LOG_TAG = "api.helper.country" ;
 
+    /**
+     * Builds a {@link android.content.ContentValues} object for the country passed to the function
+     * @param country the country which has to be inserted into the database
+     * @return the formatted {@link android.content.ContentValues} object
+     */
     private ContentValues createCountryContentValues(Country country){
         ContentValues countryValues = new ContentValues() ;
 
@@ -33,7 +38,6 @@ public class CountryQuery {
         Log.i(LOG_TAG, "country with" + country.getName());
         return countryValues ;
     }
-
 
     private void parseCountries(JSONArray countries) throws JSONException {
 
@@ -48,6 +52,10 @@ public class CountryQuery {
                 .bulkInsert(CountryEntry.CONTENT_URI, bulkContentValues);
     }
 
+    /**
+     * Creates an async HTTP request for the request API resource.
+     * @param page takes the page for the request
+     */
     public void asyncCountryRequestWithPage(int page) {
         String url = QueryBuilder.API_BASE_URL + "country?region=WLD" + "&" +
                 "page=" + String.valueOf(page) + "&" + QueryBuilder.JSON_FORMAT ;

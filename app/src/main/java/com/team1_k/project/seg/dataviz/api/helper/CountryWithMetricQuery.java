@@ -31,6 +31,11 @@ public class CountryWithMetricQuery {
         mContext = context ;
     }
 
+    /**
+     * Takes the country and the metric and then starts the async HTTP request
+     * @param country The country we are getting info about
+     * @param metric The metric for which we are getting info
+     */
     public void fetchDataForCountryAndMetric ( Country country, Metric metric) {
         mCountry = country ;
         mMetric = metric ;
@@ -38,6 +43,15 @@ public class CountryWithMetricQuery {
         asyncRequestWithCountryIdAndMetricId(country.getApiId(), metric.getApiId());
     }
 
+    /**
+     * This goes through all of the elements and parses them to
+     * {@link android.content.ContentValues} and then does a
+     * {@link com.team1_k.project.seg.dataviz.data.DataVizContentProvider
+     * #bulkInsert(android.net.Uri, android.content.ContentValues[])} with the data to ensure
+     * a low running time for the SQL query.
+     * @param data {@link org.json.JSONArray} form from the request to the API
+     * @throws JSONException if we can't parse the data in the expected form
+     */
     private void parseMetricData(JSONArray data) throws JSONException {
 
         int length = data.length();
@@ -52,6 +66,13 @@ public class CountryWithMetricQuery {
                 .bulkInsert(DataPointEntry.CONTENT_URI, bulkContentValues);
     }
 
+    /**
+     * Creates a ContentValues object with all of the required info for the data point.
+     * @param dataPoint {@link com.team1_k.project.seg.dataviz.model.DataPoint} which we want to
+     *                                                                         save in the database
+     * @return a formatted {@link android.content.ContentValues} object which we can insert
+     * in the database
+     */
     private ContentValues createDataPointContentValues(DataPoint dataPoint){
 
         ContentValues dataPointContentValues = new ContentValues();
@@ -68,6 +89,12 @@ public class CountryWithMetricQuery {
         return dataPointContentValues;
     }
 
+    /**
+     * Based on the params passed it builds the right URL and starts fetching the results
+     * async. When that is done it calls {@link #parseMetricData(org.json.JSONArray)} method.
+     * @param countryId used to make the API request
+     * @param metricId used to make the API request
+     */
     public void asyncRequestWithCountryIdAndMetricId(String countryId, String metricId) {
 
         String url = QueryBuilder.API_BASE_URL + "countries/" + countryId

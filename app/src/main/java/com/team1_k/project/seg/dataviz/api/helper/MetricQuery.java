@@ -38,12 +38,22 @@ public class MetricQuery {
             JSONObject metric = metrics.getJSONObject(i);
             bulkContentValues[i] = createMetricContentValues(new Metric(metric));
         }
-        mContext.getContentResolver().bulkInsert(DataVizContract.MetricEntry.CONTENT_URI, bulkContentValues);
+        mContext.getContentResolver().bulkInsert(
+                DataVizContract.MetricEntry.CONTENT_URI,
+                bulkContentValues
+        );
     }
 
+    /**
+     * Creates an async HTTP request for the request API resource.
+     * @param page takes the page for the request
+     */
     public void asyncMetricRequestWithPage(int page)
     {
-        String url = QueryBuilder.API_BASE_URL + "source/2/indicators?page=" + String.valueOf(page) + "&" + QueryBuilder.JSON_FORMAT ;
+        String url = QueryBuilder.API_BASE_URL + "source/2/indicators?page="
+                + String.valueOf(page)
+                + "&"
+                + QueryBuilder.JSON_FORMAT ;
 
         AsyncHttpClient.getDefaultInstance().getString(url, new AsyncHttpClient.StringCallback() {
             // Callback is invoked with any exceptions/errors, and the result, if available.
