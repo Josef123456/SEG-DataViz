@@ -49,6 +49,7 @@ public class CountryComparisonDetailActivity extends Activity
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.countryComparisonDetailContainer, mGraphFragment).commit();
+            getLoaderManager().initLoader(DATA_POINT_LOADER, null, this);
         } else {
             int length = savedInstanceState.getInt("dataLength");
             mDataPoints = new ArrayList<ArrayList<DataPoint>>();
@@ -57,7 +58,6 @@ public class CountryComparisonDetailActivity extends Activity
                 mDataPoints.add(currentArray);
             }
         }
-        getLoaderManager().initLoader(DATA_POINT_LOADER, null, this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
