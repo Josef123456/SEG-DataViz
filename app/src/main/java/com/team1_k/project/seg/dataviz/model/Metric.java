@@ -76,8 +76,9 @@ public class Metric {
         this.mDatabaseId = mDatabaseId;
     }
 
-    public Metric(String mApiId) {
+    public Metric(String mApiId, long mDatabaseId) {
         this.mApiId = mApiId;
+        this.mDatabaseId = mDatabaseId;
     }
 
     public static Metric getMetricWithApiId(Context context, String apiId) throws Exception{

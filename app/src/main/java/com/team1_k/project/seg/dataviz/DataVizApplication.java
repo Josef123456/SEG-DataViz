@@ -16,6 +16,8 @@ public class DataVizApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        DataVizDbHelper dbHelper = new DataVizDbHelper(this);
+        dbHelper.getWritableDatabase();
         QueryBuilder queryBuilder = new QueryBuilder(getApplicationContext());
         queryBuilder.getMetrics();
         queryBuilder.getCountries();

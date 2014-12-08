@@ -75,8 +75,9 @@ public class Country {
         }
     }
 
-    public Country(String mApiId) {
+    public Country(String mApiId, long mDatabaseId) {
         this.mApiId = mApiId;
+        this.mDatabaseId = mDatabaseId;
     }
 
     private Country(String mName, String mApiId,

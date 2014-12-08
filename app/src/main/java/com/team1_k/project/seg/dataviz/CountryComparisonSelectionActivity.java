@@ -103,7 +103,10 @@ public class CountryComparisonSelectionActivity extends Activity
                 String mCountryApiId= currentValue.getString(
                         DataVizContract.CountryEntry.INDEX_COLUMN_API_ID
                 );
-                queryBuilder.fetchDataForCountryAndMetric( new Country(mCountryApiId), new Metric(mMetricApiId));
+                long mCountryDatabaseId = currentValue.getLong(
+                        DataVizContract.CountryEntry.INDEX_COLUMN_ID
+                );
+                queryBuilder.fetchDataForCountryAndMetric( new Country(mCountryApiId, mCountryDatabaseId), new Metric(mMetricApiId, mMetricDatabaseId));
             }
         });
 
