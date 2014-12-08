@@ -1,31 +1,14 @@
 package com.team1_k.project.seg.dataviz;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ResultReceiver;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.team1_k.project.seg.dataviz.adapters.RssAdapter;
+import com.team1_k.project.seg.dataviz.activities.comparison.ComparisonActivity;
 import com.team1_k.project.seg.dataviz.data_exchange_rate.RssFragment;
-import com.team1_k.project.seg.dataviz.data_news.RssItem;
-import com.team1_k.project.seg.dataviz.data_news.RssService;
-
-import java.util.List;
 
 
 /**

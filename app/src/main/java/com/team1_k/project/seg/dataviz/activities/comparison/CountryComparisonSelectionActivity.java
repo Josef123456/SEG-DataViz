@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz;
+package com.team1_k.project.seg.dataviz.activities.comparison;
 
 import android.app.Activity;
 import android.app.LoaderManager;
@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +23,11 @@ import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import com.team1_k.project.seg.dataviz.CountrySelectionActivity;
+import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
+import com.team1_k.project.seg.dataviz.MainViewActivity;
+import com.team1_k.project.seg.dataviz.NewsActivity;
+import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.data.DataVizDbHelper;

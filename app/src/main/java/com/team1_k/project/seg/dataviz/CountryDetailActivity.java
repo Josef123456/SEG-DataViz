@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.team1_k.project.seg.dataviz.activities.comparison.ComparisonActivity;
 import com.team1_k.project.seg.dataviz.adapters.DataPointArrayAdapter;
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;

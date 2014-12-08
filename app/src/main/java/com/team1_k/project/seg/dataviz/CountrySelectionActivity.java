@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 
+import com.team1_k.project.seg.dataviz.activities.comparison.ComparisonActivity;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.CountryEntry;
 import com.team1_k.project.seg.dataviz.data.DataVizDbHelper;
 

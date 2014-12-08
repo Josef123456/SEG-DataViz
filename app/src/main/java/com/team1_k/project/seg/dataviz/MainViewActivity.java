@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
+import com.team1_k.project.seg.dataviz.activities.comparison.ComparisonActivity;
+
 /**
  * The MainViewActivity is showing the content of NewsActivity,
  * ExchangeRateActivity, CountrySelectionActivity and ComparisonActivity in 4 tabs.

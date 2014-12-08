@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz;
+package com.team1_k.project.seg.dataviz.activities.comparison;
 
 import android.app.Activity;
 import android.app.LoaderManager;
@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.graph.BarGraphFragment;
 import com.team1_k.project.seg.dataviz.graph.GraphFragment;
@@ -54,7 +55,7 @@ public class CountryComparisonDetailActivity extends Activity
             int length = savedInstanceState.getInt("dataLength");
             mDataPoints = new ArrayList<ArrayList<DataPoint>>();
             for ( int i = 0 ; i < length ; ++ i ) {
-                ArrayList<DataPoint> currentArray = savedInstanceState.getParcelableArrayList("data"+i);
+                ArrayList<DataPoint> currentArray = savedInstanceState.getParcelableArrayList("data" + i);
                 mDataPoints.add(currentArray);
             }
         }

@@ -92,19 +92,19 @@
                 android:value="com.team1_k.project.seg.dataviz.MainViewActivity" />
         </activity>
         <activity
-            android:name="com.team1_k.project.seg.dataviz.ComparisonActivity"
+            android:name=".activities.comparison.ComparisonActivity"
             android:label="@string/title_activity_comparison"
             android:parentActivityName="com.team1_k.project.seg.dataviz.MainViewActivity">
         </activity>
         <activity
-            android:name=".CountryComparisonSelectionActivity"
+            android:name=".activities.comparison.CountryComparisonSelectionActivity"
             android:label="@string/title_activity_comparison_country_selection"
-            android:parentActivityName="com.team1_k.project.seg.dataviz.ComparisonActivity">
+            android:parentActivityName=".activities.comparison.ComparisonActivity">
         </activity>
         <activity
-            android:name="com.team1_k.project.seg.dataviz.CountryComparisonDetailActivity"
+            android:name=".activities.comparison.CountryComparisonDetailActivity"
             android:label="@string/title_activity_country_comparison_detail"
-            android:parentActivityName="com.team1_k.project.seg.dataviz.CountryComparisonSelectionActivity">
+            android:parentActivityName=".activities.comparison.CountryComparisonSelectionActivity">
         </activity>
     </application>
 

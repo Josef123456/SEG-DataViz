@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz;
+package com.team1_k.project.seg.dataviz.activities.comparison;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.team1_k.project.seg.dataviz.CountrySelectionActivity;
+import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
+import com.team1_k.project.seg.dataviz.MainViewActivity;
+import com.team1_k.project.seg.dataviz.NewsActivity;
+import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.adapters.MetricArrayAdapter;
 import com.team1_k.project.seg.dataviz.model.Client;
 import com.team1_k.project.seg.dataviz.model.Metric;
