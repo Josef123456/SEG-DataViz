@@ -48,6 +48,10 @@ public class Country {
         return mDatabaseId;
     }
 
+    /**
+     * Builds a country object from a {@link org.json.JSONObject}
+     * @param country the object which contains all the country data
+     */
     public Country(JSONObject country) {
         try {
 
@@ -91,6 +95,13 @@ public class Country {
         this.mDatabaseId = mDatabaseId;
     }
 
+    /**
+     * Constructor which takes the API id and queries the database for the country
+     * @param context Required to be able to query the database
+     * @param apiId the API ID for which we want to query
+     * @return a country entity with the info from the database
+     * @throws Exception In case we can't find the country in the database, an exception is thrown
+     */
     public static Country getCountryWithApiId(Context context, String apiId) throws Exception{
         Cursor cursor = context.getContentResolver().query(
                 DataVizContract.CountryEntry.CONTENT_URI,

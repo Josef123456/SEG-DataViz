@@ -81,6 +81,13 @@ public class Metric {
         this.mDatabaseId = mDatabaseId;
     }
 
+    /**
+     * Constructor which takes the API id and queries the database for the metric
+     * @param context Required to be able to query the database
+     * @param apiId the API ID for which we want to query
+     * @return a metric entry with the info from the database
+     * @throws Exception In case we can't find the metric in the database, an exception is thrown
+     */
     public static Metric getMetricWithApiId(Context context, String apiId) throws Exception{
 
         Cursor cursor = context.getContentResolver().query(

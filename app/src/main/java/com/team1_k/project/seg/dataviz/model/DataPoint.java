@@ -17,6 +17,10 @@ public class DataPoint {
 
     private Metric mMetric ;
 
+    /**
+     * Builds a data point from a {@link org.json.JSONObject}
+     * @param dataPoint the object which contains all of the data
+     */
     public DataPoint(JSONObject dataPoint) {
         try {
             this.mValue = Double.valueOf(dataPoint.getString("value"));
