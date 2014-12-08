@@ -88,6 +88,13 @@ public class DataVizContentProvider extends ContentProvider {
         return false ;
     }
 
+    /**
+     * Matches the current URI against all of the ones for which we can query our
+     * database.
+     * @param uri The URI we wanna query the database
+     * @return The {@link java.lang.String} which represents the type of the item returned
+     * by the query
+     */
     @Override
     public String getType(Uri uri) {
         final int match = sUriMatcher.match(uri) ;
@@ -109,12 +116,25 @@ public class DataVizContentProvider extends ContentProvider {
         return null;
     }
 
+    /**
+     * We are not deleting any data, at the moment, so there is no need to implement this method.
+     * @param uri
+     * @param s
+     * @param strings
+     * @return
+     */
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Implement this to handle requests to delete one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+    public int delete(Uri uri, String s, String[] strings) {
+        return 0;
     }
 
+    /**
+     * Inserting at the URI the given content values object.
+     * @param uri The URI of the database at which we are going to insert.
+     * @param values Formatted {@link android.content.ContentValues} object to insert
+     *               into databse.
+     * @return Returns an {@link java.net.URI} of the inserted object.
+     */
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         final SQLiteDatabase db = mDbHelper.getWritableDatabase() ;
@@ -155,6 +175,17 @@ public class DataVizContentProvider extends ContentProvider {
         return returnUri ;
     }
 
+    /**
+     * Querying the database at the given URL with the following params.
+     * @param uri The URI we wanna query the database on.
+     * @param projection The projection (selected columns) we want to get back from the database
+     * @param selection The selection part of the query (WHERE) with `?` in place for params
+     *                  to guard against SQL injection
+     * @param selectionArgs A matching number of params to replace the `?` in the query
+     * @param sortOrder The sort order for the query
+     * @return {@link android.database.Cursor} for the query, which contains all of the rows
+     * returned by the database
+     */
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
@@ -257,14 +288,31 @@ public class DataVizContentProvider extends ContentProvider {
         return returnCursor;
     }
 
+    /**
+     * We are not updating any values, since the database schema makes sure to replace the new
+     * entries if the params conflict.
+     * @param uri
+     * @param values
+     * @param selection
+     * @param selectionArgs
+     * @return
+     */
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        // TODO: Implement this to handle requests to update one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return 0;
     }
 
 
+    /**
+     * One of the most used functions in the application. This is doing the same job as the insert
+     * function, but all in one SQL transaction which increases the speed drastically when you have
+     * to insert a large number of items into the database.
+     * @param uri The URI of the database at which we are going to insert.
+     * @param values An array of {@link android.content.ContentValues} which we are going to insert
+     *               into the database.
+     * @return the number of rows that were inserted into the database.
+     */
     @Override
     public int bulkInsert(Uri uri, ContentValues[] values) {
 

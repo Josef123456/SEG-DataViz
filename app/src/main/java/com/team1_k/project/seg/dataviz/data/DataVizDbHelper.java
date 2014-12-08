@@ -23,6 +23,10 @@ public class DataVizDbHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Creates the tables with constraints & indexes for the application.
+     * @param sqLiteDatabase the database on which the migration is run.
+     */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         final String SQL_CREATE_COUNTRY_TABLE = "CREATE TABLE " + CountryEntry.TABLE_NAME + " " +

@@ -20,6 +20,11 @@ public class DataVizContract {
     public static final String PATH_DATA_POINT = "data_point" ;
 
 
+    /**
+     * Class that represents the Country model in the database. This holds all of the logic we
+     * use when querying the database, from the column names to the indexes at which the columns
+     * are to be found when we query.
+     */
     public static final class CountryEntry implements BaseColumns {
 
         public static final String CONTENT_TYPE =
@@ -37,32 +42,59 @@ public class DataVizContract {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
                 .appendPath(PATH_COUNTRY).build();
 
+        /**
+         * Builds an URI for the country entity with the given ID
+         * @param _ID the id for which we want to build the URI
+         * @return Built {@link java.net.URI}
+         */
         public static Uri buildCountryUri(long _ID){
             return ContentUris.withAppendedId(CONTENT_URI, _ID) ;
         }
 
+        /**
+         * Builds an URI for countries & metrics query
+         * @return Built {@link java.net.URI}
+         */
         public static Uri buildCountriesWithMetricsUri(){
             return CONTENT_URI.buildUpon().
                     appendEncodedPath("metrics").build();
         }
 
+        /**
+         * Builds an URI for a specified country and all of its metrics
+         * @param _ID the ID of the country we want to fetch metrics for
+         * @return Built {@link java.net.URI}
+         */
         public static Uri buildCountryWithMetricsUriWithId(long _ID){
             return CONTENT_URI.buildUpon().
                     appendEncodedPath("metrics").
                     appendEncodedPath(String.valueOf(_ID)).build();
         }
 
+        /**
+         * Builds an URI for a specified country and a specified metric
+         * @param country_id ID of the {@link com.team1_k.project.seg.dataviz.model.Country}
+         * @param metric_id ID of the {@link com.team1_k.project.seg.dataviz.model.Metric}
+         * @return Built {@link java.net.URI}
+         */
         public static Uri buildCountryWithMetricId(long country_id, long metric_id){
             return CONTENT_URI.buildUpon().appendEncodedPath(String.valueOf(country_id))
                     .appendEncodedPath("metrics").appendEncodedPath(String.valueOf(metric_id))
                     .build();
         }
 
+        /**
+         * Used to notify a country of an update in its metrics.
+         * @return Built {@link java.net.URI}
+         */
         public static Uri buildCountryWithMetricUri() {
             return CONTENT_URI.buildUpon().
                     appendEncodedPath("metrics").build();
         }
 
+        /**
+         * The list of columns of the entity.
+         */
         public static final String[] COLUMNS = {
                 _ID,
                 COLUMN_NAME,
@@ -80,6 +112,10 @@ public class DataVizContract {
         public static final int INDEX_COLUMN_LONGITUDE = 5 ;
     }
 
+    /**
+     * The metric entity which holds all of the database logic for
+     * {@link com.team1_k.project.seg.dataviz.model.Metric}.
+     */
     public static final class MetricEntry implements BaseColumns {
 
         public static final String CONTENT_TYPE =
@@ -136,6 +172,9 @@ public class DataVizContract {
         public static final int INDEX_METRIC_QUERY_COLUMN_COUNTRY_ID = 8 ;
     }
 
+    /**
+     * Holds all of the database logic for {@link com.team1_k.project.seg.dataviz.model.DataPoint}.
+     */
     public static final class DataPointEntry implements BaseColumns {
 
 
