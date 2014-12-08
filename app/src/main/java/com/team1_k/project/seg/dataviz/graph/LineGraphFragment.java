@@ -54,6 +54,7 @@ public class LineGraphFragment extends Fragment implements OnSeekBarChangeListen
         Map<String, String> map = new HashMap<String, String>();
 
         map.put("NY.GDP.MKTP.CD", "billion $");
+        map.put("SL.UEM.TOTL.ZS", "% of total");
         map.put("IC.EXP.COST.CD", "$ per container");
         map.put("IC.IMP.COST.CD", "$ per container");
         map.put("NE.EXP.GNFS.KD.ZG", "annual % growth" );
