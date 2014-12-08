@@ -54,8 +54,9 @@ public class MainViewActivity extends TabActivity {
         compareActivity.setContent(comparisonIntent);
 
         // Adding all TabSpec to TabHost
-        tabHost.addTab(newsActivity);
+
         tabHost.addTab(exchangeRateActivity);
+        tabHost.addTab(newsActivity);
         tabHost.addTab(countriesActivity);
         tabHost.addTab(compareActivity);
 

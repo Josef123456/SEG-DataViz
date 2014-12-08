@@ -3,11 +3,6 @@
     tools:context="com.team1_k.project.seg.dataviz.MainViewActivity">
 
     <item
-        android:id="@+id/action_home"
-        android:title="@string/home_button"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
-    <item
         android:id="@+id/action_News"
         android:title="@string/news_button"
         android:orderInCategory="100"
