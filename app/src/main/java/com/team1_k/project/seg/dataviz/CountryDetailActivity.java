@@ -35,10 +35,6 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
     public static final String TAG_COUNTRY_API_ID = "COUNTRY_ID";
 
     private static final int DATA_POINT_LOADER = 0;
-    private static final String[] DATA_POINT_COLUMNS = {
-            DataPointEntry.COLUMN_YEAR,
-            DataPointEntry.COLUMN_VALUE
-    };
 
     private QueryBuilder mQueryBuilder;
     private Intent mIntent;
@@ -136,7 +132,8 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), CountryWithMetricActivity.class)
                         .putExtra(CountryWithMetricActivity.TAG_COUNTRY_ID, mCountry.getDatabaseId())
-                        .putExtra(CountryWithMetricActivity.TAG_METRIC_ID, mMetrics[i].getDatabaseId())
+                        .putExtra(CountryWithMetricActivity.TAG_METRIC_ID,
+                                mDataPoints.get(i).getMetric().getDatabaseId())
                         .putExtra(CountryWithMetricActivity.TAG_COUNTRY_API_ID, mCountry.getApiId());
                 startActivity(intent);
             }
@@ -172,7 +169,6 @@ public class CountryDetailActivity extends Activity implements LoaderManager.Loa
     }
 
     private void fetchClient() {
-        //TODO: get this from somewhere in the app
         mClient = new Client(Client.Type.INVESTOR);
     }
 

@@ -53,7 +53,7 @@ public class CountryWithMetricActivity extends FragmentActivity
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        String sortOrder = DataVizContract.DataPointEntry.TABLE_NAME + "." + DataVizContract.DataPointEntry.COLUMN_YEAR + " DESC";
+        String sortOrder = DataVizContract.DataPointEntry.TABLE_NAME + "." + DataVizContract.DataPointEntry.COLUMN_YEAR + " ASC";
         return new CursorLoader(
                 getApplicationContext(),
                 DataVizContract.CountryEntry.
