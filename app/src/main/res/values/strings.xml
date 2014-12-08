@@ -29,4 +29,5 @@
     <string name="indicator">Choose an indicator to compare:</string>
     <string name="line_graph">Line Graph</string>
     <string name="bar_graph">Bar Graph</string>
+    <string name="compare">Compare selected countries</string>
 </resources>

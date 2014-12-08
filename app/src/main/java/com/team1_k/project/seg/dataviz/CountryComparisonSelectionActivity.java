@@ -6,7 +6,10 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
@@ -14,14 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
+import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
+import com.team1_k.project.seg.dataviz.data.DataVizDbHelper;
 import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.Metric;
 
@@ -29,6 +34,7 @@ import com.team1_k.project.seg.dataviz.model.Metric;
 public class CountryComparisonSelectionActivity extends Activity
         implements LoaderManager.LoaderCallbacks<Cursor>{
 
+    protected EditText editText;
     private static final String SORT_ORDER =
             DataVizContract.CountryEntry.TABLE_NAME + "."
                     + DataVizContract.CountryEntry.COLUMN_NAME
@@ -139,6 +145,50 @@ public class CountryComparisonSelectionActivity extends Activity
                         mMetricDatabaseId
                 );
                 startActivity(intent);
+            }
+        });
+
+        mCountryAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+            @Override
+            public Cursor runQuery(CharSequence charSequence) {
+                String constraint = charSequence.toString();
+                DataVizDbHelper mDbHelper = new DataVizDbHelper(getApplicationContext());
+                SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+                Log.i(LOG_TAG, "cnstr: " + constraint);
+
+                return db.query(
+                        DataVizContract.CountryEntry.TABLE_NAME,
+                        DataVizContract.CountryEntry.COLUMNS,
+                        DataVizContract.CountryEntry.COLUMN_NAME + " LIKE ?",
+                        new String[]{constraint + "%"},
+                        null,
+                        null,
+                        SORT_ORDER
+                );
+            }
+        });
+
+        editText = (EditText) findViewById(R.id.search_globalDetail);
+        editText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                String searchString = editText.getText().toString();
+                mCountryAdapter.getFilter().filter(searchString);
+                mCountryAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }

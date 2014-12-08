@@ -107,6 +107,5 @@ public class CountryWithMetricActivity extends FragmentActivity
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
     }
-
 }
 
