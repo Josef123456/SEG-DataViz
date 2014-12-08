@@ -41,7 +41,7 @@ public class CountryComparisonDetailActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_comparison_detail);
         Intent intent = getIntent();
-        mGraphFragment = new BarGraphFragment();
+        mGraphFragment = new LineGraphFragment();
         mCountryDatabaseIds = intent.getLongArrayExtra(TAG_COUNTRY_DATABASE_IDS);
         mMetricDatabaseId = intent.getLongExtra(TAG_METRIC_DATABASE_ID, 0);
         Log.d(LOG_TAG, String.valueOf(mMetricDatabaseId) );
@@ -49,6 +49,13 @@ public class CountryComparisonDetailActivity extends Activity
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.countryComparisonDetailContainer, mGraphFragment).commit();
+        } else {
+            int length = savedInstanceState.getInt("dataLength");
+            mDataPoints = new ArrayList<ArrayList<DataPoint>>();
+            for ( int i = 0 ; i < length ; ++ i ) {
+                ArrayList<DataPoint> currentArray = savedInstanceState.getParcelableArrayList("data"+i);
+                mDataPoints.add(currentArray);
+            }
         }
         getLoaderManager().initLoader(DATA_POINT_LOADER, null, this);
     }
@@ -59,14 +66,32 @@ public class CountryComparisonDetailActivity extends Activity
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        int i = 0 ;
+        for( ArrayList<DataPoint> p : mDataPoints) {
+            outState.putParcelableArrayList( "data" + i , p);
+        }
+        outState.putInt("dataLength", mDataPoints.size());
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-
-
+            case R.id.lineGraph: {
+                mGraphFragment = LineGraphFragment.newInstance(mDataPoints);
+                break;
+            }
+            case R.id.barGraph: {
+                mGraphFragment = BarGraphFragment.newInstance(mDataPoints);
+                break;
+            }
         }
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.countryComparisonDetailContainer, mGraphFragment).commit();
 
         return true;
     }

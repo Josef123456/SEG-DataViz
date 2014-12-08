@@ -2,6 +2,8 @@ package com.team1_k.project.seg.dataviz.model;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
@@ -12,7 +14,8 @@ import org.json.JSONObject;
 /**
  * Created by alexstoick on 11/17/14.
  */
-public class Country {
+public class Country implements Parcelable {
+
 
     private static final String LOG_TAG = "model.country" ;
 
@@ -22,7 +25,6 @@ public class Country {
     private double mLongitude ;
     private String mCapitalCity ;
     private long mDatabaseId;
-    Metric[] metrics ;
 
     public String getName() {
         return mName;
@@ -126,4 +128,38 @@ public class Country {
         }
         throw new Exception("Can't find country with api_id " + apiId);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mName);
+        dest.writeString(this.mApiId);
+        dest.writeDouble(this.mLatitude);
+        dest.writeDouble(this.mLongitude);
+        dest.writeString(this.mCapitalCity);
+        dest.writeLong(this.mDatabaseId);
+    }
+
+    private Country(Parcel in) {
+        this.mName = in.readString();
+        this.mApiId = in.readString();
+        this.mLatitude = in.readDouble();
+        this.mLongitude = in.readDouble();
+        this.mCapitalCity = in.readString();
+        this.mDatabaseId = in.readLong();
+    }
+
+    public static final Creator<Country> CREATOR = new Creator<Country>() {
+        public Country createFromParcel(Parcel source) {
+            return new Country(source);
+        }
+
+        public Country[] newArray(int size) {
+            return new Country[size];
+        }
+    };
 }

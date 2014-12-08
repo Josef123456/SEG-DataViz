@@ -2,6 +2,8 @@ package com.team1_k.project.seg.dataviz.model;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.team1_k.project.seg.dataviz.data.DataVizContract.MetricEntry;
@@ -14,7 +16,7 @@ import java.util.HashMap;
 /**
  * Created by alexstoick on 11/17/14.
  */
-public class Metric {
+public class Metric implements Parcelable {
 
     private static String LOG_TAG = "model.metric" ;
 
@@ -106,4 +108,35 @@ public class Metric {
         throw new Exception("Can't find metric with api_id " + apiId ) ;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mApiId);
+        dest.writeString(this.mName);
+        dest.writeString(this.mDescription);
+        dest.writeLong(this.mDatabaseId);
+        dest.writeSerializable(this.mDataPoints);
+    }
+
+    private Metric(Parcel in) {
+        this.mApiId = in.readString();
+        this.mName = in.readString();
+        this.mDescription = in.readString();
+        this.mDatabaseId = in.readLong();
+        this.mDataPoints = (HashMap<Integer, Integer>) in.readSerializable();
+    }
+
+    public static final Parcelable.Creator<Metric> CREATOR = new Parcelable.Creator<Metric>() {
+        public Metric createFromParcel(Parcel source) {
+            return new Metric(source);
+        }
+
+        public Metric[] newArray(int size) {
+            return new Metric[size];
+        }
+    };
 }

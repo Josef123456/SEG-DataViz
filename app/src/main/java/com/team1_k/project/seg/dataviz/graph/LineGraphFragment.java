@@ -40,6 +40,18 @@ public class LineGraphFragment extends GraphFragment {
     ArrayList<ArrayList<DataPoint>> mDataPointsArray;
     ArrayList<String> mXVals = new ArrayList<String>();
 
+    public static LineGraphFragment newInstance(ArrayList<ArrayList<DataPoint>> mDataPointsArray) {
+        LineGraphFragment fragment = new LineGraphFragment();
+        Bundle bundle = new Bundle();
+        int i = 0 ;
+        for( ArrayList<DataPoint> p : mDataPointsArray ) {
+            bundle.putParcelableArrayList( "data" + i , p);
+        }
+        bundle.putInt("dataLength", mDataPointsArray.size());
+        fragment.setArguments(bundle);
+        return fragment ;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_line_chart, container, false);
@@ -47,7 +59,7 @@ public class LineGraphFragment extends GraphFragment {
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        mChart = (LineChart) rootView.findViewById(R.id.chart1);
+        mChart = (LineChart) rootView.findViewById(R.id.chartLine);
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
 
@@ -79,6 +91,16 @@ public class LineGraphFragment extends GraphFragment {
         mChart.setHighlightIndicatorEnabled(false);
 
         mChart.animateX(2500);
+
+        if ( getArguments() != null ) {
+            int length = getArguments().getInt("dataLength");
+            mDataPointsArray = new ArrayList<ArrayList<DataPoint>>();
+            for ( int i = 0 ; i < length ; ++ i ) {
+                ArrayList<DataPoint> currentArray = getArguments().getParcelableArrayList("data"+i);
+                mDataPointsArray.add(currentArray);
+            }
+            setData();
+        }
 
         return rootView;
     }
