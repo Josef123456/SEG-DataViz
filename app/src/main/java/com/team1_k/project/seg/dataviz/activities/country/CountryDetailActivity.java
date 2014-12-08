@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz;
+package com.team1_k.project.seg.dataviz.activities.country;
 
 import android.app.Activity;
 import android.app.LoaderManager;
@@ -16,6 +16,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
+import com.team1_k.project.seg.dataviz.MainViewActivity;
+import com.team1_k.project.seg.dataviz.NewsActivity;
+import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.activities.comparison.ComparisonActivity;
 import com.team1_k.project.seg.dataviz.adapters.DataPointArrayAdapter;
 import com.team1_k.project.seg.dataviz.api.QueryBuilder;

@@ -23,7 +23,7 @@ import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.team1_k.project.seg.dataviz.CountrySelectionActivity;
+import com.team1_k.project.seg.dataviz.activities.country.CountrySelectionActivity;
 import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
 import com.team1_k.project.seg.dataviz.MainViewActivity;
 import com.team1_k.project.seg.dataviz.NewsActivity;

@@ -45,7 +45,7 @@
             android:name="com.team1_k.project.seg.dataviz.MetricSelectionActivity"
             android:label="@string/title_activity_metric_selection" />
         <activity
-            android:name="com.team1_k.project.seg.dataviz.CountrySelectionActivity"
+            android:name=".activities.country.CountrySelectionActivity"
             android:label="@string/title_activity_country_selection"
             android:launchMode="singleTop"
             android:parentActivityName="com.team1_k.project.seg.dataviz.MainViewActivity"
@@ -65,19 +65,19 @@
                 android:value="com.team1_k.project.seg.dataviz.MainView" />
         </activity>
         <activity
-            android:name="com.team1_k.project.seg.dataviz.CountryDetailActivity"
+            android:name=".activities.country.CountryDetailActivity"
             android:label="@string/title_activity_country_detail"
             android:launchMode="singleTop"
-            android:parentActivityName="com.team1_k.project.seg.dataviz.CountrySelectionActivity" >
+            android:parentActivityName=".activities.country.CountrySelectionActivity" >
         </activity>
         <activity
             android:name="com.team1_k.project.seg.dataviz.graphActivity"
             android:label="@string/title_activity_graph"
-            android:parentActivityName="com.team1_k.project.seg.dataviz.CountryDetailActivity" />
+            android:parentActivityName=".activities.country.CountryDetailActivity" />
         <activity
-            android:name=".CountryWithMetricActivity"
+            android:name=".activities.country.CountryWithMetricActivity"
             android:label="@string/title_activity_graph"
-            android:parentActivityName="com.team1_k.project.seg.dataviz.CountryDetailActivity" />
+            android:parentActivityName=".activities.country.CountryDetailActivity" />
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"

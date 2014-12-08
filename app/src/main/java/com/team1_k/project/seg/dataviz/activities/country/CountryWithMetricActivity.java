@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz;
+package com.team1_k.project.seg.dataviz.activities.country;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
+import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.data.DataVizContract;
 import com.team1_k.project.seg.dataviz.graph.LineGraphFragment;
 import com.team1_k.project.seg.dataviz.model.DataPoint;

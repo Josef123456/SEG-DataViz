@@ -9,6 +9,7 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
 import com.team1_k.project.seg.dataviz.activities.comparison.ComparisonActivity;
+import com.team1_k.project.seg.dataviz.activities.country.CountrySelectionActivity;
 
 /**
  * The MainViewActivity is showing the content of NewsActivity,

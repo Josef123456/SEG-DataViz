@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.team1_k.project.seg.dataviz.CountrySelectionActivity;
+import com.team1_k.project.seg.dataviz.activities.country.CountrySelectionActivity;
 import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
 import com.team1_k.project.seg.dataviz.MainViewActivity;
 import com.team1_k.project.seg.dataviz.NewsActivity;
