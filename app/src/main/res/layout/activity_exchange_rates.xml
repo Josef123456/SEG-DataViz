@@ -57,7 +57,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Change (from yesterday)"
+                android:text="Difference"
                 android:id="@+id/tv3"
                 android:gravity="right"
                 style="@style/ExchangeText" />

@@ -73,11 +73,13 @@ public class ExchangeRate {
 
 
         final String[] temp = {
-                EXCHANGE_GBP, EXCHANGE_EUR, EXCHANGE_CHF, EXCHANGE_JPY, EXCHANGE_RUB, EXCHANGE_NOK, EXCHANGE_SEK
+                EXCHANGE_GBP, EXCHANGE_EUR, EXCHANGE_CHF, EXCHANGE_JPY, EXCHANGE_RUB, EXCHANGE_NOK,
+                EXCHANGE_SEK, EXCHANGE_AUD, EXCHANGE_BZD, EXCHANGE_CAD, EXCHANGE_QAR, EXCHANGE_CZK, EXCHANGE_HKD,
+                EXCHANGE_BTC
         };
         this.temp = temp;
         final String[] temp2 = {
-                EXCHANGE_AUD, EXCHANGE_BZD, EXCHANGE_CAD, EXCHANGE_QAR, EXCHANGE_CZK, EXCHANGE_HKD, EXCHANGE_BTC
+
         };
         this.temp2 = temp2;
 
@@ -105,12 +107,10 @@ public class ExchangeRate {
                 try {
                     rates = new JSONObject(result);
 
-                    for(int i = 0; i < 7; i++){
+                    for(int i = 0; i < 14; i++){
 
                         list.add(new ExchangeItem(temp[i], rates.getJSONObject("rates").getString(temp[i]), "x"));
-                        if(isPortrait == true){
-                            listOthers.add(new ExchangeItem(temp2[i], rates.getJSONObject("rates").getString(temp2[i]), "y"));
-                        }
+
                     }
 
                 } catch ( JSONException ex ) {
@@ -144,7 +144,7 @@ public class ExchangeRate {
 
                 try {
                     toCompare = new JSONObject(result);
-                    for(int i=0; i<7; i++){
+                    for(int i=0; i<14; i++){
 
                         float xChangeToday = Float.parseFloat(list.get(i).getTitle());
                         float xChangeYesterday = Float.parseFloat(toCompare.getJSONObject("rates").getString(temp[i]));
@@ -153,16 +153,6 @@ public class ExchangeRate {
                         String diff = String.format("%.6f", temp);
 
                         list.get(i).setDifference(""+diff);
-                        if(isPortrait == true){
-
-                            float xChangeToday2 = Float.parseFloat(listOthers.get(i).getTitle());
-                            float xChangeYesterday2 = Float.parseFloat(toCompare.getJSONObject("rates").getString(temp2[i]));
-
-                            float temp2 = xChangeYesterday2 - xChangeToday2;
-                            String diff2 = String.format("%.6f", temp2);
-
-                            listOthers.get(i).setDifference(""+diff2);
-                        }
                     }
                 }catch (JSONException ex){
                     Log.e(LOG_TAG, ex.toString());
@@ -181,16 +171,12 @@ public class ExchangeRate {
         CustomAdapter adapter = new CustomAdapter(xChangeActivity, list);
         listView.setAdapter(adapter);
 
-        CustomAdapter adapter2 = new CustomAdapter(xChangeActivity, listOthers);
-        listView2.setAdapter(adapter2);
+        //CustomAdapter adapter2 = new CustomAdapter(xChangeActivity, listOthers);
+        //listView2.setAdapter(adapter2);
 
         pb.setVisibility(View.GONE);
         ll_1.setVisibility(View.VISIBLE);
-        if(isPortrait == true){
-            ll_2.setVisibility(View.VISIBLE);
-        }else{
-            tvPortrait.setVisibility(View.VISIBLE);
-        }
+
 
     }
 
