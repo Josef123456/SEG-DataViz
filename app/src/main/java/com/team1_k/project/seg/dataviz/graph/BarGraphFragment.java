@@ -46,6 +46,7 @@ public class BarGraphFragment extends GraphFragment {
         int i = 0 ;
         for( ArrayList<DataPoint> p : mDataPointsArray ) {
             bundle.putParcelableArrayList( "data" + i , p);
+            ++ i;
         }
         bundle.putInt("dataLength", mDataPointsArray.size());
         fragment.setArguments(bundle);

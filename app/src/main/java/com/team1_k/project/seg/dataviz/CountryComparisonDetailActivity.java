@@ -72,6 +72,7 @@ public class CountryComparisonDetailActivity extends Activity
         int i = 0 ;
         for( ArrayList<DataPoint> p : mDataPoints) {
             outState.putParcelableArrayList( "data" + i , p);
+            ++ i;
         }
         outState.putInt("dataLength", mDataPoints.size());
     }
