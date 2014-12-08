@@ -30,6 +30,8 @@ import com.team1_k.project.seg.dataviz.data.DataVizDbHelper;
 import com.team1_k.project.seg.dataviz.model.Country;
 import com.team1_k.project.seg.dataviz.model.Metric;
 
+import java.util.ArrayList;
+
 
 public class CountryComparisonSelectionActivity extends Activity
         implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -72,7 +74,7 @@ public class CountryComparisonSelectionActivity extends Activity
     private long mMetricDatabaseId;
     private String mMetricApiId;
     private static final int COUNTRY_LOADER = 0;
-
+    private ArrayList<Long> mSelectedIds = new ArrayList<Long>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,17 +103,20 @@ public class CountryComparisonSelectionActivity extends Activity
         Intent intent = getIntent();
         mMetricDatabaseId = intent.getLongExtra(TAG_METRIC_DATABASE_ID, 0);
         mMetricApiId = intent.getStringExtra(TAG_METRIC_API_ID);
+        mSelectedIds = new ArrayList<Long>();
         listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d ( LOG_TAG, "clicked on item at " + i ) ;
                 Cursor currentValue = (Cursor)mCountryAdapter.getItem(i);
+
                 String mCountryApiId= currentValue.getString(
                         DataVizContract.CountryEntry.INDEX_COLUMN_API_ID
                 );
                 long mCountryDatabaseId = currentValue.getLong(
                         DataVizContract.CountryEntry.INDEX_COLUMN_ID
                 );
+                mSelectedIds.add(mCountryDatabaseId);
                 queryBuilder.fetchDataForCountryAndMetric(
                         new Country(mCountryApiId, mCountryDatabaseId),
                         new Metric(mMetricApiId, mMetricDatabaseId)
@@ -122,24 +127,16 @@ public class CountryComparisonSelectionActivity extends Activity
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                SparseBooleanArray array = listView.getCheckedItemPositions();
-                long[] selectedIds = new long[array.size()];
-                Log.w ( LOG_TAG, selectedIds.toString() );
-                for (int i = 0; i < array.size(); ++i) {
-                    Log.w( LOG_TAG, String.valueOf(array.keyAt(i)));
-                    Cursor currentValue = (Cursor)mCountryAdapter.getItem(array.keyAt(i));
-                    selectedIds[i] = currentValue.getLong(
-                            DataVizContract.CountryEntry.INDEX_COLUMN_ID
-                    );
-                    Log.d(LOG_TAG, String.valueOf(selectedIds[i]));
+                long[] array = new long[mSelectedIds.size()];
+                for ( int i = 0 ; i < mSelectedIds.size(); ++ i ) {
+                    array[i] = mSelectedIds.get(i);
                 }
                 Intent intent = new Intent(
                         getApplicationContext(),
                         CountryComparisonDetailActivity.class
                 ).putExtra(
                         CountryComparisonDetailActivity.TAG_COUNTRY_DATABASE_IDS,
-                        selectedIds
+                        array
                 ).putExtra(
                         CountryComparisonDetailActivity.TAG_METRIC_DATABASE_ID,
                         mMetricDatabaseId
@@ -193,6 +190,12 @@ public class CountryComparisonSelectionActivity extends Activity
         });
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSelectedIds = new ArrayList<Long>();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
