@@ -6,13 +6,13 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.team1_k.project.seg.dataviz.DataVizApplication"
+        android:name=".activities.base.DataVizApplication"
         android:allowBackup="true"
         android:icon="@drawable/logopluto"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.team1_k.project.seg.dataviz.MainActivity"
+            android:name=".activities.base.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,27 +28,24 @@
             android:exported="true" />
 
         <activity
-            android:name="com.team1_k.project.seg.dataviz.MainViewActivity"
+            android:name=".activities.base.MainViewActivity"
             android:label="@string/title_activity_main_view" />
         <activity
-            android:name="com.team1_k.project.seg.dataviz.NewsActivity"
+            android:name=".news.NewsActivity"
             android:label="@string/title_activity_news"
-            android:parentActivityName="com.team1_k.project.seg.dataviz.MainViewActivity" >
+            android:parentActivityName=".activities.base.MainViewActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.team1_k.project.seg.dataviz.MainView" />
         </activity>
 
-        <service android:name="com.team1_k.project.seg.dataviz.data_news.RssService" />
+        <service android:name="com.team1_k.project.seg.dataviz.news.RssService" />
 
-        <activity
-            android:name="com.team1_k.project.seg.dataviz.MetricSelectionActivity"
-            android:label="@string/title_activity_metric_selection" />
         <activity
             android:name=".activities.country.CountrySelectionActivity"
             android:label="@string/title_activity_country_selection"
             android:launchMode="singleTop"
-            android:parentActivityName="com.team1_k.project.seg.dataviz.MainViewActivity"
+            android:parentActivityName=".activities.base.MainViewActivity"
             android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -84,9 +81,9 @@
             android:value="com.team1_k.project.seg.dataviz.CountrDetail" />
 
         <activity
-            android:name="com.team1_k.project.seg.dataviz.ExchangeRatesActivity"
+            android:name=".exchange_rate.ExchangeRatesActivity"
             android:label="@string/title_activity_exchange_rates"
-            android:parentActivityName="com.team1_k.project.seg.dataviz.MainViewActivity" >
+            android:parentActivityName=".activities.base.MainViewActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.team1_k.project.seg.dataviz.MainViewActivity" />
@@ -94,7 +91,7 @@
         <activity
             android:name=".activities.comparison.ComparisonActivity"
             android:label="@string/title_activity_comparison"
-            android:parentActivityName="com.team1_k.project.seg.dataviz.MainViewActivity">
+            android:parentActivityName=".activities.base.MainViewActivity">
         </activity>
         <activity
             android:name=".activities.comparison.CountryComparisonSelectionActivity"

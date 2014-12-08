@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz;
+package com.team1_k.project.seg.dataviz.exchange_rate;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,9 +10,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.team1_k.project.seg.dataviz.activities.base.MainViewActivity;
+import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.activities.comparison.ComparisonActivity;
 import com.team1_k.project.seg.dataviz.activities.country.CountrySelectionActivity;
-import com.team1_k.project.seg.dataviz.data_exchange_rate.ExchangeRate;
+import com.team1_k.project.seg.dataviz.news.NewsActivity;
 
 
 public class ExchangeRatesActivity extends Activity {

@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz.data_exchange_rate;
+package com.team1_k.project.seg.dataviz.exchange_rate;
 
 import android.content.res.Configuration;
 import android.util.Log;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.*;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.koushikdutta.async.http.AsyncHttpResponse;
-import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
 import com.team1_k.project.seg.dataviz.adapters.CustomAdapter;
+import com.team1_k.project.seg.dataviz.model.ExchangeItem;
 
 import org.json.JSONException;
 import org.json.JSONObject;

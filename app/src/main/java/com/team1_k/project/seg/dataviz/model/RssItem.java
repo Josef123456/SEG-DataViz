@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz.data_news;
+package com.team1_k.project.seg.dataviz.model;
 
 /**
  * Created by dbrisingr on 21/11/14.

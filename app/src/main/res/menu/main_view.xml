@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.team1_k.project.seg.dataviz.MainViewActivity">
+    tools:context="com.team1_k.project.seg.dataviz.activities.base.MainViewActivity">
 
     <item
         android:id="@+id/action_home"

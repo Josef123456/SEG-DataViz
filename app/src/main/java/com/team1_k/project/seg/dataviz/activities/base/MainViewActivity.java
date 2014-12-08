@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz;
+package com.team1_k.project.seg.dataviz.activities.base;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -8,8 +8,11 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
+import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.activities.comparison.ComparisonActivity;
 import com.team1_k.project.seg.dataviz.activities.country.CountrySelectionActivity;
+import com.team1_k.project.seg.dataviz.exchange_rate.ExchangeRatesActivity;
+import com.team1_k.project.seg.dataviz.news.NewsActivity;
 
 /**
  * The MainViewActivity is showing the content of NewsActivity,

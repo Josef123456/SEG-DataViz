@@ -1,6 +1,9 @@
-package com.team1_k.project.seg.dataviz.data_news;
+package com.team1_k.project.seg.dataviz.news;
 
 import android.util.Xml;
+
+import com.team1_k.project.seg.dataviz.model.RssItem;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 

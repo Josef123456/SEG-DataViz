@@ -1,9 +1,11 @@
-package com.team1_k.project.seg.dataviz;
+package com.team1_k.project.seg.dataviz.activities.base;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+
+import com.team1_k.project.seg.dataviz.R;
 
 /**
  * The MainActivity will start the mainViewActivity,

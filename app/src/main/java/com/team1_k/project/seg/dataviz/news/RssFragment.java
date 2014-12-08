@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz.data_exchange_rate;
+package com.team1_k.project.seg.dataviz.news;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -15,8 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.adapters.RssAdapter;
-import com.team1_k.project.seg.dataviz.data_news.RssItem;
-import com.team1_k.project.seg.dataviz.data_news.RssService;
+import com.team1_k.project.seg.dataviz.model.RssItem;
 
 import java.util.List;
 

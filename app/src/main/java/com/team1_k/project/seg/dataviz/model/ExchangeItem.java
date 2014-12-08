@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz.data_exchange_rate;
+package com.team1_k.project.seg.dataviz.model;
 
 /**
  * Created by dbrisingr on 01/12/14.

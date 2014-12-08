@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.team1_k.project.seg.dataviz.R;
-import com.team1_k.project.seg.dataviz.data_exchange_rate.ExchangeItem;
+import com.team1_k.project.seg.dataviz.model.ExchangeItem;
 
 import java.util.List;
 

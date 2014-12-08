@@ -1,4 +1,4 @@
-package com.team1_k.project.seg.dataviz.data_news;
+package com.team1_k.project.seg.dataviz.news;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.provider.SyncStateContract;
 import android.util.Log;
+
+import com.team1_k.project.seg.dataviz.model.RssItem;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;

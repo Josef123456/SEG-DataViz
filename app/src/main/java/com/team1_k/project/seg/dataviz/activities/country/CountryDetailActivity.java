@@ -16,9 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
-import com.team1_k.project.seg.dataviz.MainViewActivity;
-import com.team1_k.project.seg.dataviz.NewsActivity;
+import com.team1_k.project.seg.dataviz.exchange_rate.ExchangeRatesActivity;
+import com.team1_k.project.seg.dataviz.activities.base.MainViewActivity;
+import com.team1_k.project.seg.dataviz.news.NewsActivity;
 import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.activities.comparison.ComparisonActivity;
 import com.team1_k.project.seg.dataviz.adapters.DataPointArrayAdapter;

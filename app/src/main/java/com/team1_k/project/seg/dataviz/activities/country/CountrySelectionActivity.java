@@ -22,9 +22,9 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 
-import com.team1_k.project.seg.dataviz.ExchangeRatesActivity;
-import com.team1_k.project.seg.dataviz.MainViewActivity;
-import com.team1_k.project.seg.dataviz.NewsActivity;
+import com.team1_k.project.seg.dataviz.exchange_rate.ExchangeRatesActivity;
+import com.team1_k.project.seg.dataviz.activities.base.MainViewActivity;
+import com.team1_k.project.seg.dataviz.news.NewsActivity;
 import com.team1_k.project.seg.dataviz.R;
 import com.team1_k.project.seg.dataviz.activities.comparison.ComparisonActivity;
 import com.team1_k.project.seg.dataviz.data.DataVizContract.CountryEntry;
