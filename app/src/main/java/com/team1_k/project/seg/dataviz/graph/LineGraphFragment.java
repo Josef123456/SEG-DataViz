@@ -173,6 +173,7 @@ public class LineGraphFragment extends GraphFragment {
         LineData data = new LineData(mXVals, dataSets);
 
         mChart.setData(data);
+        mChart.invalidate();
     }
 
     @Override

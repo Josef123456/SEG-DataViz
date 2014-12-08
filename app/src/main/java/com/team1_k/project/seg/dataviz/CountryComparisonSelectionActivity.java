@@ -106,7 +106,10 @@ public class CountryComparisonSelectionActivity extends Activity
                 long mCountryDatabaseId = currentValue.getLong(
                         DataVizContract.CountryEntry.INDEX_COLUMN_ID
                 );
-                queryBuilder.fetchDataForCountryAndMetric( new Country(mCountryApiId, mCountryDatabaseId), new Metric(mMetricApiId, mMetricDatabaseId));
+                queryBuilder.fetchDataForCountryAndMetric(
+                        new Country(mCountryApiId, mCountryDatabaseId),
+                        new Metric(mMetricApiId, mMetricDatabaseId)
+                );
             }
         });
 
@@ -116,10 +119,13 @@ public class CountryComparisonSelectionActivity extends Activity
 
                 SparseBooleanArray array = listView.getCheckedItemPositions();
                 long[] selectedIds = new long[array.size()];
+                Log.w ( LOG_TAG, selectedIds.toString() );
                 for (int i = 0; i < array.size(); ++i) {
-
-                    Cursor currentValue = (Cursor)mCountryAdapter.getItem(i);
-                    selectedIds[i] = currentValue.getLong(DataVizContract.CountryEntry.INDEX_COLUMN_ID);
+                    Log.w( LOG_TAG, String.valueOf(array.keyAt(i)));
+                    Cursor currentValue = (Cursor)mCountryAdapter.getItem(array.keyAt(i));
+                    selectedIds[i] = currentValue.getLong(
+                            DataVizContract.CountryEntry.INDEX_COLUMN_ID
+                    );
                     Log.d(LOG_TAG, String.valueOf(selectedIds[i]));
                 }
                 Intent intent = new Intent(
